@@ -1,0 +1,22 @@
+{
+  "weak_point": "hydrodynamic_drag",
+  "confidence": 0.963017152307991,
+  "risk_level": "high",
+  "action": "reduce_speed_and_operator_review",
+  "autonomous_execution_allowed": false,
+  "evidence": [
+    "telemetry remains inside baseline operating envelope"
+  ],
+  "recommended_checks": [
+    "Inspect tether and external obstruction",
+    "Check fouling and frame damage",
+    "Compare current draw at fixed speed"
+  ],
+  "probabilities": {
+    "buoyancy_imbalance": 0.0024644682807974327,
+    "hydrodynamic_drag": 0.963017152307991,
+    "nominal": 0.026927105815089662,
+    "sensor_drift": 0.002017341019423513,
+    "thruster_degradation": 0.005573932576698282
+  }
+}

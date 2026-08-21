@@ -1,0 +1,13 @@
+base_model: Qwen/Qwen2.5-1.5B-Instruct
+dataset: data/llm_instructions.jsonl
+output_dir: models/rov-domain-lora
+method: lora
+lora_r: 16
+lora_alpha: 32
+lora_dropout: 0.05
+epochs: 3
+learning_rate: 0.0002
+guardrails:
+  - Never issue raw actuator commands.
+  - Prefer operator review for non-nominal classifications.
+  - Cite telemetry evidence in every recommendation.

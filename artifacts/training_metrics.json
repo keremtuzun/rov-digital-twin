@@ -1,0 +1,84 @@
+{
+  "accuracy": 1.0,
+  "macro_f1": 1.0,
+  "per_class": {
+    "buoyancy_imbalance": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 40
+    },
+    "hydrodynamic_drag": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 40
+    },
+    "nominal": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 40
+    },
+    "sensor_drift": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 40
+    },
+    "thruster_degradation": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 40
+    }
+  },
+  "confusion_matrix": {
+    "buoyancy_imbalance": {
+      "buoyancy_imbalance": 40,
+      "hydrodynamic_drag": 0,
+      "nominal": 0,
+      "sensor_drift": 0,
+      "thruster_degradation": 0
+    },
+    "hydrodynamic_drag": {
+      "buoyancy_imbalance": 0,
+      "hydrodynamic_drag": 40,
+      "nominal": 0,
+      "sensor_drift": 0,
+      "thruster_degradation": 0
+    },
+    "nominal": {
+      "buoyancy_imbalance": 0,
+      "hydrodynamic_drag": 0,
+      "nominal": 40,
+      "sensor_drift": 0,
+      "thruster_degradation": 0
+    },
+    "sensor_drift": {
+      "buoyancy_imbalance": 0,
+      "hydrodynamic_drag": 0,
+      "nominal": 0,
+      "sensor_drift": 40,
+      "thruster_degradation": 0
+    },
+    "thruster_degradation": {
+      "buoyancy_imbalance": 0,
+      "hydrodynamic_drag": 0,
+      "nominal": 0,
+      "sensor_drift": 0,
+      "thruster_degradation": 40
+    }
+  },
+  "train_rows": 800,
+  "test_rows": 200,
+  "label_distribution": {
+    "hydrodynamic_drag": 200,
+    "thruster_degradation": 200,
+    "sensor_drift": 200,
+    "buoyancy_imbalance": 200,
+    "nominal": 200
+  },
+  "final_train_loss": 0.02451430020468897,
+  "seed": 42
+}

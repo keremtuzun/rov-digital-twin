@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rov-digital-twin"
+version = "0.1.0"
+description = "Dependency-light reference stack for an underwater robot digital twin, weak-point classification, domain LLM preparation, and safety-aware decisions."
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [{name = "ROV Digital Twin Team"}]
+dependencies = []
+
+[project.optional-dependencies]
+llm = ["transformers>=4.45,<4.47", "datasets>=3.0,<4", "peft>=0.13,<0.14", "trl>=0.11,<0.12", "torch>=2.2,<3"]
+dev = ["pytest>=8", "ruff>=0.6"]
+
+[project.scripts]
+rovdt = "rov_dt.cli:main"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
