@@ -1,0 +1,17 @@
+precedence:
+  - low_battery
+  - unstable_communication
+  - poor_visibility
+  - low_confidence
+  - high_anomaly
+  - confident_normal
+thresholds:
+  low_battery: 0.20
+  low_confidence: 0.50
+  high_confidence: 0.75
+  inspect_closer_confidence: 0.70
+forbidden_outputs:
+  - raw_motor_commands
+  - thruster_values
+  - servo_angles
+  - battery_override

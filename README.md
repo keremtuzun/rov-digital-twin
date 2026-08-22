@@ -1,4 +1,42 @@
-# ROV Digital Twin Intelligence Stack
+# OceanSense / ROV Digital Twin Intelligence Stack
+
+This repository now separates the two team responsibilities described in the build plan:
+
+- `src/oceansense/`, `scripts/train_classifier.py`, `scripts/train_detector.py`, `dataset/`, and the
+  `/api/*` endpoints are Kerem's image-intelligence deliverable.
+- `unity/` and `ros2/` remain integration references for Burak's digital-twin/control work.
+
+Kerem's implemented pipeline is:
+
+```text
+licensed underwater image dataset -> validation/split -> EfficientNet-B0 classification
+  -> documented anomaly score -> optional YOLOv8n concern boxes
+  -> rule-based safety decision -> grounded cautious explanation -> JSON/FastAPI
+```
+
+The repository does **not** claim a trained underwater image model yet: no license-reviewed image
+snapshot is committed. Training code, evaluation reporting, schemas, API contracts, safety rules, and
+tests are complete; add an approved 100-300+ image prototype dataset before reporting accuracy.
+
+## OceanSense quick start
+
+```powershell
+python -m pip install -e ".[api]"
+$env:PYTHONPATH = "src"
+python -m unittest discover -s tests -v
+python scripts/run_api.py
+```
+
+Train after dataset approval:
+
+```powershell
+python -m pip install -e ".[vision]"
+python scripts/validate_image_dataset.py dataset/processed/labels.csv --boxes dataset/annotations/bboxes.json
+python scripts/train_classifier.py --data dataset/imagefolder
+```
+
+See `docs/data_sources.md`, `docs/dataset_card.md`, `docs/model_card.md`, `docs/agent_card.md`, and
+`docs/integration_guide.md` before integrating or making performance claims.
 
 Bu depo; Unity tabanli bir su alti robotu dijital ikizi icin veri uretimi, zayif-nokta (weak point) siniflandirmasi, alan-uzman LLM hazirligi ve emniyet-kapili karar ajanini tek bir referans mimaride birlestirir.
 

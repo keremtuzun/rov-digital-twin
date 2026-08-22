@@ -1,0 +1,2 @@
+sample_id,file_path,source,license,split,primary_label,contains_anomaly,weak_point_present,visibility_level,confidence_label,notes
+OS-000001,images/OS-000001.jpg,example_source,review_required,train,marine_debris,true,false,moderate,high,Schema example only; no image is distributed

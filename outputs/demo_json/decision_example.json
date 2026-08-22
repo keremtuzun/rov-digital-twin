@@ -1,0 +1,27 @@
+{
+  "decision_id": "DEC-00042",
+  "frame_id": "frame_00042",
+  "recommended_action": "inspect_closer",
+  "priority": "high",
+  "requires_human_review": true,
+  "reasoning_summary": "A high anomaly score requires closer inspection.",
+  "dashboard_message": "Possible damage detected. Recommend closer inspection.",
+  "control_instruction": {
+    "action": "move_to_inspection_pose",
+    "target": "detected_region",
+    "suggested_distance_m": 0.7,
+    "speed": "slow"
+  },
+  "confidence": "high",
+  "safety_flags": ["high_anomaly"],
+  "explanation": {
+    "summary": "The image model identified possible_damage with 84% confidence; the rule-based anomaly level is high.",
+    "interpretation": "This is an inspection concern, not confirmation of structural or material failure.",
+    "recommended_action": "inspect_closer",
+    "limitations": [
+      "Image-only evidence cannot confirm material integrity.",
+      "Visibility, lighting, dataset coverage, and domain shift may affect confidence."
+    ],
+    "grounding_sources": ["decision_rules.md", "inspection_terms.md", "safety_rules.md"]
+  }
+}

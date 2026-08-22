@@ -1,0 +1,17 @@
+{
+  "frame_id": "frame_00042",
+  "classification": {"label": "possible_damage", "confidence": 0.84},
+  "anomaly": {
+    "score": 0.84,
+    "level": "high",
+    "reason": "Model predicted possible_damage with 0.84 confidence."
+  },
+  "detections": [
+    {
+      "label": "possible_weak_point",
+      "confidence": 0.76,
+      "bbox": {"x_min": 120, "y_min": 80, "x_max": 300, "y_max": 240}
+    }
+  ],
+  "model_version": "perception_v1"
+}

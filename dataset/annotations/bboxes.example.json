@@ -1,0 +1,16 @@
+[
+  {
+    "sample_id": "OS-000002",
+    "file_path": "dataset/processed/images/OS-000002.jpg",
+    "boxes": [
+      {
+        "label": "possible_weak_point",
+        "x_min": 120,
+        "y_min": 80,
+        "x_max": 300,
+        "y_max": 240,
+        "confidence_label": "medium"
+      }
+    ]
+  }
+]
