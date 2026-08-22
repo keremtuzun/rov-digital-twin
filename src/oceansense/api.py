@@ -6,10 +6,24 @@ from pathlib import Path
 from pydantic import BaseModel, Field
 
 from .decision import DecisionAgent
-from .perception import FixtureClassifier, PerceptionService, TorchvisionEfficientNetClassifier, UltralyticsDetector
+from .perception import (
+    FixtureClassifier,
+    FixtureDomainClassifier,
+    PerceptionService,
+    TorchvisionDomainClassifier,
+    TorchvisionEfficientNetClassifier,
+    UltralyticsDetector,
+)
 from .rag import GroundedExplainer
 from .schemas import (
-    Anomaly, BoundingBox, Classification, Detection, MissionContext, PerceptionResult,
+    Anomaly,
+    BoundingBox,
+    Classification,
+    ConditionAssessment,
+    Detection,
+    InspectionDomain,
+    MissionContext,
+    PerceptionResult,
 )
 
 
@@ -18,6 +32,8 @@ class ContextBody(BaseModel):
     depth_m: float | None = None
     battery_level: float | None = Field(default=None, ge=0, le=1)
     communication_status: str = "stable"
+    operator_mode: str = "semi_autonomous"
+    survey_goal: str = "unknown"
 
 
 class PerceptionBody(BaseModel):
@@ -29,6 +45,20 @@ class PerceptionBody(BaseModel):
 class ClassificationBody(BaseModel):
     label: str
     confidence: float = Field(ge=0, le=1)
+    top_k: list[dict[str, float | str]] = Field(default_factory=list)
+
+
+class InspectionDomainBody(BaseModel):
+    label: str
+    confidence: float = Field(ge=0, le=1)
+
+
+class ConditionAssessmentBody(BaseModel):
+    status: str
+    risk_level: str
+    score: float = Field(ge=0, le=1)
+    summary: str = ""
+    field_assessment: str | None = None
 
 
 class AnomalyBody(BaseModel):
@@ -50,22 +80,38 @@ class DetectionBody(BaseModel):
     bbox: BboxBody
 
 
+class PerceptionOutputBody(BaseModel):
+    frame_id: str
+    inspection_domain: InspectionDomainBody
+    classification: ClassificationBody
+    condition_assessment: ConditionAssessmentBody
+    anomaly: AnomalyBody | None = None
+    detections: list[DetectionBody] = Field(default_factory=list)
+    model_version: str = "perception_v1"
+
+
 class DecisionBody(BaseModel):
     frame_id: str
-    classification: ClassificationBody
-    anomaly: AnomalyBody
+    perception_output: PerceptionOutputBody | None = None
+    # Flat fields preserve compatibility with the initial API contract.
+    inspection_domain: InspectionDomainBody | None = None
+    classification: ClassificationBody | None = None
+    condition_assessment: ConditionAssessmentBody | None = None
+    anomaly: AnomalyBody | None = None
     detections: list[DetectionBody] = Field(default_factory=list)
     model_version: str = "perception_v1"
     mission_context: ContextBody = Field(default_factory=ContextBody)
 
 
 def build_services() -> tuple[PerceptionService, DecisionAgent]:
-    classifier_path = os.getenv("OCEANSENSE_CLASSIFIER_CHECKPOINT")
+    classifier_path = os.getenv("OCEANSENSE_CONDITION_CHECKPOINT") or os.getenv("OCEANSENSE_CLASSIFIER_CHECKPOINT")
+    domain_path = os.getenv("OCEANSENSE_DOMAIN_CHECKPOINT")
     detector_path = os.getenv("OCEANSENSE_DETECTOR_CHECKPOINT")
     classifier = TorchvisionEfficientNetClassifier(classifier_path) if classifier_path else FixtureClassifier()
+    domain_classifier = TorchvisionDomainClassifier(domain_path) if domain_path else FixtureDomainClassifier()
     detector = UltralyticsDetector(detector_path) if detector_path else None
     knowledge = Path(__file__).parent / "knowledge_base"
-    return PerceptionService(classifier, detector), DecisionAgent(GroundedExplainer(knowledge))
+    return PerceptionService(classifier, detector, domain_classifier), DecisionAgent(GroundedExplainer(knowledge))
 
 
 def create_app(perception_service: PerceptionService | None = None, decision_agent: DecisionAgent | None = None):
@@ -77,11 +123,16 @@ def create_app(perception_service: PerceptionService | None = None, decision_age
     if perception_service is None or decision_agent is None:
         perception_service, decision_agent = build_services()
 
-    app = FastAPI(title="OceanSense Intelligence API", version="1.0.0")
+    app = FastAPI(title="OceanSense Intelligence API", version="2.0.0")
 
     @app.get("/health")
     def health() -> dict:
-        return {"status": "ok"}
+        return {
+            "status": "ok",
+            "domain_model": getattr(perception_service.domain_classifier, "version", "unavailable"),
+            "condition_model": perception_service.classifier.version,
+            "detector_enabled": perception_service.detector is not None,
+        }
 
     @app.post("/api/perception/analyze")
     def analyze(body: PerceptionBody) -> dict:
@@ -94,12 +145,30 @@ def create_app(perception_service: PerceptionService | None = None, decision_age
     @app.post("/api/agent/decide")
     def decide(body: DecisionBody) -> dict:
         try:
+            source = body.perception_output
+            if source and source.frame_id != body.frame_id:
+                raise ValueError("perception_output frame_id must match frame_id")
+            classification_body = source.classification if source else body.classification
+            if classification_body is None:
+                raise ValueError("classification is required")
+            domain_body = source.inspection_domain if source else (body.inspection_domain or InspectionDomainBody(label="unknown", confidence=0.0))
+            anomaly_body = source.anomaly if source else body.anomaly
+            condition_body = source.condition_assessment if source else body.condition_assessment
+            if anomaly_body is None:
+                score = condition_body.score if condition_body else classification_body.confidence
+                level = condition_body.risk_level if condition_body else ("high" if score >= 0.70 else "medium" if score >= 0.40 else "low")
+                anomaly = Anomaly(score, level, "Condition assessment score")
+            else:
+                anomaly = Anomaly(**anomaly_body.model_dump())
+            detections = source.detections if source else body.detections
             result = PerceptionResult(
                 frame_id=body.frame_id,
-                classification=Classification(**body.classification.model_dump()),
-                anomaly=Anomaly(**body.anomaly.model_dump()),
-                detections=[Detection(item.label, item.confidence, BoundingBox(**item.bbox.model_dump())) for item in body.detections],
-                model_version=body.model_version,
+                classification=Classification(**classification_body.model_dump()),
+                anomaly=anomaly,
+                detections=[Detection(item.label, item.confidence, BoundingBox(**item.bbox.model_dump())) for item in detections],
+                model_version=source.model_version if source else body.model_version,
+                inspection_domain=InspectionDomain(**domain_body.model_dump()),
+                condition_assessment=ConditionAssessment(**condition_body.model_dump()) if condition_body else None,
             )
             return decision_agent.decide(result, MissionContext(**body.mission_context.model_dump())).to_dict()
         except ValueError as exc:

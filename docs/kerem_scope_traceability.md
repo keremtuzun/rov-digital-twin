@@ -3,17 +3,17 @@
 | Build-plan requirement | Implementation | Verification / status |
 |---|---|---|
 | Image/frame input | `PerceptionService.analyze` | Integration test uses a real filesystem frame path |
-| Seven cautious labels | `schemas.ALLOWED_LABELS`, `config/labels.yaml` | Invalid/unsafe labels raise errors |
-| Dataset CSV and boxes | `oceansense.data`, examples under `dataset/` | Schema, file, ID, label, and box validation tests |
+| Six inspection domains + cautious conditions | `DOMAIN_LABELS`, `CONDITION_LABELS`, `config/labels.yaml` | Invalid domains/conditions raise errors |
+| Dataset CSV and boxes | `oceansense.data`, examples and ImageFolder preparation | Domain, condition, origin, file, ID, label, and box validation tests |
 | Train/val/test split | `scripts/split_image_dataset.py` | Deterministic stratified split test |
-| EfficientNet-B0 | `scripts/train_classifier.py`, inference adapter | Training requires a license-reviewed image snapshot |
+| Domain + condition classifiers | two EfficientNet-B0 entry points and inference adapters | Training requires a license-reviewed multi-domain snapshot |
 | YOLOv8n weak-point boxes | `scripts/train_detector.py`, optional adapter | Deliberately optional until real boxes exist |
-| Anomaly score | `oceansense.anomaly.score_anomaly` | Boundary behavior tested |
+| Domain-aware condition/risk score | `oceansense.scoring.assess_condition` | Status, score, risk, and fishing field assessment are structured |
 | RAG / specialized explanation | `GroundedExplainer`, packaged knowledge base | Retrieval sources returned; language is caution-gated |
-| Rule-based decision agent | `DecisionAgent` | All six required scenarios tested |
+| Rule-based decision agent | `DecisionAgent` | All 11 documented domain/safety scenarios tested |
 | Perception + decision APIs | `oceansense.api` | Both POST contracts tested with FastAPI TestClient |
 | Structured demo JSON | `outputs/demo_json/` | JSON parse and contract covered by core types |
-| Evaluation output | `scripts/train_classifier.py`, `scripts/train_detector.py` | Generates metrics only after real training; no fabricated report |
+| Evaluation output | classifier/detector trainers and `evaluate_multidomain.py` | Per-class and per-domain metrics only after real training; no fabricated report |
 | Burak integration | `docs/integration_guide.md` | High-level intent only; no motor/thruster output |
 
 ## Deliberate limitations

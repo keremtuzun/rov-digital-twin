@@ -4,7 +4,8 @@
 
 ```powershell
 python -m pip install -e ".[api]"
-$env:OCEANSENSE_CLASSIFIER_CHECKPOINT = "models/oceansense_efficientnet_b0.pt"
+$env:OCEANSENSE_DOMAIN_CHECKPOINT = "models/oceansense_domain_efficientnet_b0.pt"
+$env:OCEANSENSE_CONDITION_CHECKPOINT = "models/oceansense_condition_efficientnet_b0.pt"
 # Optional only after detector training:
 # $env:OCEANSENSE_DETECTOR_CHECKPOINT = "models/weak_point_yolov8n.pt"
 python scripts/run_api.py
@@ -21,13 +22,13 @@ rate limiting, path restrictions, and TLS at the integration gateway before depl
 {
   "frame_id": "frame_00042",
   "image_path": "frames/frame_00042.jpg",
-  "mission_context": {"visibility_level": "moderate", "depth_m": 4.5}
+  "mission_context": {"visibility_level": "moderate", "depth_m": 4.5, "survey_goal": "structure"}
 }
 ```
 
 ## Decision request
 
-`POST /api/agent/decide` accepts the perception fields plus:
+`POST /api/agent/decide` accepts the perception output under `perception_output` plus:
 
 ```json
 {
@@ -35,7 +36,9 @@ rate limiting, path restrictions, and TLS at the integration gateway before depl
     "visibility_level": "moderate",
     "depth_m": 4.5,
     "battery_level": 0.82,
-    "communication_status": "stable"
+    "communication_status": "stable",
+    "operator_mode": "semi_autonomous",
+    "survey_goal": "structure"
   }
 }
 ```

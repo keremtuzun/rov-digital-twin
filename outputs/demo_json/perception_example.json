@@ -1,10 +1,26 @@
 {
   "frame_id": "frame_00042",
-  "classification": {"label": "possible_damage", "confidence": 0.84},
+  "inspection_domain": {"label": "structure", "confidence": 0.88},
+  "classification": {
+    "label": "possible_weak_point",
+    "confidence": 0.84,
+    "top_k": [
+      {"label": "possible_weak_point", "confidence": 0.84},
+      {"label": "biofouling", "confidence": 0.10},
+      {"label": "ok", "confidence": 0.06}
+    ]
+  },
   "anomaly": {
     "score": 0.84,
     "level": "high",
-    "reason": "Model predicted possible_damage with 0.84 confidence."
+    "reason": "Model predicted possible_weak_point with 0.84 confidence."
+  },
+  "condition_assessment": {
+    "status": "needs_review",
+    "risk_level": "high",
+    "score": 0.84,
+    "summary": "Visible possible weak point indicator requires cautious review.",
+    "field_assessment": null
   },
   "detections": [
     {
@@ -13,5 +29,5 @@
       "bbox": {"x_min": 120, "y_min": 80, "x_max": 300, "y_max": 240}
     }
   ],
-  "model_version": "perception_v1"
+  "model_version": "domain:domain_efficientnet_b0_v1;condition:condition_efficientnet_b0_v1"
 }

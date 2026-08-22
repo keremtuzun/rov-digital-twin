@@ -9,8 +9,8 @@ This repository now separates the two team responsibilities described in the bui
 Kerem's implemented pipeline is:
 
 ```text
-licensed underwater image dataset -> validation/split -> EfficientNet-B0 classification
-  -> documented anomaly score -> optional YOLOv8n concern boxes
+licensed multi-domain underwater dataset -> validation/split -> domain classifier + condition classifier
+  -> domain-aware condition/risk score -> optional YOLOv8n concern boxes
   -> rule-based safety decision -> grounded cautious explanation -> JSON/FastAPI
 ```
 
@@ -27,12 +27,17 @@ python -m unittest discover -s tests -v
 python scripts/run_api.py
 ```
 
-Train after dataset approval:
+Train both classifiers after dataset approval:
 
 ```powershell
 python -m pip install -e ".[vision]"
 python scripts/validate_image_dataset.py dataset/processed/labels.csv --boxes dataset/annotations/bboxes.json
-python scripts/train_classifier.py --data dataset/imagefolder
+python scripts/prepare_imagefolders.py --labels dataset/processed/labels.csv
+python scripts/train_domain_classifier.py --data dataset/imagefolders/domain
+python scripts/train_condition_classifier.py --data dataset/imagefolders/condition
+python scripts/evaluate_multidomain.py --labels dataset/processed/labels.csv `
+  --domain-checkpoint models/oceansense_domain_efficientnet_b0.pt `
+  --condition-checkpoint models/oceansense_condition_efficientnet_b0.pt
 ```
 
 See `docs/data_sources.md`, `docs/dataset_card.md`, `docs/model_card.md`, `docs/agent_card.md`, and

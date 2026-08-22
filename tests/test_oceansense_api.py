@@ -10,9 +10,14 @@ from pathlib import Path
 class ApiContractTests(unittest.TestCase):
     def setUp(self):
         from fastapi.testclient import TestClient
+
         from oceansense.api import create_app
         from oceansense.decision import DecisionAgent
-        from oceansense.perception import FixtureClassifier, PerceptionService
+        from oceansense.perception import (
+            FixtureClassifier,
+            FixtureDomainClassifier,
+            PerceptionService,
+        )
         from oceansense.rag import GroundedExplainer
 
         knowledge = Path(__file__).parents[1] / "src" / "oceansense" / "knowledge_base"
@@ -20,7 +25,10 @@ class ApiContractTests(unittest.TestCase):
         self.image = Path(self.temp.name) / "frame.jpg"
         self.image.write_bytes(b"fixture")
         app = create_app(
-            PerceptionService(FixtureClassifier("possible_damage", 0.84)),
+            PerceptionService(
+                FixtureClassifier("possible_weak_point", 0.84),
+                domain_classifier=FixtureDomainClassifier("structure", 0.88),
+            ),
             DecisionAgent(GroundedExplainer(knowledge)),
         )
         self.client = TestClient(app)
@@ -31,25 +39,41 @@ class ApiContractTests(unittest.TestCase):
     def test_perception_and_decision_contracts(self):
         response = self.client.post("/api/perception/analyze", json={
             "frame_id": "frame_00042", "image_path": str(self.image),
-            "mission_context": {"visibility_level": "moderate", "depth_m": 4.5},
+            "mission_context": {"visibility_level": "moderate", "depth_m": 4.5, "survey_goal": "structure"},
         })
         self.assertEqual(response.status_code, 200, response.text)
         perception = response.json()
-        self.assertEqual(perception["classification"]["label"], "possible_damage")
-        decision_request = dict(perception)
+        self.assertEqual(perception["inspection_domain"]["label"], "structure")
+        self.assertEqual(perception["classification"]["label"], "possible_weak_point")
+        decision_request = {"frame_id": perception["frame_id"], "perception_output": perception}
         decision_request["mission_context"] = {
             "visibility_level": "moderate", "depth_m": 4.5,
             "battery_level": 0.82, "communication_status": "stable",
+            "operator_mode": "semi_autonomous", "survey_goal": "structure",
         }
         response = self.client.post("/api/agent/decide", json=decision_request)
         self.assertEqual(response.status_code, 200, response.text)
         decision = response.json()
         self.assertEqual(decision["recommended_action"], "inspect_closer")
+        self.assertEqual(decision["domain"], "structure")
         self.assertTrue(decision["requires_human_review"])
 
     def test_invalid_input_returns_error(self):
         response = self.client.post("/api/perception/analyze", json={
             "frame_id": "", "image_path": "missing.jpg", "mission_context": {},
+        })
+        self.assertEqual(response.status_code, 422)
+
+    def test_mismatched_nested_frame_is_rejected(self):
+        response = self.client.post("/api/agent/decide", json={
+            "frame_id": "frame_a",
+            "perception_output": {
+                "frame_id": "frame_b",
+                "inspection_domain": {"label": "structure", "confidence": 0.9},
+                "classification": {"label": "structure_ok", "confidence": 0.9},
+                "condition_assessment": {"status": "ok", "risk_level": "low", "score": 0.1},
+            },
+            "mission_context": {"survey_goal": "structure"},
         })
         self.assertEqual(response.status_code, 422)
 

@@ -1,0 +1,496 @@
+[
+  {
+    "scenario": "normal_structure",
+    "fixture_notice": "Contract/safety fixture; not a trained-model prediction.",
+    "perception": {
+      "frame_id": "demo_001",
+      "classification": {
+        "label": "structure_ok",
+        "confidence": 0.9,
+        "top_k": []
+      },
+      "anomaly": {
+        "score": 0.1,
+        "level": "low",
+        "reason": "Normal surface prediction; residual uncertainty is treated as anomaly evidence."
+      },
+      "detections": [],
+      "model_version": "documented_integration_fixture_v2",
+      "inspection_domain": {
+        "label": "structure",
+        "confidence": 0.88
+      },
+      "condition_assessment": {
+        "status": "ok",
+        "risk_level": "low",
+        "score": 0.1,
+        "summary": "The scene appears structure ok, without proving real-world safety.",
+        "field_assessment": null
+      }
+    },
+    "decision": {
+      "decision_id": "DEC-00001",
+      "frame_id": "demo_001",
+      "recommended_action": "continue_survey",
+      "priority": "normal",
+      "requires_human_review": false,
+      "reasoning_summary": "Structure appears normal at the validated confidence threshold.",
+      "dashboard_message": "No high-confidence anomaly detected. Continue survey.",
+      "control_instruction": {
+        "action": "continue_current_survey_plan"
+      },
+      "confidence": "high",
+      "safety_flags": [],
+      "explanation": {
+        "summary": "The image models identified the structure domain and structure_ok condition with 90% condition confidence; the rule-based risk level is low.",
+        "interpretation": "The image does not prove structural integrity or safety.",
+        "recommended_action": "continue_survey",
+        "limitations": [
+          "Visibility, lighting, dataset coverage, and domain shift may affect confidence.",
+          "Image-only evidence cannot determine whether a structure needs repair or rebuilding."
+        ],
+        "grounding_sources": [
+          "decision_rules.md",
+          "fishing_aquaculture.md",
+          "inspection_domains.md"
+        ]
+      },
+      "domain": "structure"
+    }
+  },
+  {
+    "scenario": "structure_weak_point",
+    "fixture_notice": "Contract/safety fixture; not a trained-model prediction.",
+    "perception": {
+      "frame_id": "demo_002",
+      "classification": {
+        "label": "possible_weak_point",
+        "confidence": 0.84,
+        "top_k": []
+      },
+      "anomaly": {
+        "score": 0.84,
+        "level": "high",
+        "reason": "Model predicted possible_weak_point with 0.84 confidence."
+      },
+      "detections": [],
+      "model_version": "documented_integration_fixture_v2",
+      "inspection_domain": {
+        "label": "structure",
+        "confidence": 0.88
+      },
+      "condition_assessment": {
+        "status": "needs_review",
+        "risk_level": "high",
+        "score": 0.84,
+        "summary": "Visible possible weak point indicator requires cautious review.",
+        "field_assessment": null
+      }
+    },
+    "decision": {
+      "decision_id": "DEC-00002",
+      "frame_id": "demo_002",
+      "recommended_action": "inspect_closer",
+      "priority": "high",
+      "requires_human_review": true,
+      "reasoning_summary": "Possible structural weak point requires closer inspection.",
+      "dashboard_message": "Possible weak point detected. Recommend closer inspection.",
+      "control_instruction": {
+        "action": "move_to_inspection_pose",
+        "target": "detected_region",
+        "suggested_distance_m": 0.7,
+        "speed": "slow"
+      },
+      "confidence": "high",
+      "safety_flags": [
+        "human_review_required"
+      ],
+      "explanation": {
+        "summary": "The image models identified the structure domain and possible_weak_point condition with 84% condition confidence; the rule-based risk level is high.",
+        "interpretation": "This is an inspection concern, not confirmation of structural or material failure.",
+        "recommended_action": "inspect_closer",
+        "limitations": [
+          "Visibility, lighting, dataset coverage, and domain shift may affect confidence.",
+          "Image-only evidence cannot determine whether a structure needs repair or rebuilding."
+        ],
+        "grounding_sources": [
+          "decision_rules.md",
+          "model_output_schema.md",
+          "safety_rules.md"
+        ]
+      },
+      "domain": "structure"
+    }
+  },
+  {
+    "scenario": "coral_stress",
+    "fixture_notice": "Contract/safety fixture; not a trained-model prediction.",
+    "perception": {
+      "frame_id": "demo_003",
+      "classification": {
+        "label": "possible_coral_stress",
+        "confidence": 0.78,
+        "top_k": []
+      },
+      "anomaly": {
+        "score": 0.78,
+        "level": "high",
+        "reason": "Model predicted possible_coral_stress with 0.78 confidence."
+      },
+      "detections": [],
+      "model_version": "documented_integration_fixture_v2",
+      "inspection_domain": {
+        "label": "nature_ecology",
+        "confidence": 0.88
+      },
+      "condition_assessment": {
+        "status": "needs_review",
+        "risk_level": "high",
+        "score": 0.78,
+        "summary": "Visible possible coral stress indicator requires cautious review.",
+        "field_assessment": null
+      }
+    },
+    "decision": {
+      "decision_id": "DEC-00003",
+      "frame_id": "demo_003",
+      "recommended_action": "capture_more_data",
+      "priority": "high",
+      "requires_human_review": true,
+      "reasoning_summary": "A bleaching-like or coral-stress pattern needs additional evidence.",
+      "dashboard_message": "Possible coral-stress indicator detected. Capture more data and request ecological review.",
+      "control_instruction": {
+        "action": "capture_additional_frames",
+        "speed": "slow"
+      },
+      "confidence": "high",
+      "safety_flags": [
+        "human_review_required"
+      ],
+      "explanation": {
+        "summary": "The image models identified the nature_ecology domain and possible_coral_stress condition with 78% condition confidence; the rule-based risk level is high.",
+        "interpretation": "This is a visible ecological indicator, not confirmation of coral death or ecosystem failure.",
+        "recommended_action": "capture_more_data",
+        "limitations": [
+          "Visibility, lighting, dataset coverage, and domain shift may affect confidence.",
+          "Ecological condition requires repeated observations and expert review."
+        ],
+        "grounding_sources": [
+          "decision_rules.md",
+          "model_output_schema.md",
+          "safety_rules.md"
+        ]
+      },
+      "domain": "nature_ecology"
+    }
+  },
+  {
+    "scenario": "marine_debris",
+    "fixture_notice": "Contract/safety fixture; not a trained-model prediction.",
+    "perception": {
+      "frame_id": "demo_004",
+      "classification": {
+        "label": "marine_debris",
+        "confidence": 0.82,
+        "top_k": []
+      },
+      "anomaly": {
+        "score": 0.82,
+        "level": "high",
+        "reason": "Model predicted marine_debris with 0.82 confidence."
+      },
+      "detections": [],
+      "model_version": "documented_integration_fixture_v2",
+      "inspection_domain": {
+        "label": "contamination",
+        "confidence": 0.88
+      },
+      "condition_assessment": {
+        "status": "needs_review",
+        "risk_level": "high",
+        "score": 0.82,
+        "summary": "Visible marine debris indicator requires cautious review.",
+        "field_assessment": null
+      }
+    },
+    "decision": {
+      "decision_id": "DEC-00004",
+      "frame_id": "demo_004",
+      "recommended_action": "mark_location",
+      "priority": "high",
+      "requires_human_review": true,
+      "reasoning_summary": "Marine debris should be marked for review or cleanup planning.",
+      "dashboard_message": "Visible marine debris indicator detected. Mark location for review.",
+      "control_instruction": {
+        "action": "record_current_location",
+        "target": "detected_region"
+      },
+      "confidence": "high",
+      "safety_flags": [
+        "human_review_required"
+      ],
+      "explanation": {
+        "summary": "The image models identified the contamination domain and marine_debris condition with 82% condition confidence; the rule-based risk level is high.",
+        "interpretation": "This is a visible pollution indicator; imagery alone cannot confirm chemical contamination.",
+        "recommended_action": "mark_location",
+        "limitations": [
+          "Visibility, lighting, dataset coverage, and domain shift may affect confidence.",
+          "Chemical contamination requires physical sampling and qualified analysis."
+        ],
+        "grounding_sources": [
+          "decision_rules.md",
+          "model_output_schema.md",
+          "safety_rules.md"
+        ]
+      },
+      "domain": "contamination"
+    }
+  },
+  {
+    "scenario": "oil_like_sheen",
+    "fixture_notice": "Contract/safety fixture; not a trained-model prediction.",
+    "perception": {
+      "frame_id": "demo_005",
+      "classification": {
+        "label": "oil_like_sheen",
+        "confidence": 0.76,
+        "top_k": []
+      },
+      "anomaly": {
+        "score": 0.76,
+        "level": "high",
+        "reason": "Model predicted oil_like_sheen with 0.76 confidence."
+      },
+      "detections": [],
+      "model_version": "documented_integration_fixture_v2",
+      "inspection_domain": {
+        "label": "contamination",
+        "confidence": 0.88
+      },
+      "condition_assessment": {
+        "status": "needs_review",
+        "risk_level": "high",
+        "score": 0.76,
+        "summary": "Visible oil like sheen indicator requires cautious review.",
+        "field_assessment": null
+      }
+    },
+    "decision": {
+      "decision_id": "DEC-00005",
+      "frame_id": "demo_005",
+      "recommended_action": "send_alert",
+      "priority": "high",
+      "requires_human_review": true,
+      "reasoning_summary": "An oil-like visual indicator requires an alert and human review; chemistry is unconfirmed.",
+      "dashboard_message": "Possible oil like sheen indicator detected. Send alert for human review.",
+      "control_instruction": {
+        "action": "notify_operator",
+        "target": "current_frame"
+      },
+      "confidence": "high",
+      "safety_flags": [
+        "human_review_required"
+      ],
+      "explanation": {
+        "summary": "The image models identified the contamination domain and oil_like_sheen condition with 76% condition confidence; the rule-based risk level is high.",
+        "interpretation": "This is a visible pollution indicator; imagery alone cannot confirm chemical contamination.",
+        "recommended_action": "send_alert",
+        "limitations": [
+          "Visibility, lighting, dataset coverage, and domain shift may affect confidence.",
+          "Chemical contamination requires physical sampling and qualified analysis."
+        ],
+        "grounding_sources": [
+          "decision_rules.md",
+          "model_output_schema.md",
+          "safety_rules.md"
+        ]
+      },
+      "domain": "contamination"
+    }
+  },
+  {
+    "scenario": "fish_activity",
+    "fixture_notice": "Contract/safety fixture; not a trained-model prediction.",
+    "perception": {
+      "frame_id": "demo_006",
+      "classification": {
+        "label": "fish_or_habitat_activity",
+        "confidence": 0.79,
+        "top_k": []
+      },
+      "anomaly": {
+        "score": 0.79,
+        "level": "high",
+        "reason": "Model predicted fish_or_habitat_activity with 0.79 confidence."
+      },
+      "detections": [],
+      "model_version": "documented_integration_fixture_v2",
+      "inspection_domain": {
+        "label": "fishing_aquaculture",
+        "confidence": 0.88
+      },
+      "condition_assessment": {
+        "status": "needs_review",
+        "risk_level": "high",
+        "score": 0.79,
+        "summary": "Visible fish or habitat activity indicator requires cautious review.",
+        "field_assessment": "promising_area"
+      }
+    },
+    "decision": {
+      "decision_id": "DEC-00006",
+      "frame_id": "demo_006",
+      "recommended_action": "mark_location",
+      "priority": "normal",
+      "requires_human_review": false,
+      "reasoning_summary": "Visible fish or habitat activity can be marked for survey follow-up.",
+      "dashboard_message": "Visible fish or habitat activity indicator detected. Mark location for review.",
+      "control_instruction": {
+        "action": "record_current_location",
+        "target": "detected_region"
+      },
+      "confidence": "high",
+      "safety_flags": [],
+      "explanation": {
+        "summary": "The image models identified the fishing_aquaculture domain and fish_or_habitat_activity condition with 79% condition confidence; the rule-based risk level is high.",
+        "interpretation": "This frame may show activity or infrastructure concern; it does not estimate a fish population.",
+        "recommended_action": "mark_location",
+        "limitations": [
+          "Visibility, lighting, dataset coverage, and domain shift may affect confidence.",
+          "A single frame cannot establish population size or habitat suitability."
+        ],
+        "grounding_sources": [
+          "decision_rules.md",
+          "model_output_schema.md",
+          "safety_rules.md"
+        ]
+      },
+      "domain": "fishing_aquaculture"
+    }
+  },
+  {
+    "scenario": "net_damage",
+    "fixture_notice": "Contract/safety fixture; not a trained-model prediction.",
+    "perception": {
+      "frame_id": "demo_007",
+      "classification": {
+        "label": "net_damage",
+        "confidence": 0.74,
+        "top_k": []
+      },
+      "anomaly": {
+        "score": 0.74,
+        "level": "high",
+        "reason": "Model predicted net_damage with 0.74 confidence."
+      },
+      "detections": [],
+      "model_version": "documented_integration_fixture_v2",
+      "inspection_domain": {
+        "label": "fishing_aquaculture",
+        "confidence": 0.88
+      },
+      "condition_assessment": {
+        "status": "needs_review",
+        "risk_level": "high",
+        "score": 0.74,
+        "summary": "Visible net damage indicator requires cautious review.",
+        "field_assessment": "operational_concern"
+      }
+    },
+    "decision": {
+      "decision_id": "DEC-00007",
+      "frame_id": "demo_007",
+      "recommended_action": "inspect_closer",
+      "priority": "high",
+      "requires_human_review": true,
+      "reasoning_summary": "Possible aquaculture infrastructure damage requires closer inspection.",
+      "dashboard_message": "Possible net damage detected. Recommend closer inspection.",
+      "control_instruction": {
+        "action": "move_to_inspection_pose",
+        "target": "detected_region",
+        "suggested_distance_m": 0.7,
+        "speed": "slow"
+      },
+      "confidence": "medium",
+      "safety_flags": [
+        "human_review_required"
+      ],
+      "explanation": {
+        "summary": "The image models identified the fishing_aquaculture domain and net_damage condition with 74% condition confidence; the rule-based risk level is high.",
+        "interpretation": "This frame may show activity or infrastructure concern; it does not estimate a fish population.",
+        "recommended_action": "inspect_closer",
+        "limitations": [
+          "Visibility, lighting, dataset coverage, and domain shift may affect confidence.",
+          "A single frame cannot establish population size or habitat suitability."
+        ],
+        "grounding_sources": [
+          "decision_rules.md",
+          "model_output_schema.md",
+          "safety_rules.md"
+        ]
+      },
+      "domain": "fishing_aquaculture"
+    }
+  },
+  {
+    "scenario": "low_battery",
+    "fixture_notice": "Contract/safety fixture; not a trained-model prediction.",
+    "perception": {
+      "frame_id": "demo_008",
+      "classification": {
+        "label": "structure_ok",
+        "confidence": 0.9,
+        "top_k": []
+      },
+      "anomaly": {
+        "score": 0.1,
+        "level": "low",
+        "reason": "Normal surface prediction; residual uncertainty is treated as anomaly evidence."
+      },
+      "detections": [],
+      "model_version": "documented_integration_fixture_v2",
+      "inspection_domain": {
+        "label": "structure",
+        "confidence": 0.88
+      },
+      "condition_assessment": {
+        "status": "ok",
+        "risk_level": "low",
+        "score": 0.1,
+        "summary": "The scene appears structure ok, without proving real-world safety.",
+        "field_assessment": null
+      }
+    },
+    "decision": {
+      "decision_id": "DEC-00008",
+      "frame_id": "demo_008",
+      "recommended_action": "return_to_base",
+      "priority": "critical",
+      "requires_human_review": true,
+      "reasoning_summary": "Battery is below the 20% safety threshold.",
+      "dashboard_message": "Low battery. Recommend return to base.",
+      "control_instruction": {
+        "action": "request_return_to_base"
+      },
+      "confidence": "high",
+      "safety_flags": [
+        "low_battery"
+      ],
+      "explanation": {
+        "summary": "The image models identified the structure domain and structure_ok condition with 90% condition confidence; the rule-based risk level is low.",
+        "interpretation": "The image does not prove structural integrity or safety.",
+        "recommended_action": "return_to_base",
+        "limitations": [
+          "Visibility, lighting, dataset coverage, and domain shift may affect confidence.",
+          "Image-only evidence cannot determine whether a structure needs repair or rebuilding."
+        ],
+        "grounding_sources": [
+          "decision_rules.md",
+          "fishing_aquaculture.md",
+          "inspection_domains.md"
+        ]
+      },
+      "domain": "structure"
+    }
+  }
+]

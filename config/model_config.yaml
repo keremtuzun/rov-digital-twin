@@ -1,8 +1,13 @@
-classifier:
+domain_classifier:
   architecture: efficientnet_b0
   input_size: 224
   pretrained: imagenet
-  model_version: efficientnet_b0_v1
+  model_version: domain_efficientnet_b0_v1
+condition_classifier:
+  architecture: efficientnet_b0
+  input_size: 224
+  pretrained: imagenet
+  model_version: condition_efficientnet_b0_v1
 detector:
   architecture: yolov8n
   enabled_only_when_bbox_data_exists: true

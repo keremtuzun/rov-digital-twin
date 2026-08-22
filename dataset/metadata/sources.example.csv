@@ -1,2 +1,2 @@
-dataset_name,source_url,license,date_accessed,images_used,data_type,labels_available,use,limitations
-Brackish,https://universe.roboflow.com/brad-dwyer/brackish-underwater,CC BY 4.0,2026-08-22,0,detection,"fish crab starfish",underwater visual domain examples,Not structural damage data
+dataset_name,source_url,license,date_accessed,images_used,inspection_domain,data_type,labels_available,use,limitations
+Brackish,https://universe.roboflow.com/brad-dwyer/brackish-underwater,CC BY 4.0,2026-08-22,0,fishing_aquaculture,detection,"fish crab starfish",underwater visual domain examples,Not structural damage data

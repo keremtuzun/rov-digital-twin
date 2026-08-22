@@ -10,8 +10,27 @@ thresholds:
   low_confidence: 0.50
   high_confidence: 0.75
   inspect_closer_confidence: 0.70
+domain_rules:
+  structure:
+    possible_weak_point: inspect_closer
+    possible_damage: mark_location
+  nature_ecology:
+    ecological_stress: mark_location
+    possible_coral_stress: capture_more_data
+  contamination:
+    marine_debris: mark_location
+    suspicious_discoloration: capture_more_data
+    oil_like_sheen: send_alert
+  fishing_aquaculture:
+    fish_or_habitat_activity: mark_location
+    suitable_habitat_indicator: continue_survey
+    net_damage: inspect_closer
+    cage_damage: inspect_closer
 forbidden_outputs:
   - raw_motor_commands
   - thruster_values
   - servo_angles
   - battery_override
+  - confirmed_rebuild_instruction
+  - confirmed_contamination_declaration
+  - confirmed_ecosystem_failure_declaration

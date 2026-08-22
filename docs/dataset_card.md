@@ -1,9 +1,11 @@
 # Dataset card
 
-## Intended task
+## Intended tasks
 
-Seven-class underwater inspection triage: `normal_surface`, `biofouling`, `marine_debris`,
-`low_visibility`, `possible_damage`, `possible_weak_point`, and `unknown`.
+Domain classification uses `structure`, `nature_ecology`, `contamination`, `fishing_aquaculture`,
+`general_underwater`, and `unknown`. Condition classification starts with `ok`, `possible_damage`,
+`possible_weak_point`, `biofouling`, `marine_debris`, `poor_visibility`, `ecological_stress`,
+`fish_or_habitat_activity`, and `unknown`, with specific labels enabled only when data supports them.
 
 ## Current state
 
@@ -13,13 +15,13 @@ does not yet make an image-classifier accuracy claim.
 
 ## Annotation policy
 
-Each image has one primary class, a separate anomaly flag, and an optional cautious region-of-concern
-box. Annotators must use `possible_weak_point`, `inspection_concern`, or `possible_damage_region` rather
-than labels that imply confirmed failure. Ambiguous frames are `unknown`; poor-quality frames are not
-silently discarded because visibility is an operational class.
+Each image has one inspection domain, one primary condition, secondary labels, condition/risk metadata,
+a separate anomaly flag, a synthetic flag, and an optional cautious region-of-concern box. Annotators
+must use labels that describe visible indicators rather than confirmed real-world outcomes. Ambiguous
+frames are `unknown`; poor-quality frames are retained because visibility is operational information.
 
 ## Split policy
 
-`scripts/split_image_dataset.py` creates a deterministic label-stratified 70/15/15 split. Before a
+`scripts/split_image_dataset.py` creates a deterministic domain-and-label-stratified 70/15/15 split. Before a
 formal evaluation, group related video frames by source clip to prevent leakage; the simple script is
 appropriate only when records are independent images.

@@ -4,12 +4,15 @@ import argparse
 import json
 from pathlib import Path
 
+from oceansense.schemas import CONDITION_LABELS, DOMAIN_LABELS
+
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Train the documented EfficientNet-B0 baseline")
+    parser.add_argument("--task", choices=("domain", "condition"), default="condition")
     parser.add_argument("--data", required=True, help="ImageFolder root containing train/val/test")
-    parser.add_argument("--output", default="models/oceansense_efficientnet_b0.pt")
-    parser.add_argument("--report", default="outputs/evaluation_reports/classifier_metrics.json")
+    parser.add_argument("--output")
+    parser.add_argument("--report")
     parser.add_argument("--epochs", type=int, default=10)
     parser.add_argument("--batch-size", type=int, default=16)
     parser.add_argument("--seed", type=int, default=42)
@@ -33,6 +36,10 @@ def main() -> None:
     test_data = datasets.ImageFolder(root / "test", transform=transform)
     if train_data.classes != val_data.classes or train_data.classes != test_data.classes:
         raise ValueError("train/val/test class directories must match")
+    allowed = DOMAIN_LABELS if args.task == "domain" else CONDITION_LABELS
+    unsupported = set(train_data.classes) - allowed
+    if unsupported:
+        raise ValueError(f"unsupported {args.task} classes: {sorted(unsupported)}")
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
     model = efficientnet_b0(weights=weights)
@@ -92,15 +99,15 @@ def main() -> None:
         recall = tp / (tp + fn) if tp + fn else 0.0
         per_class[label] = {"precision": precision, "recall": recall, "f1": 2 * precision * recall / (precision + recall) if precision + recall else 0.0, "support": supports[index]}
     report = {
-        "model": "EfficientNet-B0", "best_val_accuracy": best_accuracy,
+        "model": "EfficientNet-B0", "task": args.task, "best_val_accuracy": best_accuracy,
         "test_accuracy": sum(confusion[i][i] for i in range(len(confusion))) / max(1, sum(supports)),
         "per_class": per_class, "confusion_matrix": confusion, "history": history,
         "sample_predictions": predictions[:20], "limitations": ["Metrics apply only to the recorded held-out split.", "Image predictions do not confirm structural failure."],
     }
-    output = Path(args.output)
+    output = Path(args.output or f"models/oceansense_{args.task}_efficientnet_b0.pt")
     output.parent.mkdir(parents=True, exist_ok=True)
-    torch.save({"state_dict": best_state, "labels": train_data.classes, "model_version": "efficientnet_b0_v1"}, output)
-    report_path = Path(args.report)
+    torch.save({"state_dict": best_state, "labels": train_data.classes, "task": args.task, "model_version": f"{args.task}_efficientnet_b0_v1"}, output)
+    report_path = Path(args.report or f"outputs/evaluation_reports/{args.task}_classifier_metrics.json")
     report_path.parent.mkdir(parents=True, exist_ok=True)
     report_path.write_text(json.dumps(report, indent=2), encoding="utf-8")
     print(json.dumps({"checkpoint": str(output), "report": str(report_path), "test_accuracy": report["test_accuracy"]}, indent=2))

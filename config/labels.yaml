@@ -1,8 +1,29 @@
-labels:
+inspection_domains:
+  - structure
+  - nature_ecology
+  - contamination
+  - fishing_aquaculture
+  - general_underwater
+  - unknown
+condition_labels:
+  - ok
+  - possible_weak_point
+  - possible_damage
   - normal_surface
   - biofouling
   - marine_debris
-  - low_visibility
-  - possible_damage
-  - possible_weak_point
+  - poor_visibility
+  - ecological_stress
+  - fish_or_habitat_activity
   - unknown
+optional_specific_labels:
+  - possible_crack
+  - possible_corrosion
+  - possible_coral_stress
+  - coral_bleaching
+  - algae_bloom_indicator
+  - plastic_waste
+  - net_damage
+  - cage_damage
+  - fish_school
+  - degraded_habitat

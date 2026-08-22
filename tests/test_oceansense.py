@@ -7,22 +7,38 @@ import unittest
 from pathlib import Path
 
 from oceansense.anomaly import score_anomaly
-from oceansense.data import REQUIRED_COLUMNS, read_labels, stratified_split, validate_dataset, write_labels
+from oceansense.data import (
+    REQUIRED_COLUMNS,
+    read_labels,
+    stratified_split,
+    validate_dataset,
+    write_labels,
+)
 from oceansense.decision import DecisionAgent
-from oceansense.perception import FixtureClassifier, PerceptionService
+from oceansense.perception import FixtureClassifier, FixtureDomainClassifier, PerceptionService
 from oceansense.rag import GroundedExplainer
-from oceansense.schemas import Anomaly, Classification, MissionContext, PerceptionResult
-
+from oceansense.schemas import (
+    Anomaly,
+    Classification,
+    InspectionDomain,
+    MissionContext,
+    PerceptionResult,
+)
+from oceansense.scoring import assess_condition
 
 KNOWLEDGE = Path(__file__).parents[1] / "src" / "oceansense" / "knowledge_base"
 
 
-def perception(label: str, confidence: float, level: str | None = None) -> PerceptionResult:
+def perception(label: str, confidence: float, domain: str = "general_underwater", level: str | None = None) -> PerceptionResult:
     classification = Classification(label, confidence)
     anomaly = score_anomaly(classification)
     if level is not None:
         anomaly = Anomaly(anomaly.score, level, anomaly.reason)
-    return PerceptionResult("frame-test", classification, anomaly)
+    inspection_domain = InspectionDomain(domain, 0.90)
+    return PerceptionResult(
+        "frame-test", classification, anomaly, inspection_domain=inspection_domain,
+        condition_assessment=assess_condition(inspection_domain, classification),
+    )
 
 
 class SchemaAndAnomalyTests(unittest.TestCase):
@@ -44,10 +60,15 @@ class DecisionRuleTests(unittest.TestCase):
 
     def test_success_criteria_cases(self):
         cases = [
-            (perception("normal_surface", 0.90), MissionContext(), "continue_survey"),
-            (perception("possible_damage", 0.85), MissionContext(), "inspect_closer"),
+            (perception("structure_ok", 0.90, "structure"), MissionContext(), "continue_survey"),
+            (perception("possible_weak_point", 0.85, "structure"), MissionContext(), "inspect_closer"),
+            (perception("possible_coral_stress", 0.80, "nature_ecology"), MissionContext(), "capture_more_data"),
+            (perception("marine_debris", 0.82, "contamination"), MissionContext(), "mark_location"),
+            (perception("oil_like_sheen", 0.78, "contamination"), MissionContext(), "send_alert"),
+            (perception("fish_or_habitat_activity", 0.80, "fishing_aquaculture"), MissionContext(), "mark_location"),
+            (perception("net_damage", 0.75, "fishing_aquaculture"), MissionContext(), "inspect_closer"),
             (perception("normal_surface", 0.90), MissionContext(visibility_level="poor"), "capture_more_data"),
-            (perception("possible_damage", 0.40), MissionContext(), "request_human_review"),
+            (perception("possible_damage", 0.40, "structure"), MissionContext(), "request_human_review"),
             (perception("normal_surface", 0.90), MissionContext(battery_level=0.19), "return_to_base"),
             (perception("normal_surface", 0.90), MissionContext(communication_status="unstable"), "hold_position"),
         ]
@@ -58,7 +79,7 @@ class DecisionRuleTests(unittest.TestCase):
 
     def test_safety_precedence_and_grounded_caution(self):
         result = self.agent.decide(
-            perception("possible_weak_point", 0.95),
+            perception("possible_weak_point", 0.95, "structure"),
             MissionContext(battery_level=0.10, communication_status="unstable"),
         )
         self.assertEqual(result.recommended_action, "return_to_base")
@@ -67,6 +88,14 @@ class DecisionRuleTests(unittest.TestCase):
         self.assertTrue(result.explanation["grounding_sources"])
         serialized = json.dumps(result.to_dict())
         self.assertNotIn("thruster", serialized.lower())
+
+    def test_survey_goal_mismatch_is_not_silently_accepted(self):
+        result = self.agent.decide(
+            perception("marine_debris", 0.90, "contamination"),
+            MissionContext(survey_goal="structure"),
+        )
+        self.assertEqual(result.recommended_action, "request_human_review")
+        self.assertIn("survey_goal_mismatch", result.safety_flags)
 
 
 class DatasetTests(unittest.TestCase):
@@ -84,9 +113,12 @@ class DatasetTests(unittest.TestCase):
                 rows.append({
                     "sample_id": f"OS-{index:06d}", "file_path": f"images/{index}.jpg",
                     "source": "fixture", "license": "test-only", "split": "",
+                    "inspection_domain": "structure" if index < 6 else "contamination",
                     "primary_label": "normal_surface" if index < 6 else "marine_debris",
-                    "contains_anomaly": "false" if index < 6 else "true", "weak_point_present": "false",
-                    "visibility_level": "moderate", "confidence_label": "high", "notes": "test",
+                    "secondary_labels": "", "contains_anomaly": "false" if index < 6 else "true",
+                    "condition_status": "ok" if index < 6 else "needs_review",
+                    "risk_level": "low" if index < 6 else "high", "weak_point_present": "false",
+                    "visibility_level": "moderate", "confidence_label": "high", "synthetic": "false", "notes": "test",
                 })
             with labels.open("w", newline="", encoding="utf-8") as handle:
                 writer = csv.DictWriter(handle, fieldnames=fields)
@@ -98,6 +130,7 @@ class DatasetTests(unittest.TestCase):
             report = validate_dataset(output)
             self.assertTrue(report["valid"], report["errors"])
             self.assertEqual(set(report["split_distribution"]), {"train", "val", "test"})
+            self.assertEqual(set(report["domain_distribution"]), {"structure", "contamination"})
 
 
 class PerceptionServiceTests(unittest.TestCase):
@@ -105,11 +138,17 @@ class PerceptionServiceTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             image = Path(folder) / "frame.jpg"
             image.write_bytes(b"fixture")
-            service = PerceptionService(FixtureClassifier("possible_damage", 0.84))
+            service = PerceptionService(
+                FixtureClassifier("possible_damage", 0.84),
+                domain_classifier=FixtureDomainClassifier("structure", 0.88),
+            )
             output = service.analyze("frame_00042", image, MissionContext(visibility_level="moderate"))
             self.assertEqual(output.frame_id, "frame_00042")
             self.assertEqual(output.classification.label, "possible_damage")
+            self.assertEqual(output.inspection_domain.label, "structure")
             self.assertEqual(output.anomaly.level, "high")
+            self.assertEqual(output.condition_assessment.status, "needs_review")
+            self.assertEqual(output.condition_assessment.risk_level, "high")
             self.assertEqual(output.detections, [])
 
 
