@@ -10,6 +10,11 @@ scene, six-degree-of-freedom hydrodynamics, current, buoyancy, DVL, IMU, depth a
 sensors, three mission duties, ML-Agents observations/actions, an operator dashboard, OceanSense API
 capture, and a safe high-level ROS 2 telemetry bridge.
 
+The default ocean profile includes lightly contaminated coastal water, turbidity and
+suspended sediment, depth-dependent optical attenuation, swell-driven underwater orbital
+motion, current shear, gusts and sensor-quality degradation. Environment values are also
+recorded in telemetry and synthetic-capture metadata so training runs remain auditable.
+
 ## Open and generate
 
 1. Install Unity Hub and Unity Editor 6000.0 LTS or newer.

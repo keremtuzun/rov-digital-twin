@@ -35,8 +35,16 @@ depth error, and action jerk rather than selecting a model from training loss al
 
 The Unity environment now randomizes mass, drag, current, turbulence, thruster
 efficiency, target geometry, and sensor noise. It also models current shear/gusts,
-depth-dependent visibility and lighting, suspended particles, and realistic DVL/depth/
-sonar sample rates. These ranges are hypotheses until calibrated.
+two-component swell with depth-decaying underwater orbital velocity, depth-dependent
+visibility and lighting, low-to-moderate contamination, turbidity, suspended sediment,
+and realistic DVL/depth/sonar sample rates. Water quality affects optical visibility,
+particle density, sonar noise, and DVL bottom-lock quality. These ranges are hypotheses
+until calibrated from local ocean measurements.
+
+The default scene represents lightly contaminated coastal water: contamination 0.08,
+turbidity 1.2 NTU, suspended sediment 2.5 mg/L, significant wave height 0.45 m, and peak
+wave period 6.5 s. These are scenario inputs—not universal sea constants. Field deployments
+must replace them with measurements or site/season distributions.
 
 For sustainable real-world operation:
 

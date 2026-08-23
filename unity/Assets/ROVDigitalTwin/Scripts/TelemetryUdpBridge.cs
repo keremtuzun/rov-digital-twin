@@ -17,6 +17,7 @@ namespace ROVDigitalTwin
         public DepthSensor Depth;
         public DvlSensor Dvl;
         public SimulatedPowerSensor Power;
+        public UnderwaterEnvironment Environment;
         public string RemoteHost = "127.0.0.1";
         public int TelemetryPort = 15000;
         public int CommandPort = 15001;
@@ -33,6 +34,7 @@ namespace ROVDigitalTwin
 
         private void Start()
         {
+            Environment ??= FindAnyObjectByType<UnderwaterEnvironment>();
             missionId = $"unity-{Guid.NewGuid():N}";
             sender = new UdpClient();
             try
@@ -80,7 +82,13 @@ namespace ROVDigitalTwin
                 DutyType.PipelineTracking => "pipeline_tracking",
                 _ => "target_waypoint"
             };
-            return FormattableString.Invariant($"{{\"schema_version\":\"1.0.0\",\"timestamp_s\":{Time.realtimeSinceStartupAsDouble:F3},\"mission_id\":\"{missionId}\",\"duty\":\"{duty}\",\"depth_m\":{Depth.DepthMeters:F4},\"depth_error_m\":{Duties.CurrentDuty.TargetDepthMeters - Depth.DepthMeters:F4},\"speed_mps\":{v.magnitude:F4},\"vertical_speed_mps\":{v.y:F4},\"roll_deg\":{roll:F3},\"pitch_deg\":{pitch:F3},\"yaw_rate_dps\":{Vehicle.Body.angularVelocity.y * Mathf.Rad2Deg:F3},\"current_a\":{Power.CurrentA:F3},\"voltage_v\":{Power.VoltageV:F3},\"thruster_cmd_mean\":{Vehicle.MeanAbsoluteCommand:F4},\"thruster_response_ratio\":{Power.ThrusterResponseRatio:F4},\"imu_depth_disagreement_m\":{Mathf.Abs(Depth.DepthMeters - trueDepth):F4},\"dvl_quality\":{Dvl.Quality:F4},\"temperature_c\":{Power.TemperatureC:F3},\"battery_level\":{Vehicle.BatteryLevel01:F4},\"position_m\":[{p.x:F4},{p.y:F4},{p.z:F4}],\"velocity_mps\":[{v.x:F4},{v.y:F4},{v.z:F4}],\"field_status\":{{\"current_a\":\"simulated\",\"voltage_v\":\"simulated\",\"temperature_c\":\"simulated\",\"thruster_response_ratio\":\"simulated\",\"imu_depth_disagreement_m\":\"derived\"}}}}");
+            float contamination = Environment != null ? Environment.Contamination01 : 0f;
+            float turbidity = Environment != null ? Environment.TurbidityNtu : 0f;
+            float visibility = Environment != null ? Environment.OpticalVisibilityMeters : 0f;
+            WaterCurrentField current = Environment != null ? Environment.CurrentField : null;
+            float waveHeight = current != null ? current.SignificantWaveHeightMeters : 0f;
+            float wavePeriod = current != null ? current.PeakWavePeriodSeconds : 0f;
+            return FormattableString.Invariant($"{{\"schema_version\":\"1.0.0\",\"timestamp_s\":{Time.realtimeSinceStartupAsDouble:F3},\"mission_id\":\"{missionId}\",\"duty\":\"{duty}\",\"depth_m\":{Depth.DepthMeters:F4},\"depth_error_m\":{Duties.CurrentDuty.TargetDepthMeters - Depth.DepthMeters:F4},\"speed_mps\":{v.magnitude:F4},\"vertical_speed_mps\":{v.y:F4},\"roll_deg\":{roll:F3},\"pitch_deg\":{pitch:F3},\"yaw_rate_dps\":{Vehicle.Body.angularVelocity.y * Mathf.Rad2Deg:F3},\"current_a\":{Power.CurrentA:F3},\"voltage_v\":{Power.VoltageV:F3},\"thruster_cmd_mean\":{Vehicle.MeanAbsoluteCommand:F4},\"thruster_response_ratio\":{Power.ThrusterResponseRatio:F4},\"imu_depth_disagreement_m\":{Mathf.Abs(Depth.DepthMeters - trueDepth):F4},\"dvl_quality\":{Dvl.Quality:F4},\"temperature_c\":{Power.TemperatureC:F3},\"battery_level\":{Vehicle.BatteryLevel01:F4},\"position_m\":[{p.x:F4},{p.y:F4},{p.z:F4}],\"velocity_mps\":[{v.x:F4},{v.y:F4},{v.z:F4}],\"environment\":{{\"contamination_01\":{contamination:F4},\"turbidity_ntu\":{turbidity:F3},\"optical_visibility_m\":{visibility:F3},\"significant_wave_height_m\":{waveHeight:F3},\"peak_wave_period_s\":{wavePeriod:F3}}},\"field_status\":{{\"current_a\":\"simulated\",\"voltage_v\":\"simulated\",\"temperature_c\":\"simulated\",\"thruster_response_ratio\":\"simulated\",\"imu_depth_disagreement_m\":\"derived\"}}}}");
         }
 
         private void ReceiveLoop()

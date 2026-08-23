@@ -28,6 +28,40 @@ namespace ROVDigitalTwin.Tests
         }
 
         [Test]
+        public void WaveOrbitalVelocityDecaysWithDepth()
+        {
+            Vector3 nearSurface = WaterCurrentField.WaveComponent(
+                new Vector3(0f, -1f, 0f), 0.7f, 0.6f, 6.5f, 25f, 0f, 0f);
+            Vector3 deepWater = WaterCurrentField.WaveComponent(
+                new Vector3(0f, -25f, 0f), 0.7f, 0.6f, 6.5f, 25f, 0f, 0f);
+            Assert.Greater(nearSurface.magnitude, deepWater.magnitude);
+            Assert.Greater(deepWater.magnitude, 0f);
+        }
+
+        [Test]
+        public void ContaminationReducesVisibilityAndAcousticQuality()
+        {
+            GameObject root = new GameObject("water-quality-test");
+            try
+            {
+                UnderwaterEnvironment ocean = root.AddComponent<UnderwaterEnvironment>();
+                ocean.TurbidityNtu = 0.5f;
+                ocean.Contamination01 = 0.02f;
+                float clearVisibility = ocean.OpticalVisibilityMeters;
+                float clearAcoustic = ocean.AcousticQuality01;
+                ocean.TurbidityNtu = 6f;
+                ocean.Contamination01 = 0.35f;
+                ocean.SuspendedSedimentMgPerLiter = 15f;
+                Assert.Less(ocean.OpticalVisibilityMeters, clearVisibility);
+                Assert.Less(ocean.AcousticQuality01, clearAcoustic);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        [Test]
         public void FaultResetRestoresNominalStateDeterministically()
         {
             GameObject root = new GameObject("fault-test");

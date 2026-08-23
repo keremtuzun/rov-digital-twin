@@ -9,6 +9,7 @@ namespace ROVDigitalTwin
         public ROVVehicle Vehicle;
         public Hydrodynamics6Dof Hydrodynamics;
         public WaterCurrentField CurrentField;
+        public UnderwaterEnvironment Environment;
         public DutyManager DutyManager;
         public Vector2 MassRangeKg = new Vector2(20.5f, 23.5f);
         public Vector2 DragMultiplierRange = new Vector2(0.85f, 1.2f);
@@ -25,6 +26,7 @@ namespace ROVDigitalTwin
             Vehicle ??= GetComponent<ROVVehicle>();
             Hydrodynamics ??= GetComponent<Hydrodynamics6Dof>();
             DutyManager ??= FindAnyObjectByType<DutyManager>();
+            Environment ??= FindAnyObjectByType<UnderwaterEnvironment>();
             imu = GetComponent<ImuSensor>();
             depth = GetComponent<DepthSensor>();
             dvl = GetComponent<DvlSensor>();
@@ -48,6 +50,16 @@ namespace ROVDigitalTwin
                 float heading = Random.Range(0f, Mathf.PI * 2f);
                 CurrentField.BaseCurrentMetersPerSecond = new Vector3(Mathf.Cos(heading) * speed, 0f, Mathf.Sin(heading) * speed);
                 CurrentField.Turbulence = Random.Range(0.02f, Mathf.Lerp(0.06f, 0.14f, difficulty));
+                CurrentField.SignificantWaveHeightMeters = Random.Range(0.12f, Mathf.Lerp(0.45f, 1.35f, difficulty));
+                CurrentField.PeakWavePeriodSeconds = Random.Range(Mathf.Lerp(5.5f, 4f, difficulty), 9f);
+                CurrentField.WaveDirectionDegrees = Random.Range(0f, 360f);
+            }
+            if (Environment != null)
+            {
+                Environment.Contamination01 = Random.Range(0.02f, Mathf.Lerp(0.12f, 0.35f, difficulty));
+                Environment.TurbidityNtu = Random.Range(0.3f, Mathf.Lerp(2.5f, 7f, difficulty));
+                Environment.SuspendedSedimentMgPerLiter = Random.Range(0.5f, Mathf.Lerp(5f, 18f, difficulty));
+                Environment.RefreshConditionVisuals();
             }
             float efficiencyMin = Mathf.Lerp(0.96f, ThrusterEfficiencyRange.x, difficulty);
             foreach (Thruster thruster in Vehicle.Thrusters)

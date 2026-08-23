@@ -8,13 +8,18 @@ namespace ROVDigitalTwin
         [Range(5f, 180f)] public float HorizontalFieldOfView = 90f;
         [Min(0.1f)] public float MaxRangeMeters = 15f;
         public LayerMask DetectionMask = ~0;
+        public UnderwaterEnvironment Environment;
         [Min(0f)] public float NoiseStandardDeviationMeters = 0.01f;
         [Min(0.01f)] public float SamplePeriodSeconds = 0.1f;
 
         public float[] Distances { get; private set; }
         private float nextSampleTime;
 
-        private void Awake() => Distances = new float[RayCount];
+        private void Awake()
+        {
+            Distances = new float[RayCount];
+            Environment ??= FindAnyObjectByType<UnderwaterEnvironment>();
+        }
 
         private void FixedUpdate()
         {
@@ -31,7 +36,10 @@ namespace ROVDigitalTwin
                 float distance = Physics.Raycast(transform.position, direction, out RaycastHit hit, MaxRangeMeters, DetectionMask, QueryTriggerInteraction.Ignore)
                     ? hit.distance
                     : MaxRangeMeters;
-                Distances[index] = Mathf.Clamp(distance + SensorNoise.Gaussian(NoiseStandardDeviationMeters), 0f, MaxRangeMeters);
+                float environmentalNoise = Environment != null
+                    ? 1f + Environment.TurbidityNtu * 0.08f + Environment.Contamination01 * 0.5f : 1f;
+                Distances[index] = Mathf.Clamp(distance
+                    + SensorNoise.Gaussian(NoiseStandardDeviationMeters * environmentalNoise), 0f, MaxRangeMeters);
             }
         }
 

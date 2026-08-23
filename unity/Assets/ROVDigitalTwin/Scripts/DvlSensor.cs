@@ -9,6 +9,7 @@ namespace ROVDigitalTwin
         [Min(0.1f)] public float MaxAltitudeMeters = 30f;
         [Min(0f)] public float VelocityNoise = 0.01f;
         public WaterCurrentField CurrentField;
+        public UnderwaterEnvironment Environment;
         [Range(0f, 1f)] public float QualityScale = 1f;
         [Min(0.01f)] public float SamplePeriodSeconds = 0.05f;
 
@@ -20,7 +21,11 @@ namespace ROVDigitalTwin
         public float Quality { get; private set; }
         public bool BottomLock => Quality > 0.5f;
 
-        private void Awake() => body = GetComponent<Rigidbody>();
+        private void Awake()
+        {
+            body = GetComponent<Rigidbody>();
+            Environment ??= FindAnyObjectByType<UnderwaterEnvironment>();
+        }
 
         private void FixedUpdate()
         {
@@ -32,7 +37,9 @@ namespace ROVDigitalTwin
             if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, MaxAltitudeMeters, SeafloorMask, QueryTriggerInteraction.Ignore))
             {
                 AltitudeMeters = hit.distance;
-                Quality = Mathf.Clamp01(1f - hit.distance / MaxAltitudeMeters * 0.35f) * QualityScale;
+                float environmentalQuality = Environment != null ? Environment.AcousticQuality01 : 1f;
+                Quality = Mathf.Clamp01(1f - hit.distance / MaxAltitudeMeters * 0.35f)
+                          * QualityScale * environmentalQuality;
             }
             else
             {

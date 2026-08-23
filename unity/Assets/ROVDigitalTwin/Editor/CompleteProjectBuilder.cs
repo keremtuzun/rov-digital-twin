@@ -56,6 +56,7 @@ namespace ROVDigitalTwin.Editor
             UnderwaterEnvironment ocean = environment.AddComponent<UnderwaterEnvironment>();
             ocean.FilteredSun = sun;
             ocean.WaterSurface = surface.transform;
+            ocean.CurrentField = current;
 
             GameObject pipelineStart = new GameObject("Pipeline Start");
             pipelineStart.transform.position = new Vector3(-12f, -11.4f, -15f);
@@ -81,7 +82,7 @@ namespace ROVDigitalTwin.Editor
             duties.CurrentDuty.PipelineStart = pipelineStart.transform;
             duties.CurrentDuty.PipelineEnd = pipelineEnd.transform;
 
-            GameObject rov = BuildRov(metal, yellow, current, duties);
+            GameObject rov = BuildRov(metal, yellow, current, ocean, duties);
             PrefabUtility.SaveAsPrefabAsset(rov, Root + "/Prefabs/OceanSenseROV.prefab");
 
             GameObject cameraObject = new GameObject("Operator Camera");
@@ -100,7 +101,8 @@ namespace ROVDigitalTwin.Editor
             Debug.Log("OceanSense demo, procedural ROV prefab, sensors, dashboard, ML-Agents and bridges were generated.");
         }
 
-        private static GameObject BuildRov(Material metal, Material yellow, WaterCurrentField current, DutyManager duties)
+        private static GameObject BuildRov(Material metal, Material yellow, WaterCurrentField current,
+            UnderwaterEnvironment ocean, DutyManager duties)
         {
             GameObject rov = new GameObject("OceanSense ROV");
             rov.transform.position = new Vector3(0f, -6f, -8f);
@@ -146,11 +148,14 @@ namespace ROVDigitalTwin.Editor
             randomization.Vehicle = vehicle;
             randomization.Hydrodynamics = hydrodynamics;
             randomization.CurrentField = current;
+            randomization.Environment = ocean;
             rov.AddComponent<ImuSensor>();
             rov.AddComponent<DepthSensor>();
             DvlSensor dvl = rov.AddComponent<DvlSensor>();
             dvl.CurrentField = current;
-            rov.AddComponent<ForwardSonarSensor>();
+            dvl.Environment = ocean;
+            ForwardSonarSensor sonar = rov.AddComponent<ForwardSonarSensor>();
+            sonar.Environment = ocean;
 
             GameObject sensorHead = new GameObject("Inspection Camera");
             sensorHead.transform.SetParent(rov.transform, false);
@@ -195,9 +200,11 @@ namespace ROVDigitalTwin.Editor
             TelemetryUdpBridge bridge = rov.AddComponent<TelemetryUdpBridge>();
             bridge.Vehicle = vehicle; bridge.Duties = duties; bridge.Depth = depth; bridge.Dvl = dvl;
             bridge.Power = rov.GetComponent<SimulatedPowerSensor>();
+            bridge.Environment = Object.FindAnyObjectByType<UnderwaterEnvironment>();
             SyntheticCaptureController synthetic = rov.AddComponent<SyntheticCaptureController>();
             synthetic.Capture = capture; synthetic.Target = duties.CurrentDuty.Target;
             synthetic.Current = Object.FindAnyObjectByType<WaterCurrentField>();
+            synthetic.Environment = Object.FindAnyObjectByType<UnderwaterEnvironment>();
             synthetic.SceneLight = Object.FindAnyObjectByType<Light>();
             mission.SyntheticCapture = synthetic;
             FaultInjectionController faults = rov.AddComponent<FaultInjectionController>();
@@ -205,6 +212,7 @@ namespace ROVDigitalTwin.Editor
             faults.Depth = depth; faults.Dvl = dvl; faults.Power = bridge.Power; faults.Telemetry = bridge;
             OceanSenseDashboard dashboard = operatorCamera.gameObject.AddComponent<OceanSenseDashboard>();
             dashboard.Vehicle = vehicle; dashboard.Duties = duties; dashboard.Depth = depth; dashboard.Dvl = dvl; dashboard.Api = api;
+            dashboard.Environment = Object.FindAnyObjectByType<UnderwaterEnvironment>();
         }
 
         private static GameObject CreatePrimitive(string name, PrimitiveType type, Vector3 position, Vector3 scale, Material material, Transform parent, bool local = false)

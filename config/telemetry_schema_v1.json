@@ -29,6 +29,17 @@
     "imu_depth_disagreement_m": {"type": "number", "minimum": 0},
     "dvl_quality": {"type": "number", "minimum": 0, "maximum": 1},
     "temperature_c": {"type": "number", "minimum": -5, "maximum": 120},
+    "environment": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "contamination_01": {"type": "number", "minimum": 0, "maximum": 1},
+        "turbidity_ntu": {"type": "number", "minimum": 0},
+        "optical_visibility_m": {"type": "number", "minimum": 0},
+        "significant_wave_height_m": {"type": "number", "minimum": 0},
+        "peak_wave_period_s": {"type": "number", "minimum": 0}
+      }
+    },
     "field_status": {"type": "object", "additionalProperties": {"enum": ["simulated", "measured", "derived", "unavailable"]}}
   }
 }
