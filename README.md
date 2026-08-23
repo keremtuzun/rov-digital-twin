@@ -1,12 +1,11 @@
 # OceanSense / ROV Digital Twin Intelligence Stack
 
-This repository now separates the two team responsibilities described in the build plan:
+This repository implements the project as one integrated OceanSense system rather than separating it
+by teammate. It contains the image-intelligence and decision pipeline, a complete Unity digital-twin
+project scaffold, the procedural underwater ROV/environment, sensor and hydrodynamic simulation,
+ML-Agents interface, dashboard, and ROS 2 bridge.
 
-- `src/oceansense/`, `scripts/train_classifier.py`, `scripts/train_detector.py`, `dataset/`, and the
-  `/api/*` endpoints are Kerem's image-intelligence deliverable.
-- `unity/` and `ros2/` remain integration references for Burak's digital-twin/control work.
-
-Kerem's implemented pipeline is:
+The implemented intelligence pipeline is:
 
 ```text
 licensed multi-domain underwater dataset -> validation/split -> domain classifier + condition classifier
@@ -14,9 +13,15 @@ licensed multi-domain underwater dataset -> validation/split -> domain classifie
   -> rule-based safety decision -> grounded cautious explanation -> JSON/FastAPI
 ```
 
-The repository does **not** claim a trained underwater image model yet: no license-reviewed image
+The repository does **not** claim a trained underwater image or RL model yet: no license-reviewed image
 snapshot is committed. Training code, evaluation reporting, schemas, API contracts, safety rules, and
-tests are complete; add an approved 100-300+ image prototype dataset before reporting accuracy.
+tests are complete; add an approved image dataset and validate the simulator before reporting accuracy.
+
+## Unity digital twin quick start
+
+Open the `unity` folder with Unity 6. The project restores ML-Agents and ROS-TCP-Connector, then
+automatically generates the `OceanSenseDemo` scene and editable ROV prefab. See `unity/README.md` for
+controls, API/ROS startup, architecture and the explicit no-training status.
 
 ## OceanSense quick start
 
@@ -27,7 +32,7 @@ python -m unittest discover -s tests -v
 python scripts/run_api.py
 ```
 
-Train both classifiers after dataset approval:
+Only after dataset approval, training can be started manually with:
 
 ```powershell
 python -m pip install -e ".[vision]"

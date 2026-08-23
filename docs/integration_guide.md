@@ -1,4 +1,4 @@
-# Burak integration guide
+# OceanSense end-to-end integration guide
 
 ## Install and run
 
@@ -43,6 +43,19 @@ rate limiting, path restrictions, and TLS at the integration gateway before depl
 }
 ```
 
-Treat `control_instruction` as a request to Burak's separately tested control layer, never as actuator
-values. The control layer remains responsible for feasibility, collision avoidance, duty constraints,
-operator authority, and failsafe behavior.
+Treat `control_instruction` as a high-level request to the separately validated control layer, never as
+actuator values. The control layer remains responsible for feasibility, collision avoidance, duty
+constraints, operator authority, and failsafe behavior.
+
+## Unity flow
+
+The Unity project captures the inspection camera to a local PNG, posts it to perception, embeds the
+returned JSON in the decision request, and displays service status in the operator panel. The Unity
+behavior exposes eight continuous thruster actions but has no trained model assigned. See
+`unity/README.md` for project generation and controls.
+
+## ROS 2 flow
+
+Run `ros2 run rov_dt_bridge unity_udp_bridge` after building the package. Unity telemetry is published
+as JSON on `/rov/telemetry_json`. JSON sent to `/rov/high_level_command` must contain an `intent` key
+and is forwarded to Unity for supervision; it is not applied as raw thrust.

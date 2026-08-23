@@ -1,0 +1,8 @@
+{
+  "name": "ROVDigitalTwin.Tests",
+  "rootNamespace": "ROVDigitalTwin.Tests",
+  "references": ["ROVDigitalTwin"],
+  "includePlatforms": ["Editor"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false
+}

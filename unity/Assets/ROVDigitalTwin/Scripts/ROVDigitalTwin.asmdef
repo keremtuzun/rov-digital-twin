@@ -1,0 +1,6 @@
+{
+  "name": "ROVDigitalTwin",
+  "rootNamespace": "ROVDigitalTwin",
+  "references": ["Unity.ML-Agents"],
+  "autoReferenced": true
+}

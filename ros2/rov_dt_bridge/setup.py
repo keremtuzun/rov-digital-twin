@@ -14,7 +14,12 @@ setup(
     zip_safe=True,
     maintainer="ROV Digital Twin Team",
     maintainer_email="maintainer@example.com",
-    description="ROV telemetry diagnostic bridge",
+    description="Unity ROV telemetry and high-level command bridge",
     license="MIT",
-    entry_points={"console_scripts": ["diagnostic_node = rov_dt_bridge.diagnostic_node:main"]},
+    entry_points={
+        "console_scripts": [
+            "diagnostic_node = rov_dt_bridge.diagnostic_node:main",
+            "unity_udp_bridge = rov_dt_bridge.unity_udp_bridge:main",
+        ]
+    },
 )
