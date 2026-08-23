@@ -53,6 +53,9 @@ namespace ROVDigitalTwin.Editor
             CreatePrimitive("Seafloor", PrimitiveType.Cube, new Vector3(0f, -12.5f, 0f), new Vector3(70f, 1f, 70f), sand, environment.transform);
             GameObject surface = CreatePrimitive("Water Surface", PrimitiveType.Cube, new Vector3(0f, 0.25f, 0f), new Vector3(70f, 0.25f, 70f), water, environment.transform);
             Object.DestroyImmediate(surface.GetComponent<Collider>());
+            UnderwaterEnvironment ocean = environment.AddComponent<UnderwaterEnvironment>();
+            ocean.FilteredSun = sun;
+            ocean.WaterSurface = surface.transform;
 
             GameObject pipelineStart = new GameObject("Pipeline Start");
             pipelineStart.transform.position = new Vector3(-12f, -11.4f, -15f);
@@ -82,6 +85,7 @@ namespace ROVDigitalTwin.Editor
             PrefabUtility.SaveAsPrefabAsset(rov, Root + "/Prefabs/OceanSenseROV.prefab");
 
             GameObject cameraObject = new GameObject("Operator Camera");
+            cameraObject.tag = "MainCamera";
             Camera camera = cameraObject.AddComponent<Camera>();
             camera.fieldOfView = 65f;
             cameraObject.transform.position = rov.transform.TransformPoint(new Vector3(0f, 3f, -7f));
@@ -138,6 +142,10 @@ namespace ROVDigitalTwin.Editor
             rov.AddComponent<SimulatedPowerSensor>();
             Hydrodynamics6Dof hydrodynamics = rov.AddComponent<Hydrodynamics6Dof>();
             hydrodynamics.CurrentField = current;
+            DomainRandomization randomization = rov.AddComponent<DomainRandomization>();
+            randomization.Vehicle = vehicle;
+            randomization.Hydrodynamics = hydrodynamics;
+            randomization.CurrentField = current;
             rov.AddComponent<ImuSensor>();
             rov.AddComponent<DepthSensor>();
             DvlSensor dvl = rov.AddComponent<DvlSensor>();
@@ -166,6 +174,7 @@ namespace ROVDigitalTwin.Editor
             ROVRLAgent agent = rov.AddComponent<ROVRLAgent>();
             agent.Vehicle = vehicle;
             agent.DutyManager = duties;
+            agent.DomainRandomization = randomization;
             DecisionRequester requester = rov.AddComponent<DecisionRequester>();
             requester.DecisionPeriod = 5;
             requester.TakeActionsBetweenDecisions = true;

@@ -10,6 +10,27 @@ from rov_dt.training import train_from_csv
 
 
 class PipelineTests(unittest.TestCase):
+    def test_feature_transform_v2_and_v1_model_compatibility(self):
+        model = SoftmaxWeakPointClassifier(["nominal", "fault"], ["speed_mps"])
+        self.assertEqual(len(model._expand([2.0])), 9)
+        with tempfile.TemporaryDirectory() as folder:
+            path = Path(folder) / "legacy.json"
+            path.write_text(
+                json.dumps(
+                    {
+                        "labels": ["nominal", "fault"],
+                        "feature_names": ["speed_mps"],
+                        "means": [0.0, 0.0],
+                        "scales": [1.0, 1.0],
+                        "weights": [[0.0, 0.0, 0.0], [0.0, 0.0, 0.0]],
+                    }
+                ),
+                encoding="utf-8",
+            )
+            legacy = SoftmaxWeakPointClassifier.load(path)
+            self.assertEqual(legacy.feature_transform, "raw_plus_absolute_v1")
+            self.assertEqual(len(legacy._expand([2.0])), 2)
+
     def test_dataset_is_balanced_and_round_trips(self):
         samples = generate_dataset(100, seed=7)
         self.assertEqual(len(samples), 100)
@@ -24,6 +45,8 @@ class PipelineTests(unittest.TestCase):
             data = write_csv(generate_dataset(750, seed=11), root / "data.csv")
             metrics = train_from_csv(data, root / "model.json", root / "metrics.json", epochs=90, seed=11)
             self.assertGreater(metrics["accuracy"], 0.82)
+            self.assertGreater(metrics["initial_train_loss"], metrics["final_train_loss"])
+            self.assertGreater(metrics["loss_reduction_fraction"], 0.0)
             self.assertFalse(set(metrics["train_missions"]) & set(metrics["test_missions"]))
             model = SoftmaxWeakPointClassifier.load(root / "model.json")
             fault = next(sample for sample in read_csv(data) if sample.label == "sensor_drift")

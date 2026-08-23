@@ -27,16 +27,32 @@ class SoftmaxWeakPointClassifier:
     def __init__(self, labels: list[str], feature_names: list[str]):
         self.labels = labels
         self.feature_names = feature_names
-        self.feature_transform = "raw_plus_absolute_v1"
-        width = len(feature_names) * 2
+        self.feature_transform = "physics_interactions_v2"
+        width = len(self._expand([0.0] * len(feature_names)))
         self.means = [0.0] * width
         self.scales = [1.0] * width
         self.weights = [[0.0] * (width + 1) for _ in labels]
 
     def _expand(self, row: list[float]) -> list[float]:
-        # Magnitudes make symmetric signatures (positive/negative trim, pitch,
-        # yaw, and depth errors) learnable by a compact linear edge model.
-        return list(row) + [abs(value) for value in row]
+        # Keep v1 models loadable while giving v2 models physically meaningful
+        # nonlinear evidence: magnitude, energy, propulsion efficiency and power.
+        if self.feature_transform == "raw_plus_absolute_v1":
+            return list(row) + [abs(value) for value in row]
+        values = dict(zip(self.feature_names, row))
+        command = abs(values.get("thruster_cmd_mean", 0.0))
+        speed = abs(values.get("speed_mps", 0.0))
+        current = abs(values.get("current_a", 0.0))
+        voltage = max(abs(values.get("voltage_v", 0.0)), 1e-3)
+        response = values.get("thruster_response_ratio", 1.0)
+        interactions = [
+            speed / (command + 0.1),
+            current / voltage,
+            command * max(0.0, 1.0 - response),
+            abs(values.get("depth_error_m", 0.0)) * abs(values.get("vertical_speed_mps", 0.0)),
+            abs(values.get("roll_deg", 0.0)) + abs(values.get("pitch_deg", 0.0)),
+            abs(values.get("imu_depth_disagreement_m", 0.0)) * (1.0 - values.get("dvl_quality", 0.0)),
+        ]
+        return list(row) + [abs(value) for value in row] + [value * value for value in row] + interactions
 
     def _normalize(self, row: list[float]) -> list[float]:
         expanded = self._expand(row)
@@ -94,7 +110,7 @@ class SoftmaxWeakPointClassifier:
         path.parent.mkdir(parents=True, exist_ok=True)
         payload = {
             "model_type": "softmax_weak_point_classifier",
-            "version": 1,
+            "version": 2,
             "labels": self.labels,
             "feature_names": self.feature_names,
             "feature_transform": self.feature_transform,

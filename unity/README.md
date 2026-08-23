@@ -1,5 +1,10 @@
 # OceanSense Unity digital twin
 
+The project includes `Assets/ROVDigitalTwin/Models/OceanSenseROV_Bootstrap.onnx`, an experimental
+25,000-step PPO export. It is deliberately not assigned to `Behavior Parameters`: episodic reward did
+not converge, so the artifact is for reproducibility and continued simulation training only. See
+`../docs/unity_training_operations.md` for exact results and real-vehicle promotion gates.
+
 This is a complete Unity 6 project scaffold. It includes a procedural eight-thruster ROV, underwater
 scene, six-degree-of-freedom hydrodynamics, current, buoyancy, DVL, IMU, depth and forward-sonar
 sensors, three mission duties, ML-Agents observations/actions, an operator dashboard, OceanSense API

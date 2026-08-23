@@ -9,13 +9,18 @@ namespace ROVDigitalTwin
         [Min(0.1f)] public float MaxRangeMeters = 15f;
         public LayerMask DetectionMask = ~0;
         [Min(0f)] public float NoiseStandardDeviationMeters = 0.01f;
+        [Min(0.01f)] public float SamplePeriodSeconds = 0.1f;
 
         public float[] Distances { get; private set; }
+        private float nextSampleTime;
 
         private void Awake() => Distances = new float[RayCount];
 
         private void FixedUpdate()
         {
+            if (Time.time < nextSampleTime)
+                return;
+            nextSampleTime = Time.time + SamplePeriodSeconds;
             if (Distances == null || Distances.Length != RayCount)
                 Distances = new float[RayCount];
             for (int index = 0; index < RayCount; index++)

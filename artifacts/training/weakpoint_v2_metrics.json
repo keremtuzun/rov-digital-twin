@@ -1,0 +1,112 @@
+{
+  "accuracy": 0.9975,
+  "macro_f1": 0.9974999877928494,
+  "per_class": {
+    "buoyancy_imbalance": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 160
+    },
+    "hydrodynamic_drag": {
+      "precision": 0.99375,
+      "recall": 0.99375,
+      "f1": 0.99375,
+      "support": 160
+    },
+    "nominal": {
+      "precision": 0.9937888198757764,
+      "recall": 1.0,
+      "f1": 0.9968847352024921,
+      "support": 160
+    },
+    "sensor_drift": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "support": 160
+    },
+    "thruster_degradation": {
+      "precision": 1.0,
+      "recall": 0.99375,
+      "f1": 0.9968652037617556,
+      "support": 160
+    }
+  },
+  "confusion_matrix": {
+    "buoyancy_imbalance": {
+      "buoyancy_imbalance": 160,
+      "hydrodynamic_drag": 0,
+      "nominal": 0,
+      "sensor_drift": 0,
+      "thruster_degradation": 0
+    },
+    "hydrodynamic_drag": {
+      "buoyancy_imbalance": 0,
+      "hydrodynamic_drag": 159,
+      "nominal": 1,
+      "sensor_drift": 0,
+      "thruster_degradation": 0
+    },
+    "nominal": {
+      "buoyancy_imbalance": 0,
+      "hydrodynamic_drag": 0,
+      "nominal": 160,
+      "sensor_drift": 0,
+      "thruster_degradation": 0
+    },
+    "sensor_drift": {
+      "buoyancy_imbalance": 0,
+      "hydrodynamic_drag": 0,
+      "nominal": 0,
+      "sensor_drift": 160,
+      "thruster_degradation": 0
+    },
+    "thruster_degradation": {
+      "buoyancy_imbalance": 0,
+      "hydrodynamic_drag": 1,
+      "nominal": 0,
+      "sensor_drift": 0,
+      "thruster_degradation": 159
+    }
+  },
+  "train_rows": 3200,
+  "test_rows": 800,
+  "label_distribution": {
+    "hydrodynamic_drag": 800,
+    "buoyancy_imbalance": 800,
+    "sensor_drift": 800,
+    "nominal": 800,
+    "thruster_degradation": 800
+  },
+  "final_train_loss": 0.026672108871671006,
+  "initial_train_loss": 0.06051264535225703,
+  "loss_reduction_fraction": 0.5592308233030143,
+  "epochs": 180,
+  "seed": 42,
+  "split_strategy": "mission_group",
+  "train_missions": [
+    "sim-0000",
+    "sim-0002",
+    "sim-0003",
+    "sim-0004",
+    "sim-0005",
+    "sim-0006",
+    "sim-0007",
+    "sim-0008",
+    "sim-0009",
+    "sim-0011",
+    "sim-0012",
+    "sim-0013",
+    "sim-0015",
+    "sim-0016",
+    "sim-0018",
+    "sim-0019"
+  ],
+  "test_missions": [
+    "sim-0001",
+    "sim-0010",
+    "sim-0014",
+    "sim-0017"
+  ]
+}

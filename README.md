@@ -13,20 +13,23 @@ licensed multi-domain underwater dataset -> validation/split -> domain classifie
   -> rule-based safety decision -> grounded cautious explanation -> JSON/FastAPI
 ```
 
-The repository does **not** claim a trained underwater image or RL model yet: no license-reviewed image
-snapshot is committed. Training code, evaluation reporting, schemas, API contracts, safety rules, and
-tests are complete; add an approved image dataset and validate the simulator before reporting accuracy.
+The repository does **not** claim a trained underwater image model: no license-reviewed image snapshot
+is committed. It does include a 25,000-step experimental Unity PPO bootstrap checkpoint and a trained
+synthetic-telemetry weak-point classifier. Neither is approved for real-vehicle control; their metrics,
+limitations, and promotion gates are documented and versioned with the artifacts.
 
 ## Unity digital twin quick start
 
 Open the `unity` folder with Unity 6. The project restores ML-Agents and ROS-TCP-Connector, then
 automatically generates the `OceanSenseDemo` scene and editable ROV prefab. See `unity/README.md` for
-controls, API/ROS startup, architecture and the explicit no-training status.
+controls, API/ROS startup and architecture, and `docs/unity_training_operations.md` for reproducible
+staged training and the sim-to-real validation process.
 
 Research-prototype controls include a versioned Unity/ROS/Python telemetry contract, license-gated
 asset manifests, mission/video-safe splitting, cautious canonical labels, calibration/safety metrics,
 synthetic capture metadata and staged Unity/HIL acceptance. Start with `docs/gap_analysis.md` and
-`docs/dataset_acquisition_plan.md`; approved assets and trained image/RL models are intentionally absent.
+`docs/dataset_acquisition_plan.md`. The committed RL checkpoint is intentionally bootstrap-only;
+approved image checkpoints remain absent.
 
 ## OceanSense quick start
 

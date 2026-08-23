@@ -10,8 +10,10 @@ namespace ROVDigitalTwin
         [Min(0f)] public float VelocityNoise = 0.01f;
         public WaterCurrentField CurrentField;
         [Range(0f, 1f)] public float QualityScale = 1f;
+        [Min(0.01f)] public float SamplePeriodSeconds = 0.05f;
 
         private Rigidbody body;
+        private float nextSampleTime;
 
         public Vector3 RelativeVelocityLocal { get; private set; }
         public float AltitudeMeters { get; private set; }
@@ -22,6 +24,9 @@ namespace ROVDigitalTwin
 
         private void FixedUpdate()
         {
+            if (Time.time < nextSampleTime)
+                return;
+            nextSampleTime = Time.time + SamplePeriodSeconds;
             Vector3 waterVelocity = CurrentField != null ? CurrentField.Sample(transform.position, Time.time) : Vector3.zero;
             RelativeVelocityLocal = transform.InverseTransformDirection(body.linearVelocity - waterVelocity) + SensorNoise.GaussianVector(VelocityNoise);
             if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, MaxAltitudeMeters, SeafloorMask, QueryTriggerInteraction.Ignore))

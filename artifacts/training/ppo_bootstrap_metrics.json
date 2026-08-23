@@ -1,0 +1,24 @@
+{
+  "run_id": "oceansense_ppo_bootstrap",
+  "trainer": "Unity ML-Agents PPO",
+  "environment_steps": 25000,
+  "seed": 42,
+  "policy_loss": {
+    "first_checkpoint": 0.036704,
+    "final_checkpoint": 0.026339,
+    "reduction_fraction": 0.2823975588491717
+  },
+  "value_loss": {
+    "first_checkpoint": 0.085941,
+    "final_checkpoint": 0.050123,
+    "reduction_fraction": 0.4167719719346998
+  },
+  "mean_episode_reward": {
+    "best_window": -1.35735,
+    "final_window": -1.9538
+  },
+  "domain_randomization_difficulty": [0.1, 0.3],
+  "status": "bootstrap_only_not_converged",
+  "deployment_allowed": false,
+  "notes": "Losses improved, but episodic reward remains variable. Continue staged training and pass HIL/field gates before real-vehicle use."
+}

@@ -11,7 +11,9 @@ namespace ROVDigitalTwin
         private void LateUpdate()
         {
             if (Target == null) return;
-            Vector3 desired = Target.TransformPoint(Offset);
+            // Keep the operator view horizon-stabilized. A body-relative offset
+            // makes the camera roll with an upset vehicle and can hide the ROV.
+            Vector3 desired = Target.position + Offset;
             transform.position = Vector3.Lerp(transform.position, desired, 1f - Mathf.Exp(-SmoothSpeed * Time.deltaTime));
             transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(Target.position - transform.position, Vector3.up), 1f - Mathf.Exp(-SmoothSpeed * Time.deltaTime));
         }
