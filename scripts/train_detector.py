@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 from pathlib import Path
 
@@ -10,17 +11,20 @@ def main() -> None:
     parser.add_argument("--data", required=True, help="Ultralytics dataset YAML")
     parser.add_argument("--epochs", type=int, default=30)
     parser.add_argument("--output", default="outputs/evaluation_reports/detector_metrics.json")
+    parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
     try:
         from ultralytics import YOLO
     except ImportError as exc:
         raise SystemExit("Install with: pip install -e '.[detection]'") from exc
     model = YOLO("yolov8n.pt")
-    model.train(data=args.data, epochs=args.epochs, imgsz=640, project="outputs/yolo_runs", name="weak_point_v1")
+    model.train(data=args.data, epochs=args.epochs, imgsz=640, seed=args.seed, deterministic=True,
+                project="outputs/yolo_runs", name="weak_point_v1")
     metrics = model.val(data=args.data)
     report = {
         "model": "YOLOv8n", "map50": float(metrics.box.map50), "map50_95": float(metrics.box.map),
         "limitations": ["A box indicates a possible visual concern, not confirmed structural damage."],
+        "metadata": {"seed": args.seed, "data_config_sha256": hashlib.sha256(Path(args.data).read_bytes()).hexdigest()},
     }
     path = Path(args.output)
     path.parent.mkdir(parents=True, exist_ok=True)

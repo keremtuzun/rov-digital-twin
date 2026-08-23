@@ -23,6 +23,11 @@ Open the `unity` folder with Unity 6. The project restores ML-Agents and ROS-TCP
 automatically generates the `OceanSenseDemo` scene and editable ROV prefab. See `unity/README.md` for
 controls, API/ROS startup, architecture and the explicit no-training status.
 
+Research-prototype controls include a versioned Unity/ROS/Python telemetry contract, license-gated
+asset manifests, mission/video-safe splitting, cautious canonical labels, calibration/safety metrics,
+synthetic capture metadata and staged Unity/HIL acceptance. Start with `docs/gap_analysis.md` and
+`docs/dataset_acquisition_plan.md`; approved assets and trained image/RL models are intentionally absent.
+
 ## OceanSense quick start
 
 ```powershell

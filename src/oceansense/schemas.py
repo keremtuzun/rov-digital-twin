@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import asdict, dataclass, field
 from typing import Any
 
+from .taxonomy import CANONICAL_CONDITION_LABELS
+
 DOMAIN_LABELS = {
     "structure",
     "nature_ecology",
@@ -67,7 +69,7 @@ CONDITION_LABELS = {
     "poor_visibility_for_survey",
     "unknown_field_condition",
     "unknown",
-}
+} | CANONICAL_CONDITION_LABELS
 ALLOWED_LABELS = CONDITION_LABELS
 VISIBILITY_LEVELS = {"clear", "good", "moderate", "poor", "unknown"}
 ANOMALY_LEVELS = {"low", "medium", "high"}

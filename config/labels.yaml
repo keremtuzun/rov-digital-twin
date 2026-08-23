@@ -6,16 +6,35 @@ inspection_domains:
   - general_underwater
   - unknown
 condition_labels:
-  - ok
-  - possible_weak_point
-  - possible_damage
-  - normal_surface
+  - normal_or_no_visible_concern
+  - possible_structural_concern
   - biofouling
   - marine_debris
   - poor_visibility
-  - ecological_stress
+  - ecological_stress_indicator
   - fish_or_habitat_activity
+  - aquaculture_infrastructure_concern
   - unknown
+label_policy: all condition labels are visual indicators; none confirms structural or ecological diagnosis
+aliases:
+  ok: normal_or_no_visible_concern
+  normal_surface: normal_or_no_visible_concern
+  structure_ok: normal_or_no_visible_concern
+  possible_weak_point: possible_structural_concern
+  possible_structural_weak_point: possible_structural_concern
+  possible_damage: possible_structural_concern
+  possible_crack: possible_structural_concern
+  crack: possible_structural_concern
+  possible_corrosion: possible_structural_concern
+  corrosion: possible_structural_concern
+  low_visibility: poor_visibility
+  coral_bleaching: ecological_stress_indicator
+  bleached_coral: ecological_stress_indicator
+  bleaching_like_pattern: ecological_stress_indicator
+  fish_school: fish_or_habitat_activity
+  fish_school_present: fish_or_habitat_activity
+  net_damage: aquaculture_infrastructure_concern
+  cage_damage: aquaculture_infrastructure_concern
 optional_specific_labels:
   - possible_crack
   - possible_corrosion

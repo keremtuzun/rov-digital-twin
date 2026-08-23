@@ -9,11 +9,12 @@ from dataclasses import dataclass, replace
 from pathlib import Path
 
 from .schemas import CONDITION_LABELS, DOMAIN_LABELS, VISIBILITY_LEVELS
+from .taxonomy import canonicalize_label, is_domain_compatible
 
 REQUIRED_COLUMNS = {
     "sample_id", "file_path", "source", "license", "split", "inspection_domain", "primary_label",
     "secondary_labels", "contains_anomaly", "condition_status", "risk_level", "weak_point_present",
-    "visibility_level", "confidence_label", "synthetic", "notes",
+    "visibility_level", "confidence_label", "synthetic", "mission_or_video_id", "notes",
 }
 
 
@@ -41,6 +42,7 @@ class ImageRecord:
     visibility_level: str
     confidence_label: str
     synthetic: bool
+    mission_or_video_id: str
     notes: str = ""
 
     @classmethod
@@ -50,8 +52,11 @@ class ImageRecord:
             raise ValueError(f"missing columns: {sorted(missing)}")
         if row["inspection_domain"] not in DOMAIN_LABELS:
             raise ValueError(f"unsupported inspection_domain: {row['inspection_domain']}")
-        if row["primary_label"] not in CONDITION_LABELS:
+        primary_label = canonicalize_label(row["primary_label"])
+        if primary_label not in CONDITION_LABELS:
             raise ValueError(f"unsupported primary_label: {row['primary_label']}")
+        if not is_domain_compatible(row["inspection_domain"], primary_label):
+            raise ValueError(f"label {primary_label} is incompatible with domain {row['inspection_domain']}")
         if row["visibility_level"] not in VISIBILITY_LEVELS:
             raise ValueError(f"unsupported visibility_level: {row['visibility_level']}")
         if row["split"] not in {"", "train", "val", "test"}:
@@ -65,18 +70,19 @@ class ImageRecord:
         for name in ("sample_id", "file_path", "source", "license"):
             if not row[name].strip():
                 raise ValueError(f"{name} cannot be empty")
-        secondary = {item.strip() for item in re.split(r"[;,|]", row["secondary_labels"]) if item.strip()}
+        secondary = {canonicalize_label(item.strip()) for item in re.split(r"[;,|]", row["secondary_labels"]) if item.strip()}
         if secondary - CONDITION_LABELS:
             raise ValueError(f"unsupported secondary_labels: {sorted(secondary - CONDITION_LABELS)}")
         return cls(
             sample_id=row["sample_id"].strip(), file_path=row["file_path"].strip(),
             source=row["source"].strip(), license=row["license"].strip(), split=row["split"].strip(),
-            inspection_domain=row["inspection_domain"], primary_label=row["primary_label"],
-            secondary_labels=row["secondary_labels"].strip(), contains_anomaly=_parse_bool(row["contains_anomaly"], "contains_anomaly"),
+            inspection_domain=row["inspection_domain"], primary_label=primary_label,
+            secondary_labels=";".join(sorted(secondary)), contains_anomaly=_parse_bool(row["contains_anomaly"], "contains_anomaly"),
             condition_status=row["condition_status"], risk_level=row["risk_level"],
             weak_point_present=_parse_bool(row["weak_point_present"], "weak_point_present"),
             visibility_level=row["visibility_level"], confidence_label=row["confidence_label"],
-            synthetic=_parse_bool(row["synthetic"], "synthetic"), notes=row["notes"],
+            synthetic=_parse_bool(row["synthetic"], "synthetic"),
+            mission_or_video_id=row.get("mission_or_video_id", "").strip() or row["sample_id"].strip(), notes=row["notes"],
         )
 
     def to_row(self) -> dict[str, str]:
@@ -143,20 +149,26 @@ def validate_dataset(labels_path: str | Path, boxes_path: str | Path | None = No
 
 
 def stratified_split(records: list[ImageRecord], seed: int = 42) -> list[ImageRecord]:
-    """Deterministic 70/15/15 split, stratified by domain and primary label."""
+    """Deterministic group-aware split; a mission/video can occur in only one split."""
     rng = random.Random(seed)
     groups: dict[str, list[ImageRecord]] = defaultdict(list)
     for record in records:
         groups[f"{record.inspection_domain}:{record.primary_label}"].append(record)
     output: list[ImageRecord] = []
-    for group in groups.values():
-        rng.shuffle(group)
-        count = len(group)
-        train_end = max(1, round(count * 0.70))
-        val_end = min(count, train_end + max(1 if count >= 3 else 0, round(count * 0.15)))
-        for index, record in enumerate(group):
-            split = "train" if index < train_end else ("val" if index < val_end else "test")
-            output.append(replace(record, split=split))
+    for stratum in groups.values():
+        mission_groups: dict[str, list[ImageRecord]] = defaultdict(list)
+        for record in stratum:
+            mission_groups[record.mission_or_video_id].append(record)
+        units = list(mission_groups.values())
+        rng.shuffle(units)
+        count = len(stratum)
+        assigned = 0
+        train_target = max(1, round(count * 0.70))
+        val_target = train_target + max(1 if count >= 3 else 0, round(count * 0.15))
+        for unit in units:
+            split = "train" if assigned < train_target else ("val" if assigned < val_target else "test")
+            output.extend(replace(record, split=split) for record in unit)
+            assigned += len(unit)
     return sorted(output, key=lambda item: item.sample_id)
 
 

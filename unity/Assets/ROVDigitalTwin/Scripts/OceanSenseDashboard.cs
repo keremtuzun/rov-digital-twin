@@ -19,7 +19,7 @@ namespace ROVDigitalTwin
                           $"Duty: {Duties.CurrentDuty.Duty}\nDepth: {Depth.DepthMeters:F2} m\n" +
                           $"Velocity: {Vehicle.Body.linearVelocity.magnitude:F2} m/s\nBattery: {Vehicle.BatteryLevel01:P0}\n" +
                           $"DVL: {(Dvl.BottomLock ? "bottom lock" : "no lock")} ({Dvl.Quality:P0})\n" +
-                          $"API: {Api.LastStatus}\n\n1/2/3 duty  C analyze  R reset  Esc stop";
+                          $"API: {Api.LastStatus}\n\n1/2/3 duty  C analyze  G synthetic  R reset  Esc stop";
             GUI.Box(new Rect(18, 18, 360, 220), text, style);
         }
     }

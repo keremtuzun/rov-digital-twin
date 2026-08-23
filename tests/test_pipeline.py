@@ -24,6 +24,7 @@ class PipelineTests(unittest.TestCase):
             data = write_csv(generate_dataset(750, seed=11), root / "data.csv")
             metrics = train_from_csv(data, root / "model.json", root / "metrics.json", epochs=90, seed=11)
             self.assertGreater(metrics["accuracy"], 0.82)
+            self.assertFalse(set(metrics["train_missions"]) & set(metrics["test_missions"]))
             model = SoftmaxWeakPointClassifier.load(root / "model.json")
             fault = next(sample for sample in read_csv(data) if sample.label == "sensor_drift")
             decision = SafetyDecisionAgent(model).decide(fault)

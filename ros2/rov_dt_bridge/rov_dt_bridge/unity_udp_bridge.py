@@ -9,6 +9,12 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
 
+from rov_dt.telemetry_contract import (
+    TelemetryContractError,
+    telemetry_sample_from_json,
+    validate_high_level_intent,
+)
+
 
 class UnityUdpBridge(Node):
     def __init__(self) -> None:
@@ -32,20 +38,18 @@ class UnityUdpBridge(Node):
         except BlockingIOError:
             return
         try:
-            parsed = json.loads(payload.decode("utf-8"))
-        except (UnicodeDecodeError, json.JSONDecodeError) as exc:
+            sample = telemetry_sample_from_json(payload)
+        except TelemetryContractError as exc:
             self.get_logger().warning(f"Ignored invalid Unity telemetry: {exc}")
             return
         message = String()
-        message.data = json.dumps(parsed, separators=(",", ":"), sort_keys=True)
+        message.data = json.dumps(sample.to_dict(), separators=(",", ":"), sort_keys=True)
         self.publisher.publish(message)
 
     def forward_command(self, message: String) -> None:
         try:
-            command = json.loads(message.data)
-            if not isinstance(command, dict) or "intent" not in command:
-                raise ValueError("command must be a JSON object containing 'intent'")
-        except (json.JSONDecodeError, ValueError) as exc:
+            validate_high_level_intent(message.data)
+        except TelemetryContractError as exc:
             self.get_logger().warning(f"Rejected command: {exc}")
             return
         self.sock.sendto(message.data.encode("utf-8"), (self.unity_host, self.command_port))

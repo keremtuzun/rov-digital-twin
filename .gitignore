@@ -18,3 +18,7 @@ artifacts/demo/
 artifacts/*_qa/
 artifacts/delivery_*/
 tmp/
+dataset/raw/
+dataset/images/
+dataset/extracted/
+dataset/imagefolders/

@@ -6,6 +6,7 @@ from collections import Counter, defaultdict
 from pathlib import Path
 
 from oceansense.data import read_labels
+from oceansense.evaluation import breakdown, classification_metrics
 from oceansense.perception import TorchvisionDomainClassifier, TorchvisionEfficientNetClassifier
 
 
@@ -46,10 +47,18 @@ def main() -> None:
             "actual_condition": record.primary_label,
             "predicted_condition": condition.label,
             "condition_confidence": condition.confidence,
+            "actual": record.primary_label, "predicted": condition.label,
+            "source": record.source, "visibility": record.visibility_level,
+            "origin": "synthetic" if record.synthetic else "real",
         }
         predictions.append(item)
         if record.contains_anomaly and condition.label in {"ok", "normal_surface", "structure_ok", "normal_water_condition"}:
             false_negatives.append(item)
+    metrics = classification_metrics(
+        [item["actual_condition"] for item in predictions],
+        [item["predicted_condition"] for item in predictions],
+        [item["condition_confidence"] for item in predictions],
+    )
     report = {
         "rows": len(records),
         "domain_accuracy": domain_correct / len(records),
@@ -57,6 +66,13 @@ def main() -> None:
         "per_domain_condition_accuracy": {
             domain: values["condition_correct"] / values["rows"] for domain, values in sorted(by_domain.items())
         },
+        "macro_f1": metrics["macro_f1"],
+        "balanced_accuracy": metrics["balanced_accuracy"],
+        "expected_calibration_error": metrics["expected_calibration_error"],
+        "confidence_thresholds": metrics["confidence_thresholds"],
+        "by_source": breakdown(predictions, "source"),
+        "by_visibility": breakdown(predictions, "visibility"),
+        "by_real_or_synthetic": breakdown(predictions, "origin"),
         "sample_predictions": predictions[:20],
         "false_negatives_for_manual_review": false_negatives,
         "limitations": [

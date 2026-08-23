@@ -1,2 +1,2 @@
-sample_id,file_path,source,license,split,inspection_domain,primary_label,secondary_labels,contains_anomaly,condition_status,risk_level,weak_point_present,visibility_level,confidence_label,synthetic,notes
-OS-000001,images/OS-000001.jpg,example_source,review_required,train,contamination,marine_debris,plastic_waste,true,needs_review,high,false,moderate,high,false,Schema example only; no image is distributed
+sample_id,file_path,source,license,split,inspection_domain,primary_label,secondary_labels,contains_anomaly,condition_status,risk_level,weak_point_present,visibility_level,confidence_label,synthetic,mission_or_video_id,notes
+OS-000001,images/OS-000001.jpg,example_source,review_required,train,contamination,marine_debris,,true,needs_review,high,false,moderate,high,false,example-mission,Schema example only; no image is distributed

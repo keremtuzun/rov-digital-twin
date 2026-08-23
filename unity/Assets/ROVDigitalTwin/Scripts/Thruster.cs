@@ -7,11 +7,12 @@ namespace ROVDigitalTwin
     {
         [Min(0.1f)] public float MaxForceNewtons = 50f;
         [Range(-1f, 1f)] public float Command;
+        [Range(0f, 1f)] public float Efficiency = 1f;
         public bool DrawDebugForce = true;
 
         private Rigidbody body;
 
-        public float AppliedForceNewtons => Command * MaxForceNewtons;
+        public float AppliedForceNewtons => Command * MaxForceNewtons * Efficiency;
 
         public void Initialize(Rigidbody targetBody) => body = targetBody;
 

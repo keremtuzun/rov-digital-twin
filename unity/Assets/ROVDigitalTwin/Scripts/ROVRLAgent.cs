@@ -8,6 +8,8 @@ namespace ROVDigitalTwin
     [RequireComponent(typeof(Rigidbody))]
     public class ROVRLAgent : Agent
     {
+        public const int ObservationSize = 39;
+        public const int ActionSize = 8;
         public ROVVehicle Vehicle;
         public DutyManager DutyManager;
         public ImuSensor Imu;
@@ -79,12 +81,14 @@ namespace ROVDigitalTwin
             if (error <= duty.SuccessRadiusMeters && duty.Duty != DutyType.PipelineTracking)
             {
                 AddReward(1f);
+                Vehicle.StopThrusters();
                 EndEpisode();
             }
             else if (error > duty.MaxDeviationMeters * 4f || !Vehicle.IsInsideSafeVolume ||
                      DutyManager.TimedOut || Vehicle.BatteryLevel01 <= 0.02f)
             {
                 AddReward(-1f);
+                Vehicle.StopThrusters();
                 EndEpisode();
             }
         }

@@ -132,6 +132,34 @@ class DatasetTests(unittest.TestCase):
             self.assertEqual(set(report["split_distribution"]), {"train", "val", "test"})
             self.assertEqual(set(report["domain_distribution"]), {"structure", "contamination"})
 
+    def test_mission_groups_never_cross_image_splits(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            labels = root / "labels.csv"
+            fields = sorted(REQUIRED_COLUMNS)
+            rows = []
+            for mission in range(10):
+                for frame in range(2):
+                    rows.append({
+                        "sample_id": f"M{mission}-F{frame}", "file_path": f"missing/{mission}-{frame}.jpg",
+                        "source": "fixture", "license": "test-only", "split": "",
+                        "inspection_domain": "structure", "primary_label": "possible_crack",
+                        "secondary_labels": "", "contains_anomaly": "true", "condition_status": "needs_review",
+                        "risk_level": "high", "weak_point_present": "false", "visibility_level": "moderate",
+                        "confidence_label": "high", "synthetic": "false",
+                        "mission_or_video_id": f"mission-{mission}", "notes": "group test",
+                    })
+            with labels.open("w", newline="", encoding="utf-8") as handle:
+                writer = csv.DictWriter(handle, fieldnames=fields)
+                writer.writeheader()
+                writer.writerows(rows)
+            split = stratified_split(read_labels(labels), seed=3)
+            mission_splits = {}
+            for record in split:
+                mission_splits.setdefault(record.mission_or_video_id, set()).add(record.split)
+            self.assertTrue(all(len(values) == 1 for values in mission_splits.values()))
+            self.assertEqual({next(iter(values)) for values in mission_splits.values()}, {"train", "val", "test"})
+
 
 class PerceptionServiceTests(unittest.TestCase):
     def test_image_in_json_out(self):

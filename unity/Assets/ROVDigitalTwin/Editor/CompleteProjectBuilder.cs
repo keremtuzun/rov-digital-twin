@@ -135,6 +135,7 @@ namespace ROVDigitalTwin.Editor
 
             ROVVehicle vehicle = rov.AddComponent<ROVVehicle>();
             vehicle.Thrusters = thrusters;
+            rov.AddComponent<SimulatedPowerSensor>();
             Hydrodynamics6Dof hydrodynamics = rov.AddComponent<Hydrodynamics6Dof>();
             hydrodynamics.CurrentField = current;
             rov.AddComponent<ImuSensor>();
@@ -157,8 +158,8 @@ namespace ROVDigitalTwin.Editor
 
             BehaviorParameters behavior = rov.AddComponent<BehaviorParameters>();
             behavior.BehaviorName = "OceanSenseROV";
-            behavior.BrainParameters.VectorObservationSize = 39;
-            behavior.BrainParameters.ActionSpec = ActionSpec.MakeContinuous(8);
+            behavior.BrainParameters.VectorObservationSize = ROVRLAgent.ObservationSize;
+            behavior.BrainParameters.ActionSpec = ActionSpec.MakeContinuous(ROVRLAgent.ActionSize);
             DecisionRequester requester = rov.AddComponent<DecisionRequester>();
             requester.DecisionPeriod = 5;
             requester.TakeActionsBetweenDecisions = true;
@@ -181,6 +182,15 @@ namespace ROVDigitalTwin.Editor
             mission.Vehicle = vehicle; mission.Duties = duties; mission.Api = api;
             TelemetryUdpBridge bridge = rov.AddComponent<TelemetryUdpBridge>();
             bridge.Vehicle = vehicle; bridge.Duties = duties; bridge.Depth = depth; bridge.Dvl = dvl;
+            bridge.Power = rov.GetComponent<SimulatedPowerSensor>();
+            SyntheticCaptureController synthetic = rov.AddComponent<SyntheticCaptureController>();
+            synthetic.Capture = capture; synthetic.Target = duties.CurrentDuty.Target;
+            synthetic.Current = Object.FindFirstObjectByType<WaterCurrentField>();
+            synthetic.SceneLight = Object.FindFirstObjectByType<Light>();
+            mission.SyntheticCapture = synthetic;
+            FaultInjectionController faults = rov.AddComponent<FaultInjectionController>();
+            faults.Vehicle = vehicle; faults.Hydrodynamics = rov.GetComponent<Hydrodynamics6Dof>();
+            faults.Depth = depth; faults.Dvl = dvl; faults.Power = bridge.Power; faults.Telemetry = bridge;
             OceanSenseDashboard dashboard = operatorCamera.gameObject.AddComponent<OceanSenseDashboard>();
             dashboard.Vehicle = vehicle; dashboard.Duties = duties; dashboard.Depth = depth; dashboard.Dvl = dvl; dashboard.Api = api;
         }

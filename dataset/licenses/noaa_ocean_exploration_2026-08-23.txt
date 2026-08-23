@@ -1,0 +1,6 @@
+Source: https://oceanexplorer.noaa.gov/data/access/
+Accessed: 2026-08-23
+Scope: Ocean Exploration Video Portal video
+Official evidence text: “All video on the portal is in the public domain.”
+Operational condition: Preserve each selected asset's caption and credit; reject marked copyright exceptions.
+Asset checksum: not applicable — no asset downloaded

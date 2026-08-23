@@ -14,6 +14,7 @@ namespace ROVDigitalTwin
         public Vector3 AngularDrag = new Vector3(4f, 4f, 6f);
         public Vector3 AddedMass = new Vector3(5f, 8f, 10f);
         [Min(0f)] public float RestoringTorque = 15f;
+        [Min(0.1f)] public float ExternalDragMultiplier = 1f;
         public WaterCurrentField CurrentField;
         private Rigidbody body;
         private Vector3 previousLocalVelocity;
@@ -39,7 +40,7 @@ namespace ROVDigitalTwin
             Vector3 current = CurrentField != null ? CurrentField.Sample(transform.position, Time.time) : Vector3.zero;
             RelativeWaterVelocity = body.linearVelocity - current;
             Vector3 localVelocity = transform.InverseTransformDirection(RelativeWaterVelocity);
-            body.AddForce(transform.TransformDirection(QuadraticDrag(localVelocity, LinearDrag)) * SubmergedFraction);
+            body.AddForce(transform.TransformDirection(QuadraticDrag(localVelocity, LinearDrag)) * SubmergedFraction * ExternalDragMultiplier);
 
             Vector3 localAcceleration = (localVelocity - previousLocalVelocity) / Mathf.Max(Time.fixedDeltaTime, 0.0001f);
             body.AddForce(transform.TransformDirection(-Vector3.Scale(AddedMass, localAcceleration)) * SubmergedFraction);

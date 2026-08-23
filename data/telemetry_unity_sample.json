@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0.0",
+  "timestamp_s": 12.5,
+  "mission_id": "unity-contract-test",
+  "duty": "pipeline_tracking",
+  "depth_m": 7.25,
+  "depth_error_m": 0.15,
+  "speed_mps": 0.62,
+  "vertical_speed_mps": -0.02,
+  "roll_deg": 1.2,
+  "pitch_deg": -0.8,
+  "yaw_rate_dps": 2.1,
+  "current_a": 17.4,
+  "voltage_v": 47.1,
+  "thruster_cmd_mean": 0.43,
+  "thruster_response_ratio": 0.96,
+  "imu_depth_disagreement_m": 0.03,
+  "dvl_quality": 0.91,
+  "temperature_c": 22.5,
+  "battery_level": 0.84,
+  "position_m": [1.0, -7.25, 3.0],
+  "velocity_mps": [0.2, -0.02, 0.58],
+  "field_status": {
+    "current_a": "simulated",
+    "voltage_v": "simulated",
+    "thruster_response_ratio": "simulated"
+  }
+}

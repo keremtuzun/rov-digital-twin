@@ -11,16 +11,19 @@ from .schema import FEATURE_NAMES
 
 
 def _stratified_split(samples, test_ratio: float, seed: int):
-    by_label: dict[str, list] = {}
+    """Mission-group split prevents adjacent telemetry from leaking across partitions."""
+    by_mission: dict[str, list] = {}
     for sample in samples:
-        by_label.setdefault(sample.label, []).append(sample)
+        by_mission.setdefault(sample.mission_id, []).append(sample)
     rng = random.Random(seed)
-    train, test = [], []
-    for group in by_label.values():
-        rng.shuffle(group)
-        cut = max(1, int(len(group) * test_ratio))
-        test.extend(group[:cut])
-        train.extend(group[cut:])
+    missions = list(by_mission)
+    rng.shuffle(missions)
+    test_count = max(1, round(len(missions) * test_ratio))
+    test_missions = set(missions[:test_count])
+    train = [sample for sample in samples if sample.mission_id not in test_missions]
+    test = [sample for sample in samples if sample.mission_id in test_missions]
+    if not train or not test:
+        raise ValueError("at least two mission groups are required for leakage-safe splitting")
     rng.shuffle(train)
     rng.shuffle(test)
     return train, test
@@ -69,6 +72,9 @@ def train_from_csv(
             "label_distribution": dict(Counter(sample.label for sample in samples)),
             "final_train_loss": losses[-1],
             "seed": seed,
+            "split_strategy": "mission_group",
+            "train_missions": sorted({sample.mission_id for sample in train}),
+            "test_missions": sorted({sample.mission_id for sample in test}),
         }
     )
     model.save(model_path)

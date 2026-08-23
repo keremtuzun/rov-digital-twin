@@ -26,6 +26,7 @@ environment. They become normal editable Unity assets after the first successful
 - `2`: pipeline tracking
 - `3`: target waypoint
 - `C`: capture the inspection camera and call perception followed by decision
+- `G`: capture one domain-randomized synthetic frame plus a JSON sidecar of scene parameters
 - `R`: reset the ROV and duty
 - `Esc`: immediately command all simulated thrusters to zero
 
@@ -62,3 +63,7 @@ The behavior is `OceanSenseROV`, with 39 vector observations and 8 continuous th
 policy is claimed. The current project can be operated with the Agent heuristic and inspected in Play
 mode. Dataset approval, simulation validation and explicit operator authorization are required before
 training or sim-to-real work.
+
+`FaultInjectionController` provides explicit normal, thruster degradation, depth drift, buoyancy
+imbalance, added drag, low-battery, communication-loss, DVL-dropout and combined scenarios. Synthetic
+captures are marked synthetic and must never be placed in the real external test set.

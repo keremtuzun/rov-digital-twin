@@ -19,5 +19,12 @@ namespace ROVDigitalTwin.Tests
         {
             Assert.AreEqual(Vector3.zero, Hydrodynamics6Dof.QuadraticDrag(Vector3.zero, Vector3.one));
         }
+
+        [Test]
+        public void AgentContractSizesRemainStable()
+        {
+            Assert.AreEqual(39, ROVRLAgent.ObservationSize);
+            Assert.AreEqual(8, ROVRLAgent.ActionSize);
+        }
     }
 }

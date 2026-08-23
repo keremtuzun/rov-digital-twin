@@ -9,6 +9,7 @@ namespace ROVDigitalTwin
         [Min(0.1f)] public float MaxAltitudeMeters = 30f;
         [Min(0f)] public float VelocityNoise = 0.01f;
         public WaterCurrentField CurrentField;
+        [Range(0f, 1f)] public float QualityScale = 1f;
 
         private Rigidbody body;
 
@@ -26,7 +27,7 @@ namespace ROVDigitalTwin
             if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, MaxAltitudeMeters, SeafloorMask, QueryTriggerInteraction.Ignore))
             {
                 AltitudeMeters = hit.distance;
-                Quality = Mathf.Clamp01(1f - hit.distance / MaxAltitudeMeters * 0.35f);
+                Quality = Mathf.Clamp01(1f - hit.distance / MaxAltitudeMeters * 0.35f) * QualityScale;
             }
             else
             {

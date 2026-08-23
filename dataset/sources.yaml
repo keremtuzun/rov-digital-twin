@@ -1,0 +1,48 @@
+policy:
+  auto_approve_licenses: [Public Domain, CC0-1.0, CC-BY-4.0]
+  manual_review_licenses: [CC-BY-NC, CC-BY-ND, CC-BY-NC-ND, custom, unknown]
+  checked_at: 2026-08-23
+sources:
+  - name: NOAA Ocean Exploration Video Portal
+    source_url: https://oceanexplorer.noaa.gov/data/access/
+    asset_license: Public Domain
+    status: approved_source_asset_review_required
+    attribution: Preserve each portal asset caption and credit
+    notes: Portal states all portal video is public domain; reject individually marked copyrighted media.
+  - name: TrashCan 1.0
+    source_url: https://irvlab.cs.umn.edu/resources/trashcan
+    original_source_url: https://www.godac.jamstec.go.jp/jedi/e/index.html
+    asset_license: research-only / upstream terms unresolved
+    status: manual_review
+    attribution: University of Minnesota IRVLab and JAMSTEC J-EDI
+    notes: IRVLab resources page limits datasets to academic research; upstream J-EDI terms need review.
+  - name: SUIM
+    source_url: https://github.com/IRVLab/SUIM
+    asset_license: dataset permission not explicit
+    status: manual_review
+    attribution: SUIM authors
+    notes: Repository code license must not be treated as an image dataset license.
+  - name: FathomNet
+    source_url: https://www.fathomnet.org/terms
+    asset_license: per-asset CC0 / CC-BY / CC-BY-NC / CC-BY-NC-ND
+    status: per_asset_filter
+    attribution: Per asset contributor metadata
+    notes: Auto-approve only CC0 and CC-BY-4.0 assets; retain the exact per-image license.
+  - name: DeepFish
+    source_url: https://alzayats.github.io/DeepFish/
+    asset_license: not shown on project landing page
+    status: manual_review
+    attribution: DeepFish authors and source record
+    notes: Do not download until the Queensland data record provides an acceptable license.
+  - name: CoralNet
+    source_url: https://coralnet.ucsd.edu/pages/help/api/
+    asset_license: source-specific permissions
+    status: manual_review
+    attribution: Image owner and CoralNet source
+    notes: Public visibility is not by itself a reusable-data license; verify source ownership.
+  - name: Institution-owned ROV captures
+    source_url: internal://data-governance/rov-captures
+    asset_license: institution permission required
+    status: manual_review
+    attribution: Capturing institution, operator, mission and annotators
+    notes: Record marina/harbor permits, releases, calibration and expert annotation review.

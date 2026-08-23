@@ -51,6 +51,7 @@ class TelemetrySample:
     dvl_quality: float
     temperature_c: float
     label: str = WeakPoint.NOMINAL.value
+    schema_version: str = "1.0.0"
 
     def features(self) -> list[float]:
         return [float(getattr(self, name)) for name in FEATURE_NAMES]
@@ -64,4 +65,5 @@ class TelemetrySample:
         for name in ("timestamp_s", *FEATURE_NAMES):
             values[name] = float(values[name])
         values.setdefault("label", WeakPoint.NOMINAL.value)
+        values.setdefault("schema_version", "1.0.0")
         return cls(**values)

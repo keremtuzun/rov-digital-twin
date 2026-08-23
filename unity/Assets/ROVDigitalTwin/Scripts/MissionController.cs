@@ -7,6 +7,7 @@ namespace ROVDigitalTwin
         public ROVVehicle Vehicle;
         public DutyManager Duties;
         public OceanSenseApiClient Api;
+        public SyntheticCaptureController SyntheticCapture;
 
         private void Update()
         {
@@ -14,6 +15,7 @@ namespace ROVDigitalTwin
             if (Input.GetKeyDown(KeyCode.Alpha2)) Duties.CurrentDuty.Duty = DutyType.PipelineTracking;
             if (Input.GetKeyDown(KeyCode.Alpha3)) Duties.CurrentDuty.Duty = DutyType.TargetWaypoint;
             if (Input.GetKeyDown(KeyCode.C)) Api.AnalyzeCurrentView();
+            if (Input.GetKeyDown(KeyCode.G)) SyntheticCapture.CaptureRandomizedSample();
             if (Input.GetKeyDown(KeyCode.R))
             {
                 Vehicle.ResetToSpawn();

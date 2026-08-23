@@ -29,15 +29,22 @@ def main() -> None:
         "ROVVehicle.cs", "Thruster.cs", "Hydrodynamics6Dof.cs", "ImuSensor.cs", "DepthSensor.cs",
         "DvlSensor.cs", "ForwardSonarSensor.cs", "DutyManager.cs", "ROVRLAgent.cs",
         "OceanSenseApiClient.cs", "TelemetryUdpBridge.cs", "OceanSenseDashboard.cs",
+        "SimulatedPowerSensor.cs", "FaultInjectionController.cs", "SyntheticCaptureController.cs",
     }
     require(not (required - {path.name for path in scripts.glob("*.cs")}), "all runtime subsystems exist")
     agent = (scripts / "ROVRLAgent.cs").read_text(encoding="utf-8")
     builder = (UNITY / "Assets/ROVDigitalTwin/Editor/CompleteProjectBuilder.cs").read_text(encoding="utf-8")
-    require("ActionSpec.MakeContinuous(8)" in builder, "eight continuous thruster actions are configured")
-    require("VectorObservationSize = 39" in builder, "39 vector observations are configured")
+    require("ActionSize = 8" in agent and "MakeContinuous(ROVRLAgent.ActionSize)" in builder,
+            "eight continuous thruster actions are configured")
+    require("ObservationSize = 39" in agent and "VectorObservationSize = ROVRLAgent.ObservationSize" in builder,
+            "39 vector observations are configured")
     require("for (int index = 0; index < 16; index++)" in agent, "16-ray sonar enters observations")
     require("SaveAsPrefabAsset" in builder and "SaveScene" in builder, "scene and prefab generation is implemented")
     require("mlagents-learn" not in agent + builder, "runtime/editor code cannot start training")
+    telemetry = (scripts / "TelemetryUdpBridge.cs").read_text(encoding="utf-8")
+    schema = json.loads((ROOT / "config/telemetry_schema_v1.json").read_text(encoding="utf-8"))
+    for field in schema["required"]:
+        require(f'\\"{field}\\"' in telemetry, f"Unity publishes canonical field {field}")
     print("Unity static validation complete. Editor compilation and Play Mode checks remain required.")
 
 

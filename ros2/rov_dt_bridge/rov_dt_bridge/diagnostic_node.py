@@ -7,7 +7,7 @@ from std_msgs.msg import String
 
 from rov_dt.decision import SafetyDecisionAgent
 from rov_dt.model import SoftmaxWeakPointClassifier
-from rov_dt.schema import TelemetrySample
+from rov_dt.telemetry_contract import TelemetryContractError, telemetry_sample_from_json
 
 
 class DiagnosticNode(Node):
@@ -20,7 +20,11 @@ class DiagnosticNode(Node):
         self.create_subscription(String, "/rov/telemetry_json", self.on_telemetry, 10)
 
     def on_telemetry(self, message: String) -> None:
-        sample = TelemetrySample.from_dict(json.loads(message.data))
+        try:
+            sample = telemetry_sample_from_json(message.data)
+        except TelemetryContractError as exc:
+            self.get_logger().warning(f"Rejected invalid telemetry: {exc}")
+            return
         output = String()
         output.data = json.dumps(self.agent.decide(sample).to_dict())
         self.publisher.publish(output)

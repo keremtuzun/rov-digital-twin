@@ -19,6 +19,7 @@ namespace ROVDigitalTwin
         public Rigidbody Body => body;
         public float BatteryLevel01 => BatteryLevel;
         public float EnergyCommandSquared { get; private set; }
+        public float MeanAbsoluteCommand { get; private set; }
         public bool IsInsideSafeVolume =>
             transform.position.x >= SafeMinimum.x && transform.position.y >= SafeMinimum.y && transform.position.z >= SafeMinimum.z &&
             transform.position.x <= SafeMaximum.x && transform.position.y <= SafeMaximum.y && transform.position.z <= SafeMaximum.z;
@@ -39,6 +40,9 @@ namespace ROVDigitalTwin
             EnergyCommandSquared = 0f;
             foreach (Thruster thruster in Thrusters)
                 EnergyCommandSquared += thruster.Command * thruster.Command;
+            MeanAbsoluteCommand = 0f;
+            foreach (Thruster thruster in Thrusters)
+                MeanAbsoluteCommand += Mathf.Abs(thruster.Command) / Mathf.Max(1, Thrusters.Length);
             BatteryLevel = Mathf.Clamp01(BatteryLevel - EnergyCommandSquared * BatteryDrainPerNewtonSecond * Time.fixedDeltaTime);
         }
 
