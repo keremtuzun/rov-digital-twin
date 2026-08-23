@@ -56,6 +56,10 @@ ros2 run rov_dt_bridge unity_udp_bridge
 Commands must be JSON objects with an `intent` field. They are displayed/recorded only; this bridge
 does not translate network input into raw motor forces.
 
+The diagnostic model path is mandatory; the repository intentionally contains no default
+`models/weakpoint.json`. See `docs/integration_guide.md` for explicit model and disabled simulation-only
+intent-gateway commands.
+
 ## ML-Agents status
 
 The behavior is `OceanSenseROV`, with 39 vector observations and 8 continuous thruster actions.

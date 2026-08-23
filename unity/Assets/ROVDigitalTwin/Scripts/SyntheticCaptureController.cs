@@ -38,7 +38,7 @@ namespace ROVDigitalTwin
             RenderSettings.fogColor = Color.Lerp(new Color(0.01f, 0.12f, 0.18f), new Color(0.10f, 0.28f, 0.20f), UnityEngine.Random.value);
             SceneLight.intensity = UnityEngine.Random.Range(0.25f, 1.1f);
             SceneLight.color = Color.Lerp(new Color(0.35f, 0.65f, 1f), Color.white, UnityEngine.Random.value);
-            Current.BaseCurrent = UnityEngine.Random.insideUnitSphere * 0.45f;
+            Current.BaseCurrentMetersPerSecond = UnityEngine.Random.insideUnitSphere * 0.45f;
             float distance = UnityEngine.Random.Range(2f, 12f);
             Capture.SourceCamera.transform.position = Target.position - Target.forward * distance + UnityEngine.Random.insideUnitSphere * 1.5f;
             Capture.SourceCamera.transform.LookAt(Target);
@@ -49,7 +49,7 @@ namespace ROVDigitalTwin
                 sample_id = Path.GetFileNameWithoutExtension(path), captured_at_utc = DateTime.UtcNow.ToString("O"),
                 random_seed = Seed - 1, camera_distance_m = distance, fog_density = RenderSettings.fogDensity,
                 light_intensity = SceneLight.intensity, light_color = SceneLight.color,
-                fog_color = RenderSettings.fogColor, current_mps = Current.BaseCurrent,
+                fog_color = RenderSettings.fogColor, current_mps = Current.BaseCurrentMetersPerSecond,
             };
             File.WriteAllText(Path.ChangeExtension(path, ".json"), JsonUtility.ToJson(metadata, true));
         }

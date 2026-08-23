@@ -160,12 +160,15 @@ namespace ROVDigitalTwin.Editor
             behavior.BehaviorName = "OceanSenseROV";
             behavior.BrainParameters.VectorObservationSize = ROVRLAgent.ObservationSize;
             behavior.BrainParameters.ActionSpec = ActionSpec.MakeContinuous(ROVRLAgent.ActionSize);
-            DecisionRequester requester = rov.AddComponent<DecisionRequester>();
-            requester.DecisionPeriod = 5;
-            requester.TakeActionsBetweenDecisions = true;
+            // Add the concrete agent before DecisionRequester. DecisionRequester requires an
+            // Agent, and adding it first makes Unity silently attach an extra base Agent that
+            // emits empty observations and placeholder heuristic actions at runtime.
             ROVRLAgent agent = rov.AddComponent<ROVRLAgent>();
             agent.Vehicle = vehicle;
             agent.DutyManager = duties;
+            DecisionRequester requester = rov.AddComponent<DecisionRequester>();
+            requester.DecisionPeriod = 5;
+            requester.TakeActionsBetweenDecisions = true;
             return rov;
         }
 
@@ -185,8 +188,8 @@ namespace ROVDigitalTwin.Editor
             bridge.Power = rov.GetComponent<SimulatedPowerSensor>();
             SyntheticCaptureController synthetic = rov.AddComponent<SyntheticCaptureController>();
             synthetic.Capture = capture; synthetic.Target = duties.CurrentDuty.Target;
-            synthetic.Current = Object.FindFirstObjectByType<WaterCurrentField>();
-            synthetic.SceneLight = Object.FindFirstObjectByType<Light>();
+            synthetic.Current = Object.FindAnyObjectByType<WaterCurrentField>();
+            synthetic.SceneLight = Object.FindAnyObjectByType<Light>();
             mission.SyntheticCapture = synthetic;
             FaultInjectionController faults = rov.AddComponent<FaultInjectionController>();
             faults.Vehicle = vehicle; faults.Hydrodynamics = rov.GetComponent<Hydrodynamics6Dof>();

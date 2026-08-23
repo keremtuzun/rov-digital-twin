@@ -81,12 +81,45 @@ def telemetry_sample_from_payload(payload: dict[str, Any]) -> TelemetrySample:
     return TelemetrySample(**fields)
 
 
+def telemetry_envelope_from_payload(payload: dict[str, Any]) -> dict[str, Any]:
+    """Validate model fields while retaining research provenance and pose extensions."""
+    normalized = validate_telemetry_payload(payload)
+    envelope = dict(payload)
+    envelope.update(normalized)
+    field_status = envelope.get("field_status", {})
+    if not isinstance(field_status, dict):
+        raise TelemetryContractError("field_status must be an object")
+    allowed_status = {"simulated", "measured", "derived", "unavailable"}
+    if any(status not in allowed_status for status in field_status.values()):
+        raise TelemetryContractError("field_status contains an unsupported provenance value")
+    for vector_name in ("position_m", "velocity_mps"):
+        if vector_name in envelope:
+            vector = envelope[vector_name]
+            if not isinstance(vector, list) or len(vector) != 3:
+                raise TelemetryContractError(f"{vector_name} must contain three numbers")
+            envelope[vector_name] = [float(value) for value in vector]
+    if "battery_level" in envelope:
+        battery = float(envelope["battery_level"])
+        if not 0 <= battery <= 1:
+            raise TelemetryContractError("battery_level must be between 0 and 1")
+        envelope["battery_level"] = battery
+    return envelope
+
+
 def telemetry_sample_from_json(raw: str | bytes) -> TelemetrySample:
     try:
         payload = json.loads(raw)
     except (json.JSONDecodeError, UnicodeDecodeError) as exc:
         raise TelemetryContractError(f"invalid telemetry JSON: {exc}") from exc
     return telemetry_sample_from_payload(payload)
+
+
+def telemetry_envelope_from_json(raw: str | bytes) -> dict[str, Any]:
+    try:
+        payload = json.loads(raw)
+    except (json.JSONDecodeError, UnicodeDecodeError) as exc:
+        raise TelemetryContractError(f"invalid telemetry JSON: {exc}") from exc
+    return telemetry_envelope_from_payload(payload)
 
 
 def validate_high_level_intent(raw: str) -> dict[str, Any]:

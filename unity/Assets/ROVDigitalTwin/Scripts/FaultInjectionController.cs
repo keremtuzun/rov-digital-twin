@@ -13,6 +13,7 @@ namespace ROVDigitalTwin
         public DvlSensor Dvl;
         public SimulatedPowerSensor Power;
         public TelemetryUdpBridge Telemetry;
+        [Range(0f, 1f)] public float NominalBatteryLevel = 1f;
 
         public void ApplyFault(SimulatedFault fault)
         {
@@ -23,6 +24,7 @@ namespace ROVDigitalTwin
             Dvl.QualityScale = 1f;
             Power.ThrusterResponseRatio = 1f;
             Telemetry.PublishEnabled = true;
+            Vehicle.BatteryLevel = NominalBatteryLevel;
             foreach (Thruster thruster in Vehicle.Thrusters)
                 thruster.Efficiency = 1f;
             if (fault is SimulatedFault.ThrusterDegradation or SimulatedFault.MultipleFaults)
@@ -40,7 +42,10 @@ namespace ROVDigitalTwin
             if (fault == SimulatedFault.LowBattery)
                 Vehicle.BatteryLevel = 0.15f;
             if (fault == SimulatedFault.CommunicationLoss)
+            {
                 Telemetry.PublishEnabled = false;
+                Vehicle.StopThrusters();
+            }
             if (fault is SimulatedFault.DvlDropout or SimulatedFault.MultipleFaults)
                 Dvl.QualityScale = 0f;
         }

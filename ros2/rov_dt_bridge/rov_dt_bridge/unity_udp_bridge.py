@@ -11,7 +11,7 @@ from std_msgs.msg import String
 
 from rov_dt.telemetry_contract import (
     TelemetryContractError,
-    telemetry_sample_from_json,
+    telemetry_envelope_from_json,
     validate_high_level_intent,
 )
 
@@ -38,12 +38,12 @@ class UnityUdpBridge(Node):
         except BlockingIOError:
             return
         try:
-            sample = telemetry_sample_from_json(payload)
+            envelope = telemetry_envelope_from_json(payload)
         except TelemetryContractError as exc:
             self.get_logger().warning(f"Ignored invalid Unity telemetry: {exc}")
             return
         message = String()
-        message.data = json.dumps(sample.to_dict(), separators=(",", ":"), sort_keys=True)
+        message.data = json.dumps(envelope, separators=(",", ":"), sort_keys=True)
         self.publisher.publish(message)
 
     def forward_command(self, message: String) -> None:

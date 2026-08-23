@@ -56,6 +56,43 @@ behavior exposes eight continuous thruster actions but has no trained model assi
 
 ## ROS 2 flow
 
-Run `ros2 run rov_dt_bridge unity_udp_bridge` after building the package. Unity telemetry is published
+Install the repository Python package into the same Python environment visible to ROS before building;
+the bridge imports the packaged `rov_dt` contract and never hardcodes a checkout path:
+
+```bash
+python -m pip install -e .
+cd ros2
+colcon build --packages-select rov_dt_bridge
+source install/setup.bash
+ros2 run rov_dt_bridge unity_udp_bridge
+```
+
+Unity telemetry is published
 as JSON on `/rov/telemetry_json`. JSON sent to `/rov/high_level_command` must contain an `intent` key
 and is forwarded to Unity for supervision; it is not applied as raw thrust.
+
+The diagnostic node has no silent default checkpoint. Pass a real path explicitly:
+
+```bash
+ros2 run rov_dt_bridge diagnostic_node --ros-args -p model_path:=/absolute/path/to/weakpoint.json
+```
+
+For a local synthetic research smoke model only—not a real-field model—generate and train explicitly:
+
+```powershell
+rovdt generate --rows 1500 --output artifacts/diagnostic-smoke/telemetry.csv
+rovdt train --input artifacts/diagnostic-smoke/telemetry.csv `
+  --model artifacts/diagnostic-smoke/weakpoint.json `
+  --report artifacts/diagnostic-smoke/metrics.json --epochs 90
+```
+
+`/rov/diagnostic_decision` is deliberately not wired directly to `/rov/high_level_command`. The optional
+`intent_gateway` node defaults to `enabled=false` and refuses `simulation_only=false`. It can be enabled
+only for a supervised simulation session:
+
+```bash
+ros2 run rov_dt_bridge intent_gateway --ros-args -p enabled:=true -p simulation_only:=true
+```
+
+It maps known diagnostic actions to allowlisted high-level intents and rejects raw thruster, motor, PWM,
+force and voltage fields. It grants no authority over a physical vehicle.

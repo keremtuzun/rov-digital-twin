@@ -24,7 +24,7 @@ namespace ROVDigitalTwin
         {
             body = GetComponent<Rigidbody>();
             Vehicle ??= GetComponent<ROVVehicle>();
-            DutyManager ??= FindFirstObjectByType<DutyManager>();
+            DutyManager ??= FindAnyObjectByType<DutyManager>();
             Imu ??= GetComponent<ImuSensor>();
             Depth ??= GetComponent<DepthSensor>();
             Dvl ??= GetComponent<DvlSensor>();

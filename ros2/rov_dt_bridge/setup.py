@@ -20,6 +20,7 @@ setup(
         "console_scripts": [
             "diagnostic_node = rov_dt_bridge.diagnostic_node:main",
             "unity_udp_bridge = rov_dt_bridge.unity_udp_bridge:main",
+            "intent_gateway = rov_dt_bridge.intent_gateway_node:main",
         ]
     },
 )

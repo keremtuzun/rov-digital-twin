@@ -7,14 +7,16 @@ from std_msgs.msg import String
 
 from rov_dt.decision import SafetyDecisionAgent
 from rov_dt.model import SoftmaxWeakPointClassifier
+from rov_dt.ros_support import resolve_model_path
 from rov_dt.telemetry_contract import TelemetryContractError, telemetry_sample_from_json
 
 
 class DiagnosticNode(Node):
     def __init__(self):
         super().__init__("rov_diagnostic_agent")
-        self.declare_parameter("model_path", "models/weakpoint.json")
-        model = SoftmaxWeakPointClassifier.load(self.get_parameter("model_path").value)
+        self.declare_parameter("model_path", "")
+        model_path = resolve_model_path(str(self.get_parameter("model_path").value))
+        model = SoftmaxWeakPointClassifier.load(model_path)
         self.agent = SafetyDecisionAgent(model)
         self.publisher = self.create_publisher(String, "/rov/diagnostic_decision", 10)
         self.create_subscription(String, "/rov/telemetry_json", self.on_telemetry, 10)

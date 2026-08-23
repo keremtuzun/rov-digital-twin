@@ -1,5 +1,6 @@
 __pycache__/
 *.py[cod]
+*.egg-info/
 .venv/
 .pytest_cache/
 .coverage
@@ -8,6 +9,11 @@ Temp/
 Logs/
 UserSettings/
 Build/
+*.csproj
+*.sln
+.vsconfig
+unity/Assets/ML-Agents.meta
+unity/Assets/ML-Agents/
 results/
 models/*.json
 !models/.gitkeep

@@ -19,10 +19,10 @@ def require(condition: bool, message: str) -> None:
 def main() -> None:
     manifest = json.loads((UNITY / "Packages/manifest.json").read_text(encoding="utf-8"))
     dependencies = manifest["dependencies"]
-    require(dependencies.get("com.unity.ml-agents") == "4.0.0", "ML-Agents is pinned to 4.0.0")
+    require(dependencies.get("com.unity.ml-agents") == "4.1.0", "ML-Agents is pinned to 4.1.0")
     require("#v0.7.0" in dependencies.get("com.unity.robotics.ros-tcp-connector", ""), "ROS connector is pinned")
     version = (UNITY / "ProjectSettings/ProjectVersion.txt").read_text(encoding="utf-8")
-    require("6000.0" in version, "Unity 6 project version is declared")
+    require("6000.5" in version, "Unity 6.5 project version is declared")
 
     scripts = UNITY / "Assets/ROVDigitalTwin/Scripts"
     required = {

@@ -80,19 +80,7 @@ namespace ROVDigitalTwin
                 DutyType.PipelineTracking => "pipeline_tracking",
                 _ => "target_waypoint"
             };
-            return FormattableString.Invariant(
-                $"{{\"schema_version\":\"1.0.0\",\"timestamp_s\":{Time.realtimeSinceStartupAsDouble:F3}," +
-                $"\"mission_id\":\"{missionId}\",\"duty\":\"{duty}\",\"depth_m\":{Depth.DepthMeters:F4}," +
-                $"\"depth_error_m\":{Duties.CurrentDuty.TargetDepthMeters - Depth.DepthMeters:F4},\"speed_mps\":{v.magnitude:F4}," +
-                $"\"vertical_speed_mps\":{v.y:F4},\"roll_deg\":{roll:F3},\"pitch_deg\":{pitch:F3}," +
-                $"\"yaw_rate_dps\":{Vehicle.Body.angularVelocity.y * Mathf.Rad2Deg:F3},\"current_a\":{Power.CurrentA:F3}," +
-                $"\"voltage_v\":{Power.VoltageV:F3},\"thruster_cmd_mean\":{Vehicle.MeanAbsoluteCommand:F4}," +
-                $"\"thruster_response_ratio\":{Power.ThrusterResponseRatio:F4},\"imu_depth_disagreement_m\":{Mathf.Abs(Depth.DepthMeters - trueDepth):F4}," +
-                $"\"dvl_quality\":{Dvl.Quality:F4},\"temperature_c\":{Power.TemperatureC:F3}," +
-                $"\"battery_level\":{Vehicle.BatteryLevel01:F4},\"position_m\":[{p.x:F4},{p.y:F4},{p.z:F4}]," +
-                $"\"velocity_mps\":[{v.x:F4},{v.y:F4},{v.z:F4}],\"field_status\":{{" +
-                $"\"current_a\":\"simulated\",\"voltage_v\":\"simulated\",\"temperature_c\":\"simulated\"," +
-                $"\"thruster_response_ratio\":\"simulated\",\"imu_depth_disagreement_m\":\"derived\"}}}}");
+            return FormattableString.Invariant($"{{\"schema_version\":\"1.0.0\",\"timestamp_s\":{Time.realtimeSinceStartupAsDouble:F3},\"mission_id\":\"{missionId}\",\"duty\":\"{duty}\",\"depth_m\":{Depth.DepthMeters:F4},\"depth_error_m\":{Duties.CurrentDuty.TargetDepthMeters - Depth.DepthMeters:F4},\"speed_mps\":{v.magnitude:F4},\"vertical_speed_mps\":{v.y:F4},\"roll_deg\":{roll:F3},\"pitch_deg\":{pitch:F3},\"yaw_rate_dps\":{Vehicle.Body.angularVelocity.y * Mathf.Rad2Deg:F3},\"current_a\":{Power.CurrentA:F3},\"voltage_v\":{Power.VoltageV:F3},\"thruster_cmd_mean\":{Vehicle.MeanAbsoluteCommand:F4},\"thruster_response_ratio\":{Power.ThrusterResponseRatio:F4},\"imu_depth_disagreement_m\":{Mathf.Abs(Depth.DepthMeters - trueDepth):F4},\"dvl_quality\":{Dvl.Quality:F4},\"temperature_c\":{Power.TemperatureC:F3},\"battery_level\":{Vehicle.BatteryLevel01:F4},\"position_m\":[{p.x:F4},{p.y:F4},{p.z:F4}],\"velocity_mps\":[{v.x:F4},{v.y:F4},{v.z:F4}],\"field_status\":{{\"current_a\":\"simulated\",\"voltage_v\":\"simulated\",\"temperature_c\":\"simulated\",\"thruster_response_ratio\":\"simulated\",\"imu_depth_disagreement_m\":\"derived\"}}}}");
         }
 
         private void ReceiveLoop()
