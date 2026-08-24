@@ -1,9 +1,9 @@
 # OceanSense Unity digital twin
 
-The project includes `Assets/ROVDigitalTwin/Models/OceanSenseROV_Bootstrap.onnx`, an experimental
-25,000-step PPO export. It is deliberately not assigned to `Behavior Parameters`: episodic reward did
-not converge, so the artifact is for reproducibility and continued simulation training only. See
-`../docs/unity_training_operations.md` for exact results and real-vehicle promotion gates.
+The older `OceanSenseROV_Bootstrap.onnx` has been superseded by
+`OceanSenseROV_OpenSea_Experimental.onnx`, a hybrid waypoint-guidance plus bounded-residual PPO policy.
+It passed the documented frozen simulation evaluation but remains unapproved for real-vehicle
+actuation. See `../docs/unity_training_operations.md` for exact results and promotion gates.
 
 This is a complete Unity 6 project scaffold. It includes a procedural eight-thruster ROV, underwater
 scene, six-degree-of-freedom hydrodynamics, current, buoyancy, DVL, IMU, depth and forward-sonar
@@ -72,11 +72,11 @@ intent-gateway commands.
 
 ## ML-Agents status
 
-The behavior is `OceanSenseROV`, with 39 vector observations and 8 continuous thruster actions.
-`configs/rov_ppo.yaml` is prepared for future PPO training, but no training has been run and no ONNX
-policy is claimed. The current project can be operated with the Agent heuristic and inspected in Play
-mode. Dataset approval, simulation validation and explicit operator authorization are required before
-training or sim-to-real work.
+The behavior is `OceanSenseROV`, with 39 vector observations and 8 continuous thruster residuals.
+The generated scene assigns the experimental ONNX policy to `BehaviorParameters`; the deterministic
+guidance and independent anti-flip safety layers remain active underneath it. Training and frozen
+evaluation configs are under `../config/`. Real ocean operation still requires parameter identification,
+sensor calibration, fault testing, HIL, tank trials and supervised sea trials.
 
 `FaultInjectionController` provides explicit normal, thruster degradation, depth drift, buoyancy
 imbalance, added drag, low-battery, communication-loss, DVL-dropout and combined scenarios. Synthetic

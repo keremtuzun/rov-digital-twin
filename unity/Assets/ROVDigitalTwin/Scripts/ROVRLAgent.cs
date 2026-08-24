@@ -17,12 +17,16 @@ namespace ROVDigitalTwin
         public DvlSensor Dvl;
         public ForwardSonarSensor Sonar;
         public DomainRandomization DomainRandomization;
-        public float EnergyPenalty = 0.0005f;
-        public float AttitudePenalty = 0.0002f;
+        public Hydrodynamics6Dof Hydrodynamics;
+        public float EnergyPenalty = 0.00004f;
+        public float AttitudePenalty = 0.003f;
+        public float AngularRatePenalty = 0.0008f;
         public float ActionSmoothnessPenalty = 0.00015f;
+        [Range(0f, 1f)] public float PolicyResidualAuthority = 0.25f;
         private Rigidbody body;
         private float previousError;
         private readonly float[] previousActions = new float[ActionSize];
+        private readonly float[] guidanceCommands = new float[ActionSize];
 
         public override void Initialize()
         {
@@ -34,6 +38,7 @@ namespace ROVDigitalTwin
             Dvl ??= GetComponent<DvlSensor>();
             Sonar ??= GetComponent<ForwardSonarSensor>();
             DomainRandomization ??= GetComponent<DomainRandomization>();
+            Hydrodynamics ??= GetComponent<Hydrodynamics6Dof>();
         }
 
         public override void OnEpisodeBegin()
@@ -70,9 +75,18 @@ namespace ROVDigitalTwin
             int count = Mathf.Min(actions.ContinuousActions.Length, Vehicle.Thrusters.Length);
             float energy = 0f;
             float actionDelta = 0f;
+            float commandAuthority = Hydrodynamics != null
+                ? Hydrodynamics.PolicyCommandAuthority01 : 1f;
+            ComputeGuidanceCommands(guidanceCommands);
             for (int index = 0; index < count; index++)
             {
-                float command = Mathf.Clamp(actions.ContinuousActions[index], -1f, 1f);
+                // RL learns bounded residual corrections around a deterministic guidance
+                // controller. This keeps baseline navigation available if the policy is
+                // uncertain or encounters conditions outside its training distribution.
+                float residual = Mathf.Clamp(actions.ContinuousActions[index], -1f, 1f)
+                                 * PolicyResidualAuthority;
+                float command = Mathf.Clamp(guidanceCommands[index] + residual, -1f, 1f)
+                                * commandAuthority;
                 Vehicle.SetThrusterCommand(index, command);
                 energy += command * command;
                 float delta = command - previousActions[index];
@@ -87,21 +101,41 @@ namespace ROVDigitalTwin
             float alignment = duty.Duty == DutyType.PipelineTracking
                 ? Mathf.Max(0f, Vector3.Dot(transform.forward, DutyManager.PipelineDirection))
                 : 0f;
-            AddReward(0.02f * progress + 0.0025f * Mathf.Exp(-0.35f * error) + 0.0005f * alignment);
+            float tiltDegrees = Hydrodynamics != null ? Hydrodynamics.TiltDegrees
+                : Vector3.Angle(transform.up, Vector3.up);
+            float normalizedTilt = tiltDegrees / 90f;
+            float rollPitchRate = (body.angularVelocity
+                - Vector3.Project(body.angularVelocity, transform.up)).magnitude;
+            // Potential-based progress dominates the shaping reward. The old positive
+            // upright/proximity reward let a motionless but level vehicle outscore a
+            // vehicle that spent energy reaching a distant target.
+            AddReward(0.5f * progress + 0.002f * alignment);
             AddReward(-EnergyPenalty * energy - ActionSmoothnessPenalty * actionDelta
-                - AttitudePenalty * Vector3.Angle(transform.up, Vector3.up) / 180f - 0.0001f);
+                - AttitudePenalty * normalizedTilt * normalizedTilt
+                - AngularRatePenalty * rollPitchRate * rollPitchRate - 0.00025f);
+            Academy.Instance.StatsRecorder.Add("Safety/TiltDegrees", tiltDegrees);
+            Academy.Instance.StatsRecorder.Add("Safety/RollPitchRate", rollPitchRate);
+            Academy.Instance.StatsRecorder.Add("Control/ActionDeltaSquared", actionDelta);
+            Academy.Instance.StatsRecorder.Add("Control/PolicyCommandAuthority", commandAuthority);
+            Academy.Instance.StatsRecorder.Add("Task/TrackingErrorMeters", error);
 
             if (error <= duty.SuccessRadiusMeters && duty.Duty != DutyType.PipelineTracking)
             {
-                AddReward(1f);
+                AddReward(8f);
+                Academy.Instance.StatsRecorder.Add("Task/Success", 1f);
                 Vehicle.StopThrusters();
                 EndEpisode();
             }
-            else if (error > (duty.Duty == DutyType.PipelineTracking ? duty.MaxDeviationMeters * 4f : 25f) ||
+            else if (tiltDegrees > 72f ||
+                     error > (duty.Duty == DutyType.PipelineTracking ? duty.MaxDeviationMeters * 4f : 25f) ||
                      !Vehicle.IsInsideSafeVolume ||
                      DutyManager.TimedOut || Vehicle.BatteryLevel01 <= 0.02f)
             {
-                AddReward(-1f);
+                bool flipped = tiltDegrees > 72f;
+                AddReward(flipped ? -8f : -2f);
+                Academy.Instance.StatsRecorder.Add("Safety/FlipEvent", flipped ? 1f : 0f,
+                    StatAggregationMethod.Sum);
+                Academy.Instance.StatsRecorder.Add("Task/Success", 0f);
                 Vehicle.StopThrusters();
                 EndEpisode();
             }
@@ -113,6 +147,32 @@ namespace ROVDigitalTwin
             return duty.Duty == DutyType.PipelineTracking
                 ? DutyManager.PipelineCrossTrackError(transform.position)
                 : Vector3.Distance(transform.position, DutyManager.TargetPosition);
+        }
+
+        private void ComputeGuidanceCommands(float[] commands)
+        {
+            System.Array.Clear(commands, 0, commands.Length);
+            Vector3 targetLocal = transform.InverseTransformDirection(
+                DutyManager.TargetPosition - transform.position);
+            Vector3 velocityLocal = transform.InverseTransformDirection(body.linearVelocity);
+            float desiredSpeed = Mathf.Max(0.1f, DutyManager.CurrentDuty.DesiredSpeedMetersPerSecond);
+            Vector2 horizontalOffset = new Vector2(targetLocal.x, targetLocal.z);
+            Vector2 desiredHorizontalVelocity = Vector2.ClampMagnitude(
+                horizontalOffset * 0.18f, desiredSpeed);
+            float sway = Mathf.Clamp((desiredHorizontalVelocity.x - velocityLocal.x) * 0.55f, -0.55f, 0.55f);
+            float surge = Mathf.Clamp((desiredHorizontalVelocity.y - velocityLocal.z) * 0.55f, -0.55f, 0.55f);
+            float yaw = Mathf.Clamp(Mathf.Atan2(targetLocal.x, targetLocal.z) / Mathf.PI * 0.18f,
+                -0.18f, 0.18f);
+
+            // Symmetric X-frame mixer: front-left, front-right, rear-left, rear-right.
+            commands[0] = Mathf.Clamp(surge + sway + yaw, -0.75f, 0.75f);
+            commands[1] = Mathf.Clamp(surge - sway - yaw, -0.75f, 0.75f);
+            commands[2] = Mathf.Clamp(surge - sway + yaw, -0.75f, 0.75f);
+            commands[3] = Mathf.Clamp(surge + sway - yaw, -0.75f, 0.75f);
+
+            float heave = Mathf.Clamp(targetLocal.y * 0.18f - velocityLocal.y * 0.45f, -0.6f, 0.6f);
+            for (int index = 4; index < commands.Length; index++)
+                commands[index] = heave;
         }
 
         public override void Heuristic(in ActionBuffers actionsOut)

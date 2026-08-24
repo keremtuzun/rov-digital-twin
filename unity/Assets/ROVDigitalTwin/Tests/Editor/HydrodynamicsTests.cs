@@ -62,6 +62,30 @@ namespace ROVDigitalTwin.Tests
         }
 
         [Test]
+        public void AttitudeEnvelopeAndThrusterStopAreFailSafe()
+        {
+            GameObject root = new GameObject("stability-test");
+            try
+            {
+                root.AddComponent<Rigidbody>();
+                Hydrodynamics6Dof hydrodynamics = root.AddComponent<Hydrodynamics6Dof>();
+                Assert.IsTrue(hydrodynamics.EnableAttitudeSafetyEnvelope);
+                Assert.Less(hydrodynamics.SoftTiltLimitDegrees, hydrodynamics.HardTiltLimitDegrees);
+                Assert.Greater(hydrodynamics.SafetyRecoveryTorque, hydrodynamics.RestoringTorque);
+                Thruster thruster = root.AddComponent<Thruster>();
+                thruster.SetCommand(1f);
+                Assert.AreEqual(1f, thruster.RequestedCommand, 0.0001f);
+                thruster.StopImmediately();
+                Assert.AreEqual(0f, thruster.RequestedCommand, 0.0001f);
+                Assert.AreEqual(0f, thruster.Command, 0.0001f);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        [Test]
         public void FaultResetRestoresNominalStateDeterministically()
         {
             GameObject root = new GameObject("fault-test");

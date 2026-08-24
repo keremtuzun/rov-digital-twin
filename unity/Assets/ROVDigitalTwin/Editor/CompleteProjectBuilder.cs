@@ -4,6 +4,9 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Policies;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEditor.Build;
+using UnityEditor.Build.Reporting;
+using ModelAsset = Unity.InferenceEngine.ModelAsset;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -78,6 +81,7 @@ namespace ROVDigitalTwin.Editor
             GameObject target = CreatePrimitive("Mission Target", PrimitiveType.Sphere, new Vector3(8f, -7f, 9f), Vector3.one * 0.8f, yellow, null);
             Object.DestroyImmediate(target.GetComponent<Collider>());
             DutyManager duties = new GameObject("Duty Manager").AddComponent<DutyManager>();
+            duties.CurrentDuty.Duty = DutyType.TargetWaypoint;
             duties.CurrentDuty.Target = target.transform;
             duties.CurrentDuty.PipelineStart = pipelineStart.transform;
             duties.CurrentDuty.PipelineEnd = pipelineEnd.transform;
@@ -99,6 +103,29 @@ namespace ROVDigitalTwin.Editor
             AssetDatabase.SaveAssets();
             Selection.activeGameObject = rov;
             Debug.Log("OceanSense demo, procedural ROV prefab, sensors, dashboard, ML-Agents and bridges were generated.");
+        }
+
+        [MenuItem("OceanSense/Build Headless Training Player")]
+        public static void BuildHeadlessTrainingPlayer()
+        {
+            BuildCompleteDemo();
+            string outputDirectory = Path.GetFullPath(Path.Combine(Application.dataPath,
+                "../Build/OceanSenseTraining"));
+            Directory.CreateDirectory(outputDirectory);
+            string executable = Path.Combine(outputDirectory, "OceanSenseTraining.exe");
+            PlayerSettings.SetScriptingBackend(NamedBuildTarget.Standalone,
+                ScriptingImplementation.Mono2x);
+            var options = new BuildPlayerOptions
+            {
+                scenes = new[] { ScenePath },
+                locationPathName = executable,
+                target = BuildTarget.StandaloneWindows64,
+                options = BuildOptions.None
+            };
+            BuildReport report = BuildPipeline.BuildPlayer(options);
+            if (report.summary.result != BuildResult.Succeeded)
+                throw new BuildFailedException($"Training player build failed: {report.summary.result}");
+            Debug.Log($"OceanSense headless training player built at {executable}");
         }
 
         private static GameObject BuildRov(Material metal, Material yellow, WaterCurrentField current,
@@ -131,7 +158,13 @@ namespace ROVDigitalTwin.Editor
                 thrusterObject.transform.SetParent(rov.transform, false);
                 thrusterObject.transform.localPosition = positions[index];
                 thrusterObject.transform.localRotation = index < 4
-                    ? Quaternion.Euler(0f, index % 2 == 0 ? 45f : -45f, 0f)
+                    ? Quaternion.Euler(0f, index switch
+                    {
+                        0 => 45f,
+                        1 => -45f,
+                        2 => -45f,
+                        _ => 45f
+                    }, 0f)
                     : Quaternion.Euler(-90f, 0f, 0f);
                 GameObject visual = CreatePrimitive("Housing", PrimitiveType.Cylinder, Vector3.zero, new Vector3(0.35f, 0.35f, 0.35f), metal, thrusterObject.transform, true);
                 visual.transform.localRotation = Quaternion.Euler(90f, 0f, 0f);
@@ -173,6 +206,8 @@ namespace ROVDigitalTwin.Editor
             behavior.BehaviorName = "OceanSenseROV";
             behavior.BrainParameters.VectorObservationSize = ROVRLAgent.ObservationSize;
             behavior.BrainParameters.ActionSpec = ActionSpec.MakeContinuous(ROVRLAgent.ActionSize);
+            behavior.Model = AssetDatabase.LoadAssetAtPath<ModelAsset>(
+                Root + "/Models/OceanSenseROV_OpenSea_Experimental.onnx");
             // Add the concrete agent before DecisionRequester. DecisionRequester requires an
             // Agent, and adding it first makes Unity silently attach an extra base Agent that
             // emits empty observations and placeholder heuristic actions at runtime.

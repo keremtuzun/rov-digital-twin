@@ -14,9 +14,10 @@ licensed multi-domain underwater dataset -> validation/split -> domain classifie
 ```
 
 The repository does **not** claim a trained underwater image model: no license-reviewed image snapshot
-is committed. It does include a 25,000-step experimental Unity PPO bootstrap checkpoint and a trained
-synthetic-telemetry weak-point classifier. Neither is approved for real-vehicle control; their metrics,
-limitations, and promotion gates are documented and versioned with the artifacts.
+is committed. It includes a 250,081-step experimental hybrid PPO waypoint policy and a trained
+synthetic-telemetry weak-point classifier. The frozen open-sea simulation evaluation recorded success
+1.0 in all 24 reporting windows and no flip event across 59,919 steps. Neither model is approved for
+real-vehicle control; metrics, limitations and promotion gates are versioned with the artifacts.
 
 ## Unity digital twin quick start
 
@@ -28,8 +29,8 @@ staged training and the sim-to-real validation process.
 Research-prototype controls include a versioned Unity/ROS/Python telemetry contract, license-gated
 asset manifests, mission/video-safe splitting, cautious canonical labels, calibration/safety metrics,
 synthetic capture metadata and staged Unity/HIL acceptance. Start with `docs/gap_analysis.md` and
-`docs/dataset_acquisition_plan.md`. The committed RL checkpoint is intentionally bootstrap-only;
-approved image checkpoints remain absent.
+`docs/dataset_acquisition_plan.md` and `docs/rl_policy_model_card.md`. The committed RL checkpoint is
+simulation-validated but experimental; approved image checkpoints remain absent.
 
 ## OceanSense quick start
 

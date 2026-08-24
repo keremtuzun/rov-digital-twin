@@ -1,0 +1,40 @@
+{
+  "run_id": "oceansense_navigation_v3",
+  "status": "simulation_validated_experimental",
+  "deployment_approved": false,
+  "architecture": "deterministic waypoint guidance plus bounded PPO residual control",
+  "training": {
+    "total_steps": 250081,
+    "base_curriculum_steps": 150034,
+    "open_sea_finetune_steps": 100047,
+    "base_difficulty_range": [0.05, 0.35],
+    "finetune_difficulty_range": [0.55, 1.0],
+    "base_seed": 45,
+    "finetune_seed": 46
+  },
+  "frozen_evaluation": {
+    "seed": 202,
+    "difficulty_range": [0.7, 1.0],
+    "steps": 59919,
+    "parallel_environments": 4,
+    "summary_windows": 24,
+    "success_window_mean": 1.0,
+    "observed_flip_events": 0,
+    "mean_tilt_degrees": 13.347467382748922,
+    "maximum_summary_tilt_degrees": 14.352036476135254,
+    "mean_roll_pitch_rate_radians_per_second": 0.29808371017376584,
+    "mean_action_delta_squared": 0.0011585715134666923,
+    "mean_cumulative_reward": 12.311254660288492,
+    "mean_tracking_error_over_episode_meters": 5.478933016459147
+  },
+  "onnx": {
+    "path": "unity/Assets/ROVDigitalTwin/Models/OceanSenseROV_OpenSea_Experimental.onnx",
+    "sha256": "7f38b839903f01442b120ce7b6758ddabaa111433cad8bedeb810c5d86af0e12",
+    "bytes": 339891
+  },
+  "limitations": [
+    "The evaluation is simulation-only and does not prove flawless field performance.",
+    "Tracking error is averaged throughout each episode, not final waypoint error.",
+    "Real deployment requires parameter identification, HIL, tank, supervised sea trials, watchdogs, and operator approval."
+  ]
+}

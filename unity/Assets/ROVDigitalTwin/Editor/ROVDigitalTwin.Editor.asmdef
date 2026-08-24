@@ -1,7 +1,7 @@
 {
   "name": "ROVDigitalTwin.Editor",
   "rootNamespace": "ROVDigitalTwin.Editor",
-  "references": ["ROVDigitalTwin", "Unity.ML-Agents"],
+  "references": ["ROVDigitalTwin", "Unity.ML-Agents", "Unity.InferenceEngine"],
   "includePlatforms": ["Editor"],
   "autoReferenced": true
 }

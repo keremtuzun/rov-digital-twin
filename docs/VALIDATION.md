@@ -8,16 +8,15 @@
 - The test suite requires at least 0.82 accuracy on a held-out synthetic set.
 - Non-nominal decisions cannot enable autonomous execution.
 - Static Unity project validation checks package pins, the procedural builder, eight actions, 39
-  observations, every canonical telemetry field, sensor/bridge scripts, and the no-policy/no-training boundary.
+  observations, every canonical telemetry field and sensor/bridge scripts.
 - Unity editor tests verify that quadratic hydrodynamic drag is zero at rest and opposes motion.
 
 ## Current validation boundary
 
 The Python suite includes a small deterministic synthetic telemetry smoke-training test that writes
-only into a temporary directory. No image, detector, LLM or PPO training was run and no persistent
-checkpoint was produced. Unity Editor is not installed in the code-authoring environment, so scene
-generation, C# compilation, Play Mode behavior and Editor tests must be run on first open in Unity 6
-before simulator acceptance.
+only into a temporary directory. A Unity PPO policy was trained and is documented separately in
+`rl_policy_model_card.md`; no image, detector or LLM training was run. Unity 6 compilation, a headless
+player build and seven EditMode tests were completed for the current simulator source.
 
 Contract tests verify valid Unity JSON conversion, enum aliasing, missing-field errors and malformed
 JSON rejection. Governance tests verify license allowlisting, named approval and checksum gates. Split

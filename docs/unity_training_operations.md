@@ -2,12 +2,15 @@
 
 ## Current result
 
-The committed ONNX policy is an **experimental bootstrap checkpoint**, not an autonomous
-real-vehicle controller. A deterministic 25,000-step PPO run reduced policy loss from
-0.036704 to 0.026339 (28.2%) and value loss from 0.085941 to 0.050123 (41.7%). Mean
-episode reward remained variable (best reporting window -1.357, final -1.954), so the
-run is not considered converged. Exact metrics are in
-`artifacts/training/ppo_bootstrap_metrics.json`.
+The current ONNX policy is **simulation-validated experimental**, not an autonomous real-vehicle
+controller. It uses deterministic waypoint guidance plus a bounded PPO residual policy. Training ran
+for 250,081 steps: 150,034 curriculum steps followed by 100,047 open-sea fine-tuning steps.
+
+A frozen seed-202 evaluation at difficulty 0.7–1.0 ran for 59,919 steps in four parallel environments.
+All 24 reporting windows recorded mean success 1.0, with no observed flip event. Mean tilt was 13.35
+degrees and the maximum reporting-window mean was 14.35 degrees. Exact metrics are in
+`artifacts/training/open_sea_navigation_v3_metrics.json`; scope and limitations are in
+`docs/rl_policy_model_card.md`. The older bootstrap artifact remains only for traceability.
 
 ## Reproduce the trainer
 
@@ -20,14 +23,15 @@ python -m pip install .\ml-agents
 python -m pip install -r config\mlagents-requirements.txt
 ```
 
-Start with the mild curriculum while the Unity Editor is open on `OceanSenseDemo`:
+Start with the navigation curriculum while the Unity Editor or built training player is running:
 
 ```powershell
-mlagents-learn config\unity_ppo_bootstrap.yaml --run-id oceansense_ppo_bootstrap
+mlagents-learn config\unity_ppo_navigation_curriculum.yaml --run-id oceansense_navigation_v3
 ```
 
-Continue only after bootstrap reward is stable. Increase `difficulty` gradually toward
-1.0 and use `config/unity_ppo.yaml` for the robust stage. Keep a fixed evaluation seed
+Continue only after waypoint success and safety metrics are stable. Fine-tune with
+`config/unity_ppo_open_sea_finetune.yaml`, then freeze the model and evaluate with
+`config/unity_ppo_open_sea_evaluation.yaml`. Keep a fixed evaluation seed
 set that training never sees; compare success rate, collision rate, energy per metre,
 depth error, and action jerk rather than selecting a model from training loss alone.
 

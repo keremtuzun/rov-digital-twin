@@ -1,0 +1,38 @@
+behaviors:
+  OceanSenseROV:
+    trainer_type: ppo
+    hyperparameters:
+      batch_size: 1024
+      buffer_size: 10240
+      learning_rate: 1.0e-4
+      beta: 1.5e-3
+      epsilon: 0.15
+      lambd: 0.95
+      num_epoch: 3
+    network_settings:
+      normalize: true
+      hidden_units: 192
+      num_layers: 3
+    reward_signals:
+      extrinsic:
+        gamma: 0.995
+        strength: 1.0
+    max_steps: 100000
+    time_horizon: 96
+    summary_freq: 2500
+
+environment_parameters:
+  difficulty:
+    sampler_type: uniform
+    sampler_parameters:
+      min_value: 0.70
+      max_value: 1.00
+
+engine_settings:
+  width: 320
+  height: 180
+  quality_level: 0
+  time_scale: 25
+  target_frame_rate: -1
+  capture_frame_rate: 60
+  no_graphics: true

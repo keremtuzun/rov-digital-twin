@@ -69,6 +69,7 @@ namespace ROVDigitalTwin
             {
                 DutyManager.RandomTargetMinimum = Vector3.Lerp(new Vector3(-3f, -8f, -11f), new Vector3(-12f, -10f, -12f), difficulty);
                 DutyManager.RandomTargetMaximum = Vector3.Lerp(new Vector3(3f, -4f, -5f), new Vector3(12f, -3f, 12f), difficulty);
+                DutyManager.CurrentDuty.SuccessRadiusMeters = Mathf.Lerp(1.5f, 0.8f, difficulty);
             }
 
             if (imu != null) { imu.AccelerationNoise = Random.Range(0.008f, Mathf.Lerp(0.015f, 0.03f, difficulty)); imu.GyroNoise = Random.Range(0.001f, Mathf.Lerp(0.002f, 0.005f, difficulty)); }

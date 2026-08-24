@@ -61,7 +61,7 @@ namespace ROVDigitalTwin
         public void StopThrusters()
         {
             foreach (Thruster thruster in Thrusters)
-                thruster.SetCommand(0f);
+                thruster.StopImmediately();
         }
 
         public void ResetVehicle(Vector3 position, Quaternion rotation, bool recharge = true)
