@@ -26,6 +26,11 @@ namespace ROVDigitalTwin
             float stateOfChargeVoltage = NominalVoltage * Mathf.Lerp(0.84f, 1f, vehicle.BatteryLevel01);
             VoltageV = Mathf.Max(0f, stateOfChargeVoltage - CurrentA * InternalResistanceOhm);
             TemperatureC = AmbientTemperatureC + CurrentA * 0.18f;
+            foreach (Thruster thruster in vehicle.Thrusters)
+            {
+                thruster.SupplyVoltageV = VoltageV;
+                thruster.MotorTemperatureC = TemperatureC;
+            }
         }
     }
 }

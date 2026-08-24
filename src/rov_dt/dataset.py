@@ -8,7 +8,7 @@ from pathlib import Path
 from .schema import TelemetrySample, WeakPoint
 
 
-LABELS = tuple(item.value for item in WeakPoint)
+LABELS = tuple(item.value for item in WeakPoint if item is not WeakPoint.UNKNOWN)
 
 
 def _bounded(rng: random.Random, mean: float, sigma: float, low: float, high: float) -> float:

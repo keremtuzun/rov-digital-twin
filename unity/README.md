@@ -2,8 +2,10 @@
 
 The older `OceanSenseROV_Bootstrap.onnx` has been superseded by
 `OceanSenseROV_OpenSea_Experimental.onnx`, a hybrid waypoint-guidance plus bounded-residual PPO policy.
-It passed the documented frozen simulation evaluation but remains unapproved for real-vehicle
-actuation. See `../docs/unity_training_operations.md` for exact results and promotion gates.
+It passed a documented frozen evaluation on an earlier simulator revision. The reliability overhaul
+changed actuator and environment dynamics, so this checkpoint is retained only as a
+`legacy_dynamics_baseline` until it passes the new regression matrix. It remains unapproved for
+real-vehicle actuation. See `../docs/rl_policy_model_card.md` for the exact compatibility boundary.
 
 This is a complete Unity 6 project scaffold. It includes a procedural eight-thruster ROV, underwater
 scene, six-degree-of-freedom hydrodynamics, current, buoyancy, DVL, IMU, depth and forward-sonar
@@ -78,6 +80,8 @@ guidance and independent anti-flip safety layers remain active underneath it. Tr
 evaluation configs are under `../config/`. Real ocean operation still requires parameter identification,
 sensor calibration, fault testing, HIL, tank trials and supervised sea trials.
 
-`FaultInjectionController` provides explicit normal, thruster degradation, depth drift, buoyancy
-imbalance, added drag, low-battery, communication-loss, DVL-dropout and combined scenarios. Synthetic
-captures are marked synthetic and must never be placed in the real external test set.
+`FaultInjectionController` provides explicit normal, individual/paired thruster degradation, hard
+failure, saturation and lag, IMU bias/noise/spikes/clipping/dropout, depth bias/jump/stuck, DVL
+intermittency, sonar blindness/false returns, buoyancy loss, added drag/biofouling, low battery,
+communication impairment/outage and compound scenarios. Synthetic captures are marked synthetic and
+must never be placed in the real external test set.

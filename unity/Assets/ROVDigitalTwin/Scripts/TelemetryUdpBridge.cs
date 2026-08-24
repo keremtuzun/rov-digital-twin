@@ -4,6 +4,7 @@ using System.Net;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ROVDigitalTwin
@@ -23,6 +24,12 @@ namespace ROVDigitalTwin
         public int CommandPort = 15001;
         [Min(0.02f)] public float PublishIntervalSeconds = 0.1f;
         public bool PublishEnabled = true;
+        [Min(0f)] public float SimulatedLatencyMs;
+        [Min(0f)] public float SimulatedJitterMs;
+        [Range(0f, 1f)] public float PacketLossProbability;
+        [Range(0f, 1f)] public float PacketDuplicationProbability;
+        [Range(0f, 1f)] public float PacketReorderingProbability;
+        public bool CompleteOutage;
         public string LastHighLevelCommand { get; private set; } = "none";
 
         private UdpClient sender;
@@ -31,6 +38,13 @@ namespace ROVDigitalTwin
         private readonly ConcurrentQueue<string> commands = new ConcurrentQueue<string>();
         private float elapsed;
         private string missionId;
+        private readonly List<ScheduledPacket> outboundPackets = new List<ScheduledPacket>();
+
+        private sealed class ScheduledPacket
+        {
+            public byte[] Bytes;
+            public float SendAt;
+        }
 
         private void Start()
         {
@@ -55,17 +69,43 @@ namespace ROVDigitalTwin
         private void Update()
         {
             elapsed += Time.unscaledDeltaTime;
-            if (PublishEnabled && elapsed >= PublishIntervalSeconds)
+            if (PublishEnabled && !CompleteOutage && elapsed >= PublishIntervalSeconds)
             {
                 elapsed = 0f;
                 byte[] bytes = Encoding.UTF8.GetBytes(BuildTelemetryJson());
+                if (UnityEngine.Random.value >= PacketLossProbability)
+                {
+                    SchedulePacket(bytes);
+                    if (UnityEngine.Random.value < PacketDuplicationProbability)
+                        SchedulePacket(bytes);
+                }
+            }
+            for (int index = outboundPackets.Count - 1; index >= 0; index--)
+            {
+                if (outboundPackets[index].SendAt > Time.unscaledTime)
+                    continue;
+                byte[] bytes = outboundPackets[index].Bytes;
                 sender.Send(bytes, bytes.Length, RemoteHost, TelemetryPort);
+                outboundPackets.RemoveAt(index);
             }
             while (commands.TryDequeue(out string command))
             {
                 if (IsHighLevelIntent(command)) LastHighLevelCommand = command;
                 else Debug.LogWarning("Rejected UDP command that was not an allowlisted high-level intent.");
             }
+        }
+
+        private void SchedulePacket(byte[] bytes)
+        {
+            float jitter = UnityEngine.Random.Range(-SimulatedJitterMs, SimulatedJitterMs);
+            float reorder = UnityEngine.Random.value < PacketReorderingProbability
+                ? UnityEngine.Random.Range(0f, SimulatedLatencyMs + SimulatedJitterMs) : 0f;
+            outboundPackets.Add(new ScheduledPacket
+            {
+                Bytes = bytes,
+                SendAt = Time.unscaledTime + Mathf.Max(0f,
+                    SimulatedLatencyMs + jitter + reorder) / 1000f
+            });
         }
 
         private string BuildTelemetryJson()

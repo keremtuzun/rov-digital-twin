@@ -64,6 +64,15 @@ class DecisionAgent:
             safety_flags=flags,
             explanation=explanation,
             domain=domain,
+            versions={
+                "model_version": perception.model_version,
+                "model_hash": perception.model_hash,
+                "dataset_version": perception.dataset_version,
+                "calibration_version": perception.calibration_version,
+                "feature_transform_version": perception.feature_transform_version,
+                "simulator_profile": perception.simulator_profile,
+                "vehicle_profile": perception.vehicle_profile,
+            },
         )
 
     @staticmethod

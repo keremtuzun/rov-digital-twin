@@ -10,6 +10,7 @@ namespace ROVDigitalTwin
         public float FluidDensity = 1025f;
         public float DisplacedVolume = 0.02f;
         [Min(0.01f)] public float SubmersionDepth = 0.8f;
+        public Vector3 ViscousLinearDrag = new Vector3(2f, 3f, 4f);
         public Vector3 LinearDrag = new Vector3(18f, 22f, 28f);
         public Vector3 AngularDrag = new Vector3(4f, 4f, 6f);
         public Vector3 AddedMass = new Vector3(5f, 8f, 10f);
@@ -50,7 +51,10 @@ namespace ROVDigitalTwin
             Vector3 current = CurrentField != null ? CurrentField.Sample(transform.position, Time.time) : Vector3.zero;
             RelativeWaterVelocity = body.linearVelocity - current;
             Vector3 localVelocity = transform.InverseTransformDirection(RelativeWaterVelocity);
-            body.AddForce(transform.TransformDirection(QuadraticDrag(localVelocity, LinearDrag)) * SubmergedFraction * ExternalDragMultiplier);
+            Vector3 viscousDrag = -Vector3.Scale(ViscousLinearDrag, localVelocity);
+            Vector3 quadraticDrag = QuadraticDrag(localVelocity, LinearDrag);
+            body.AddForce(transform.TransformDirection(viscousDrag + quadraticDrag)
+                * SubmergedFraction * ExternalDragMultiplier);
 
             Vector3 localAcceleration = (localVelocity - previousLocalVelocity) / Mathf.Max(Time.fixedDeltaTime, 0.0001f);
             body.AddForce(transform.TransformDirection(-Vector3.Scale(AddedMass, localAcceleration)) * SubmergedFraction);

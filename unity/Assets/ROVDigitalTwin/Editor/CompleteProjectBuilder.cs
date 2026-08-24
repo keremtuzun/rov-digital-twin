@@ -175,6 +175,7 @@ namespace ROVDigitalTwin.Editor
             ROVVehicle vehicle = rov.AddComponent<ROVVehicle>();
             vehicle.Thrusters = thrusters;
             rov.AddComponent<SimulatedPowerSensor>();
+            rov.AddComponent<VehicleProfileLoader>();
             Hydrodynamics6Dof hydrodynamics = rov.AddComponent<Hydrodynamics6Dof>();
             hydrodynamics.CurrentField = current;
             DomainRandomization randomization = rov.AddComponent<DomainRandomization>();
@@ -244,7 +245,9 @@ namespace ROVDigitalTwin.Editor
             mission.SyntheticCapture = synthetic;
             FaultInjectionController faults = rov.AddComponent<FaultInjectionController>();
             faults.Vehicle = vehicle; faults.Hydrodynamics = rov.GetComponent<Hydrodynamics6Dof>();
-            faults.Depth = depth; faults.Dvl = dvl; faults.Power = bridge.Power; faults.Telemetry = bridge;
+            faults.Depth = depth; faults.Imu = rov.GetComponent<ImuSensor>(); faults.Dvl = dvl;
+            faults.Sonar = rov.GetComponent<ForwardSonarSensor>();
+            faults.Power = bridge.Power; faults.Telemetry = bridge;
             OceanSenseDashboard dashboard = operatorCamera.gameObject.AddComponent<OceanSenseDashboard>();
             dashboard.Vehicle = vehicle; dashboard.Duties = duties; dashboard.Depth = depth; dashboard.Dvl = dvl; dashboard.Api = api;
             dashboard.Environment = Object.FindAnyObjectByType<UnderwaterEnvironment>();

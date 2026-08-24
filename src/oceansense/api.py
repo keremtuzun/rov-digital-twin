@@ -46,6 +46,7 @@ class ClassificationBody(BaseModel):
     label: str
     confidence: float = Field(ge=0, le=1)
     top_k: list[dict[str, float | str]] = Field(default_factory=list)
+    uncertainty: dict[str, float | bool] = Field(default_factory=dict)
 
 
 class InspectionDomainBody(BaseModel):
@@ -88,6 +89,12 @@ class PerceptionOutputBody(BaseModel):
     anomaly: AnomalyBody | None = None
     detections: list[DetectionBody] = Field(default_factory=list)
     model_version: str = "perception_v1"
+    model_hash: str = "unknown"
+    dataset_version: str = "unversioned"
+    calibration_version: str = "uncalibrated"
+    feature_transform_version: str = "efficientnet_b0_default_v1"
+    simulator_profile: str = "not_applicable"
+    vehicle_profile: str = "unknown"
 
 
 class DecisionBody(BaseModel):
@@ -169,6 +176,14 @@ def create_app(perception_service: PerceptionService | None = None, decision_age
                 model_version=source.model_version if source else body.model_version,
                 inspection_domain=InspectionDomain(**domain_body.model_dump()),
                 condition_assessment=ConditionAssessment(**condition_body.model_dump()) if condition_body else None,
+                model_hash=source.model_hash if source else "unknown",
+                dataset_version=source.dataset_version if source else "unversioned",
+                calibration_version=source.calibration_version if source else "uncalibrated",
+                feature_transform_version=(
+                    source.feature_transform_version if source else "efficientnet_b0_default_v1"
+                ),
+                simulator_profile=source.simulator_profile if source else "not_applicable",
+                vehicle_profile=source.vehicle_profile if source else "unknown",
             )
             return decision_agent.decide(result, MissionContext(**body.mission_context.model_dump())).to_dict()
         except ValueError as exc:

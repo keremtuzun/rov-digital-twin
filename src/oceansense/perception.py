@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Protocol
@@ -42,6 +43,9 @@ class FixtureClassifier:
     label: str = "unknown"
     confidence: float = 0.0
     version: str = "fixture_v1"
+    model_hash: str = "fixture"
+    dataset_version: str = "fixture"
+    calibration_version: str = "uncalibrated"
 
     def classify(self, image_path: Path) -> Classification:
         if not image_path.is_file():
@@ -71,6 +75,7 @@ class TorchvisionEfficientNetClassifier:
         except ImportError as exc:
             raise RuntimeError("Install the 'vision' optional dependencies for model inference") from exc
         payload = torch.load(Path(checkpoint), map_location=device, weights_only=False)
+        self.model_hash = hashlib.sha256(Path(checkpoint).read_bytes()).hexdigest()
         self.labels = list(payload["labels"])
         self.task = str(payload.get("task", "condition"))
         if type(self) is TorchvisionEfficientNetClassifier and self.task == "domain":
@@ -83,6 +88,9 @@ class TorchvisionEfficientNetClassifier:
         model.eval().to(device)
         self.model, self.device, self.torch = model, device, torch
         self.version = str(payload.get("model_version", "efficientnet_b0_v1"))
+        metadata = payload.get("metadata", {})
+        self.dataset_version = str(metadata.get("data_manifest_sha256") or "unversioned")
+        self.calibration_version = str(metadata.get("calibration_version") or "uncalibrated")
 
     def _predict_distribution(self, image_path: Path):
         from PIL import Image
@@ -95,6 +103,8 @@ class TorchvisionEfficientNetClassifier:
             return self.model(tensor).softmax(dim=1)[0]
 
     def classify(self, image_path: Path) -> Classification:
+        from .vision_uncertainty import image_quality_score, vision_uncertainty
+
         probabilities = self._predict_distribution(image_path)
         confidence, index = probabilities.max(dim=0)
         top_values, top_indices = probabilities.topk(min(3, len(self.labels)))
@@ -102,7 +112,11 @@ class TorchvisionEfficientNetClassifier:
             {"label": self.labels[int(item_index)], "confidence": float(item_confidence)}
             for item_confidence, item_index in zip(top_values, top_indices)
         ]
-        return Classification(self.labels[int(index)], float(confidence), top_k)
+        quality = image_quality_score(image_path)
+        uncertainty = vision_uncertainty(probabilities.tolist(), quality["quality"])
+        uncertainty.update(quality)
+        label = "unknown" if uncertainty["unknown"] else self.labels[int(index)]
+        return Classification(label, float(confidence), top_k, uncertainty)
 
 
 class TorchvisionDomainClassifier(TorchvisionEfficientNetClassifier):
@@ -165,7 +179,12 @@ class PerceptionService:
         classification = self.classifier.classify(path)
         # Context may lower confidence, but must never invent a new observation.
         if context.visibility_level == "poor" and classification.label != "low_visibility":
-            classification = Classification(classification.label, classification.confidence * 0.8)
+            classification = Classification(
+                classification.label,
+                classification.confidence * 0.8,
+                classification.top_k,
+                classification.uncertainty,
+            )
         detections = self.detector.detect(path) if self.detector else []
         return PerceptionResult(
             frame_id=frame_id,
@@ -175,6 +194,9 @@ class PerceptionService:
             model_version=f"domain:{getattr(self.domain_classifier, 'version', 'unavailable')};condition:{self.classifier.version}",
             inspection_domain=domain,
             condition_assessment=assess_condition(domain, classification),
+            model_hash=getattr(self.classifier, "model_hash", "unknown"),
+            dataset_version=getattr(self.classifier, "dataset_version", "unversioned"),
+            calibration_version=getattr(self.classifier, "calibration_version", "uncalibrated"),
         )
 
 

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://oceansense.local/schemas/rov-telemetry-2.0.0.json",
+  "title": "OceanSense canonical ROV telemetry envelope",
+  "type": "object",
+  "required": ["schema_version", "timestamp_s", "mission_id", "vehicle_id", "environment_id", "data_source", "measurements", "measurement_mask", "sensor_provenance", "calibration_version"],
+  "properties": {
+    "schema_version": {"const": "2.0.0"},
+    "timestamp_s": {"type": "number", "minimum": 0},
+    "mission_id": {"type": "string", "minLength": 1},
+    "vehicle_id": {"type": "string", "minLength": 1},
+    "environment_id": {"type": "string", "minLength": 1},
+    "data_source": {"enum": ["simulated", "pool", "lake", "sheltered_water", "open_sea"]},
+    "ground_truth_fault_label": {"type": ["string", "null"]},
+    "calibration_version": {"type": "string", "minLength": 1},
+    "measurements": {"type": "object", "additionalProperties": {"type": ["number", "string", "boolean", "array", "null"]}},
+    "measurement_mask": {"type": "object", "additionalProperties": {"type": "boolean"}},
+    "sensor_provenance": {"type": "object", "additionalProperties": {"type": "string"}},
+    "metadata": {"type": "object"}
+  },
+  "additionalProperties": false
+}

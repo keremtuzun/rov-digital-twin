@@ -11,6 +11,11 @@ namespace ROVDigitalTwin
         public UnderwaterEnvironment Environment;
         [Min(0f)] public float NoiseStandardDeviationMeters = 0.01f;
         [Min(0.01f)] public float SamplePeriodSeconds = 0.1f;
+        [Range(0f, 1f)] public float DropoutProbability;
+        [Range(0f, 1f)] public float FalseReturnProbability;
+        [Range(0f, 1f)] public float BlindFraction;
+        [Range(0.1f, 1f)] public float RangeClipRatio = 1f;
+        [Min(1f)] public float ScatteringNoiseMultiplier = 1f;
 
         public float[] Distances { get; private set; }
         private float nextSampleTime;
@@ -30,16 +35,25 @@ namespace ROVDigitalTwin
                 Distances = new float[RayCount];
             for (int index = 0; index < RayCount; index++)
             {
+                if (Random.value < DropoutProbability || index < Mathf.RoundToInt(RayCount * BlindFraction))
+                {
+                    Distances[index] = MaxRangeMeters;
+                    continue;
+                }
                 float t = RayCount == 1 ? 0.5f : index / (float)(RayCount - 1);
                 float yaw = Mathf.Lerp(-HorizontalFieldOfView * 0.5f, HorizontalFieldOfView * 0.5f, t);
                 Vector3 direction = Quaternion.AngleAxis(yaw, transform.up) * transform.forward;
-                float distance = Physics.Raycast(transform.position, direction, out RaycastHit hit, MaxRangeMeters, DetectionMask, QueryTriggerInteraction.Ignore)
+                float effectiveRange = MaxRangeMeters * RangeClipRatio;
+                float distance = Physics.Raycast(transform.position, direction, out RaycastHit hit, effectiveRange, DetectionMask, QueryTriggerInteraction.Ignore)
                     ? hit.distance
-                    : MaxRangeMeters;
+                    : effectiveRange;
+                if (Random.value < FalseReturnProbability)
+                    distance = Random.Range(0.2f, effectiveRange);
                 float environmentalNoise = Environment != null
                     ? 1f + Environment.TurbidityNtu * 0.08f + Environment.Contamination01 * 0.5f : 1f;
                 Distances[index] = Mathf.Clamp(distance
-                    + SensorNoise.Gaussian(NoiseStandardDeviationMeters * environmentalNoise), 0f, MaxRangeMeters);
+                    + SensorNoise.Gaussian(NoiseStandardDeviationMeters * environmentalNoise
+                        * ScatteringNoiseMultiplier), 0f, MaxRangeMeters);
             }
         }
 

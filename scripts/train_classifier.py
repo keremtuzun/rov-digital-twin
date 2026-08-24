@@ -7,6 +7,7 @@ import random
 from pathlib import Path
 
 from oceansense.evaluation import classification_metrics
+from oceansense.underwater_augmentation import UnderwaterAugmentation
 from oceansense.schemas import CONDITION_LABELS, DOMAIN_LABELS
 
 
@@ -28,7 +29,7 @@ def main() -> None:
         import torch
         from torch import nn
         from torch.utils.data import DataLoader, WeightedRandomSampler
-        from torchvision import datasets
+        from torchvision import datasets, transforms
         from torchvision.models import EfficientNet_B0_Weights, efficientnet_b0
     except ImportError as exc:
         raise SystemExit("Install with: pip install -e '.[vision]'") from exc
@@ -38,10 +39,13 @@ def main() -> None:
     torch.use_deterministic_algorithms(True, warn_only=True)
     root = Path(args.data)
     weights = EfficientNet_B0_Weights.DEFAULT if args.weights == "imagenet" else None
-    transform = EfficientNet_B0_Weights.DEFAULT.transforms()
-    train_data = datasets.ImageFolder(root / "train", transform=transform)
-    val_data = datasets.ImageFolder(root / "val", transform=transform)
-    test_data = datasets.ImageFolder(root / "test", transform=transform)
+    evaluation_transform = EfficientNet_B0_Weights.DEFAULT.transforms()
+    training_transform = transforms.Compose(
+        [UnderwaterAugmentation(args.seed), evaluation_transform]
+    )
+    train_data = datasets.ImageFolder(root / "train", transform=training_transform)
+    val_data = datasets.ImageFolder(root / "val", transform=evaluation_transform)
+    test_data = datasets.ImageFolder(root / "test", transform=evaluation_transform)
     if train_data.classes != val_data.classes or train_data.classes != test_data.classes:
         raise ValueError("train/val/test class directories must match")
     allowed = DOMAIN_LABELS if args.task == "domain" else CONDITION_LABELS
@@ -125,7 +129,8 @@ def main() -> None:
     ) or (item["actual"] == "unknown" and item["predicted"] != "unknown" and item["confidence"] >= 0.8)]
     manifest_hash = hashlib.sha256(Path(args.data_manifest).read_bytes()).hexdigest() if args.data_manifest else None
     config = {"task": args.task, "epochs": args.epochs, "batch_size": args.batch_size, "seed": args.seed,
-              "class_balance": args.class_balance, "weights": args.weights}
+              "class_balance": args.class_balance, "weights": args.weights,
+              "augmentation": UnderwaterAugmentation.version}
     config_hash = hashlib.sha256(json.dumps(config, sort_keys=True).encode()).hexdigest()
     report = {
         "model": "EfficientNet-B0", "task": args.task, "best_val_accuracy": best_accuracy,

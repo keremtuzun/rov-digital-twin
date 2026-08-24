@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace ROVDigitalTwin
 {
@@ -12,9 +13,15 @@ namespace ROVDigitalTwin
         public UnderwaterEnvironment Environment;
         [Range(0f, 1f)] public float QualityScale = 1f;
         [Min(0.01f)] public float SamplePeriodSeconds = 0.05f;
+        public Vector3 VelocityBias;
+        [Range(0f, 1f)] public float DropoutProbability;
+        [Range(0f, 1f)] public float IntermittentDropoutProbability;
+        [Min(0f)] public float DelaySeconds;
 
         private Rigidbody body;
         private float nextSampleTime;
+        private readonly Queue<DvlFrame> delayedFrames = new Queue<DvlFrame>();
+        private struct DvlFrame { public float Time; public Vector3 Velocity; public float Altitude; public float Quality; }
 
         public Vector3 RelativeVelocityLocal { get; private set; }
         public float AltitudeMeters { get; private set; }
@@ -33,18 +40,35 @@ namespace ROVDigitalTwin
                 return;
             nextSampleTime = Time.time + SamplePeriodSeconds;
             Vector3 waterVelocity = CurrentField != null ? CurrentField.Sample(transform.position, Time.time) : Vector3.zero;
-            RelativeVelocityLocal = transform.InverseTransformDirection(body.linearVelocity - waterVelocity) + SensorNoise.GaussianVector(VelocityNoise);
+            Vector3 measuredVelocity = transform.InverseTransformDirection(body.linearVelocity - waterVelocity)
+                                       + VelocityBias + SensorNoise.GaussianVector(VelocityNoise);
+            float measuredAltitude;
+            float measuredQuality;
             if (Physics.Raycast(transform.position, Vector3.down, out RaycastHit hit, MaxAltitudeMeters, SeafloorMask, QueryTriggerInteraction.Ignore))
             {
-                AltitudeMeters = hit.distance;
+                measuredAltitude = hit.distance;
                 float environmentalQuality = Environment != null ? Environment.AcousticQuality01 : 1f;
-                Quality = Mathf.Clamp01(1f - hit.distance / MaxAltitudeMeters * 0.35f)
+                measuredQuality = Mathf.Clamp01(1f - hit.distance / MaxAltitudeMeters * 0.35f)
                           * QualityScale * environmentalQuality;
             }
             else
             {
-                AltitudeMeters = MaxAltitudeMeters;
-                Quality = 0f;
+                measuredAltitude = MaxAltitudeMeters;
+                measuredQuality = 0f;
+            }
+            if (Random.value < DropoutProbability || Random.value < IntermittentDropoutProbability)
+                measuredQuality = 0f;
+            delayedFrames.Enqueue(new DvlFrame
+            {
+                Time = Time.time, Velocity = measuredVelocity,
+                Altitude = measuredAltitude, Quality = measuredQuality
+            });
+            while (delayedFrames.Count > 0 && delayedFrames.Peek().Time <= Time.time - DelaySeconds)
+            {
+                DvlFrame frame = delayedFrames.Dequeue();
+                RelativeVelocityLocal = frame.Velocity;
+                AltitudeMeters = frame.Altitude;
+                Quality = frame.Quality;
             }
         }
     }

@@ -13,10 +13,15 @@
 
 ## Current validation boundary
 
-The Python suite includes a small deterministic synthetic telemetry smoke-training test that writes
-only into a temporary directory. A Unity PPO policy was trained and is documented separately in
+The Python suite includes deterministic synthetic telemetry smoke training and reliability tests that
+write only into temporary directories. A Unity PPO policy was trained and is documented separately in
 `rl_policy_model_card.md`; no image, detector or LLM training was run. Unity 6 compilation, a headless
-player build and seven EditMode tests were completed for the current simulator source.
+player build and eight EditMode tests were completed before the final calibrated-drag loader change.
+The final headless rebuild attempt on 2026-08-24 was blocked before compilation by Unity Licensing
+Client protocol/signature validation, not by a reported C# compiler failure; it remains an explicit
+open verification item. Because the hydrodynamic, thruster and fault models are now more demanding,
+the committed PPO artifact is a legacy-dynamics baseline and must pass the new regression matrix before
+it can be described as current-simulator validated.
 
 Contract tests verify valid Unity JSON conversion, enum aliasing, missing-field errors and malformed
 JSON rejection. Governance tests verify license allowlisting, named approval and checksum gates. Split

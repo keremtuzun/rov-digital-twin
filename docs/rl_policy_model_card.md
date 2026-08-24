@@ -31,6 +31,16 @@ tilt was 13.35 degrees, the maximum reporting-window mean was 14.35 degrees, mea
 The 5.48 m tracking-error metric is the mean over complete trajectories, not final error. A successful
 episode terminates inside the randomized 0.8–1.5 m waypoint radius.
 
+## Compatibility status after the reliability overhaul
+
+The metrics above are immutable historical results for the simulator revision used during that run.
+The current simulator adds nonlinear forward/reverse thrust curves, dead zones, voltage and thermal
+derating, actuator lag/slew, water-density effects, richer waves/currents, sensor delays/dropouts and
+compound failures. The ONNX file has **not** been retrained or requalified against those changes.
+Its current status is `legacy_dynamics_baseline`, with `deployment_approved: false`. Run the curriculum
+in `config/unity_ppo_curriculum_v2.yaml`, then execute the condition-separated validation plan before
+promoting a replacement. Historical success metrics must not be attributed to the current plant model.
+
 ## Safety and limitations
 
 These results demonstrate the tested simulation distribution only. They do not establish perfect,

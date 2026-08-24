@@ -11,6 +11,10 @@ namespace ROVDigitalTwin
         [Range(0f, 1f)] public float Contamination01 = 0.08f;
         [Min(0f)] public float TurbidityNtu = 1.2f;
         [Min(0f)] public float SuspendedSedimentMgPerLiter = 2.5f;
+        [Range(0f, 45f)] public float SalinityPsu = 35f;
+        [Range(-2f, 40f)] public float WaterTemperatureC = 12f;
+        [Range(0f, 1f)] public float Biofouling01;
+        [Range(0.2f, 3f)] public float CameraExposureMultiplier = 1f;
         [Min(0f)] public float BaseFogDensity = 0.012f;
         [Min(0f)] public float DepthFogDensity = 0.0012f;
         [Min(0f)] public float ClearWaterLightAttenuationPerMeter = 0.045f;
@@ -25,7 +29,9 @@ namespace ROVDigitalTwin
         public float AcousticQuality01 => Mathf.Clamp01(
             1f - TurbidityNtu * 0.012f - SuspendedSedimentMgPerLiter * 0.002f - Contamination01 * 0.12f);
         public float EffectiveLightAttenuationPerMeter => ClearWaterLightAttenuationPerMeter
-            + TurbidityNtu * 0.012f + Contamination01 * 0.035f;
+            + TurbidityNtu * 0.012f + Contamination01 * 0.035f + Biofouling01 * 0.025f;
+        public float EstimatedWaterDensityKgPerCubicMeter => 1000f + SalinityPsu * 0.77f
+            - (WaterTemperatureC - 4f) * 0.18f;
 
         private void Awake()
         {
@@ -48,7 +54,8 @@ namespace ROVDigitalTwin
                 new Color(0.018f, 0.042f, 0.025f), Contamination01);
             RenderSettings.ambientLight = Color.Lerp(deepColor, new Color(0.04f, 0.13f, 0.16f), attenuation);
             if (FilteredSun != null)
-                FilteredSun.intensity = Mathf.Lerp(0.12f, 0.65f, attenuation);
+                FilteredSun.intensity = Mathf.Lerp(0.12f, 0.65f, attenuation)
+                                        * CameraExposureMultiplier;
             if (WaterSurface != null)
             {
                 Vector3 position = surfaceStart;

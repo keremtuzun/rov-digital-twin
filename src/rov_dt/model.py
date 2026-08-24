@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import math
 import random
+import hashlib
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -19,6 +20,9 @@ class Prediction:
     label: str
     confidence: float
     probabilities: dict[str, float]
+    raw_label: str | None = None
+    uncertainty: float = 0.0
+    out_of_distribution: bool = False
 
 
 class SoftmaxWeakPointClassifier:
@@ -32,6 +36,12 @@ class SoftmaxWeakPointClassifier:
         self.means = [0.0] * width
         self.scales = [1.0] * width
         self.weights = [[0.0] * (width + 1) for _ in labels]
+        self.training_statistics: dict[str, list[float] | int] = {}
+        self.model_version = "telemetry-softmax-v2"
+        self.dataset_version = "unversioned"
+        self.calibration_version = "uncalibrated"
+        self.temperature = 1.0
+        self.model_hash = "unserialized"
 
     def _expand(self, row: list[float]) -> list[float]:
         # Keep v1 models loadable while giving v2 models physically meaningful
@@ -77,6 +87,20 @@ class SoftmaxWeakPointClassifier:
             variance = sum((row[j] - mean) ** 2 for row in expanded_rows) / max(1, len(expanded_rows) - 1)
             self.scales.append(max(math.sqrt(variance), 1e-8))
         normalized = [self._normalize(row) + [1.0] for row in rows]
+        self.training_statistics = {
+            "raw_feature_means": [sum(row[j] for row in rows) / len(rows) for j in range(len(rows[0]))],
+            "raw_feature_scales": [
+                max(
+                    math.sqrt(
+                        sum((row[j] - sum(item[j] for item in rows) / len(rows)) ** 2 for row in rows)
+                        / max(1, len(rows) - 1)
+                    ),
+                    1e-8,
+                )
+                for j in range(len(rows[0]))
+            ],
+            "training_rows": len(rows),
+        }
         label_index = {label: index for index, label in enumerate(self.labels)}
         rng = random.Random(seed)
         history: list[float] = []
@@ -100,7 +124,8 @@ class SoftmaxWeakPointClassifier:
 
     def predict(self, row: list[float]) -> Prediction:
         x = self._normalize(row) + [1.0]
-        probs = _softmax([sum(w * value for w, value in zip(ws, x)) for ws in self.weights])
+        logits = [sum(w * value for w, value in zip(ws, x)) for ws in self.weights]
+        probs = _softmax([value / self.temperature for value in logits])
         probabilities = dict(zip(self.labels, probs))
         label = max(probabilities, key=probabilities.get)
         return Prediction(label, probabilities[label], probabilities)
@@ -117,8 +142,14 @@ class SoftmaxWeakPointClassifier:
             "means": self.means,
             "scales": self.scales,
             "weights": self.weights,
+            "training_statistics": self.training_statistics,
+            "model_version": self.model_version,
+            "dataset_version": self.dataset_version,
+            "calibration_version": self.calibration_version,
+            "temperature": self.temperature,
         }
         path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
+        self.model_hash = hashlib.sha256(path.read_bytes()).hexdigest()
         return path
 
     @classmethod
@@ -129,4 +160,10 @@ class SoftmaxWeakPointClassifier:
         model.means = payload["means"]
         model.scales = payload["scales"]
         model.weights = payload["weights"]
+        model.training_statistics = payload.get("training_statistics", {})
+        model.model_version = payload.get("model_version", "telemetry-softmax-v1")
+        model.dataset_version = payload.get("dataset_version", "unversioned")
+        model.calibration_version = payload.get("calibration_version", "uncalibrated")
+        model.temperature = float(payload.get("temperature", 1.0))
+        model.model_hash = hashlib.sha256(Path(input_path).read_bytes()).hexdigest()
         return model

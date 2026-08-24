@@ -15,9 +15,11 @@ licensed multi-domain underwater dataset -> validation/split -> domain classifie
 
 The repository does **not** claim a trained underwater image model: no license-reviewed image snapshot
 is committed. It includes a 250,081-step experimental hybrid PPO waypoint policy and a trained
-synthetic-telemetry weak-point classifier. The frozen open-sea simulation evaluation recorded success
-1.0 in all 24 reporting windows and no flip event across 59,919 steps. Neither model is approved for
-real-vehicle control; metrics, limitations and promotion gates are versioned with the artifacts.
+synthetic-telemetry weak-point classifier. A historical frozen high-difficulty simulation evaluation
+recorded success 1.0 in all 24 reporting windows and no flip event across 59,919 steps. Subsequent
+actuator/environment changes make that ONNX artifact a legacy-dynamics baseline, not a validation of
+the current simulator. Neither model is approved for real-vehicle control; metrics, limitations and
+promotion gates are versioned with the artifacts.
 
 ## Unity digital twin quick start
 
@@ -29,8 +31,9 @@ staged training and the sim-to-real validation process.
 Research-prototype controls include a versioned Unity/ROS/Python telemetry contract, license-gated
 asset manifests, mission/video-safe splitting, cautious canonical labels, calibration/safety metrics,
 synthetic capture metadata and staged Unity/HIL acceptance. Start with `docs/gap_analysis.md` and
-`docs/dataset_acquisition_plan.md` and `docs/rl_policy_model_card.md`. The committed RL checkpoint is
-simulation-validated but experimental; approved image checkpoints remain absent.
+`docs/dataset_acquisition_plan.md` and `docs/rl_policy_model_card.md`. The committed RL checkpoint has
+historical simulation evidence but requires requalification on the current simulator; approved image
+checkpoints remain absent.
 
 ## OceanSense quick start
 
@@ -127,3 +130,42 @@ Karar ajani dogrudan motor komutu vermek yerine varsayilan olarak `operator_revi
 ## Uretime gecis kapilari
 
 Bu depo bir referans/MVP'dir; sentetik veri gercek ariza verisinin yerine gecmez. Uretimden once sensör zaman senkronizasyonu, gercek ROV kalibrasyonu, HIL/SIL testleri, fail-safe durum makinesi, model drift izleme ve operator onayi zorunlu tutulmalidir.
+
+## Reliability and sim-to-real architecture
+
+```text
+Unity synthetic telemetry / canonical real mission export (schema 2.0.0)
+  -> validation + missing masks + provenance + data-quality monitor
+  -> causal temporal features + physics residuals + model ensemble
+  -> calibration + OOD/uncertainty + deterministic sensor-health monitor
+  -> failure-first decision rules -> allowlisted high-level intent -> deterministic flight controller
+```
+
+The legacy `1.0.0` Unity contract remains supported. New pool/lake/sea missions use the `2.0.0`
+envelope and explicitly distinguish `simulated`, `measured`, `derived` and unavailable fields. Load CSV,
+canonical JSONL or an explicit ROS-bag export with `rov_dt.real_data`; missing measurements remain `None`
+and have a false mask. Native bag topics must be mapped explicitly—loaders never guess topic semantics.
+
+Deployment modes are `simulation`, `shadow`, `advisory` and explicitly enabled
+`autonomous_high_level`. Shadow is the real-world validation default: predictions are versioned and
+logged but cannot affect vehicle behavior. No diagnostic, perception, classifier or LLM output may
+contain PWM, motor voltage/torque or individual thruster force.
+
+Replay a canonical mission deterministically:
+
+```powershell
+python scripts/replay_mission.py mission.jsonl --model models/weakpoint_v2.json --output outputs/replay.json
+```
+
+Fit only identifiable simulator parameters, leaving unavailable values null:
+
+```powershell
+python scripts/identify_vehicle_parameters.py mission.jsonl --vehicle-id rov_001 `
+  --output vehicle_profiles/rov_001-v1.json
+```
+
+Retraining follows mission-disjoint `train -> validation/calibration -> test`. Temporal windows are
+past-only, temperature scaling is fitted on validation data, and test conditions are reported separately.
+Use `config/domain_randomization.yaml` and `config/unity_ppo_curriculum_v2.yaml` to progress from calm
+water to combined disturbances. See `docs/hil_architecture.md` and `docs/validation_plan.md` before any
+energized or wet test. The project remains experimental until every applicable stage is signed off.

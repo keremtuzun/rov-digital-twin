@@ -86,6 +86,27 @@ namespace ROVDigitalTwin.Tests
         }
 
         [Test]
+        public void AdvancedThrusterHasDeadZoneReverseAsymmetryAndLegacyFallback()
+        {
+            GameObject root = new GameObject("thruster-curve-test");
+            try
+            {
+                Thruster thruster = root.AddComponent<Thruster>();
+                thruster.ModelType = ThrusterModelType.AdvancedCurve;
+                Assert.AreEqual(0f, thruster.EvaluateThrust(thruster.CommandDeadZone * 0.5f), 0.0001f);
+                Assert.Greater(thruster.EvaluateThrust(0.8f), 0f);
+                Assert.Less(Mathf.Abs(thruster.EvaluateThrust(-0.8f)), thruster.EvaluateThrust(0.8f));
+                thruster.ModelType = ThrusterModelType.LegacyLinear;
+                Assert.AreEqual(0.5f * thruster.MaxForceNewtons * thruster.Efficiency,
+                    thruster.EvaluateThrust(0.5f), 0.0001f);
+            }
+            finally
+            {
+                Object.DestroyImmediate(root);
+            }
+        }
+
+        [Test]
         public void FaultResetRestoresNominalStateDeterministically()
         {
             GameObject root = new GameObject("fault-test");
@@ -101,7 +122,9 @@ namespace ROVDigitalTwin.Tests
                 controller.Vehicle = vehicle;
                 controller.Hydrodynamics = root.AddComponent<Hydrodynamics6Dof>();
                 controller.Depth = root.AddComponent<DepthSensor>();
+                controller.Imu = root.AddComponent<ImuSensor>();
                 controller.Dvl = root.AddComponent<DvlSensor>();
+                controller.Sonar = root.AddComponent<ForwardSonarSensor>();
                 controller.Power = root.AddComponent<SimulatedPowerSensor>();
                 controller.Telemetry = root.AddComponent<TelemetryUdpBridge>();
 

@@ -1,0 +1,9 @@
+{
+  "profiles": [
+    {"name":"nominal","current_min":0.0,"current_max":0.08,"wave_height_min":0.0,"wave_height_max":0.15,"latency_max_ms":5.0,"packet_loss_max":0.001},
+    {"name":"pool","current_min":0.0,"current_max":0.03,"wave_height_min":0.0,"wave_height_max":0.03,"latency_max_ms":5.0,"packet_loss_max":0.001},
+    {"name":"sheltered_water","current_min":0.02,"current_max":0.18,"wave_height_min":0.05,"wave_height_max":0.45,"latency_max_ms":45.0,"packet_loss_max":0.01},
+    {"name":"moderate_sea","current_min":0.08,"current_max":0.35,"wave_height_min":0.25,"wave_height_max":1.25,"latency_max_ms":120.0,"packet_loss_max":0.04},
+    {"name":"difficult_sea","current_min":0.18,"current_max":0.55,"wave_height_min":0.60,"wave_height_max":2.0,"latency_max_ms":250.0,"packet_loss_max":0.12}
+  ]
+}

@@ -111,6 +111,7 @@ class Classification:
     label: str
     confidence: float
     top_k: list[dict[str, float | str]] = field(default_factory=list)
+    uncertainty: dict[str, float | bool] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if self.label not in CONDITION_LABELS:
@@ -209,6 +210,12 @@ class PerceptionResult:
     model_version: str = "perception_v1"
     inspection_domain: InspectionDomain = field(default_factory=lambda: InspectionDomain("unknown", 0.0))
     condition_assessment: ConditionAssessment | None = None
+    model_hash: str = "unknown"
+    dataset_version: str = "unversioned"
+    calibration_version: str = "uncalibrated"
+    feature_transform_version: str = "efficientnet_b0_default_v1"
+    simulator_profile: str = "not_applicable"
+    vehicle_profile: str = "unknown"
 
     def __post_init__(self) -> None:
         if not self.frame_id.strip():
@@ -232,6 +239,7 @@ class DecisionResult:
     safety_flags: list[str]
     explanation: dict[str, Any]
     domain: str = "unknown"
+    versions: dict[str, str] = field(default_factory=dict)
 
     def __post_init__(self) -> None:
         if self.recommended_action not in ALLOWED_ACTIONS:

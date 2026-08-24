@@ -11,6 +11,7 @@ class WeakPoint(str, Enum):
     BUOYANCY_IMBALANCE = "buoyancy_imbalance"
     SENSOR_DRIFT = "sensor_drift"
     HYDRODYNAMIC_DRAG = "hydrodynamic_drag"
+    UNKNOWN = "unknown"
 
 
 FEATURE_NAMES = (

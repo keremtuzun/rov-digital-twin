@@ -17,6 +17,7 @@ class IntentGatewayNode(Node):
         super().__init__("diagnostic_intent_gateway")
         self.declare_parameter("enabled", False)
         self.declare_parameter("simulation_only", True)
+        self.declare_parameter("deployment_mode", "shadow")
         self.publisher = self.create_publisher(String, "/rov/high_level_command", 10)
         self.create_subscription(String, "/rov/diagnostic_decision", self.on_decision, 10)
         self.get_logger().warning(
@@ -25,6 +26,11 @@ class IntentGatewayNode(Node):
 
     def on_decision(self, message: String) -> None:
         try:
+            mode = str(self.get_parameter("deployment_mode").value)
+            if mode == "shadow":
+                return
+            if mode not in {"simulation", "advisory", "autonomous_high_level"}:
+                raise PermissionError(f"unsupported deployment mode: {mode}")
             decision = json.loads(message.data)
             intent = decision_to_simulation_intent(
                 decision,

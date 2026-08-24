@@ -15,6 +15,7 @@ class DiagnosticNode(Node):
     def __init__(self):
         super().__init__("rov_diagnostic_agent")
         self.declare_parameter("model_path", "")
+        self.declare_parameter("deployment_mode", "shadow")
         model_path = resolve_model_path(str(self.get_parameter("model_path").value))
         model = SoftmaxWeakPointClassifier.load(model_path)
         self.agent = SafetyDecisionAgent(model)
@@ -28,7 +29,10 @@ class DiagnosticNode(Node):
             self.get_logger().warning(f"Rejected invalid telemetry: {exc}")
             return
         output = String()
-        output.data = json.dumps(self.agent.decide(sample).to_dict())
+        payload = self.agent.decide(sample).to_dict()
+        payload["deployment_mode"] = str(self.get_parameter("deployment_mode").value)
+        payload["affects_vehicle_behavior"] = False
+        output.data = json.dumps(payload)
         self.publisher.publish(output)
 
 
