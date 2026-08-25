@@ -10,9 +10,9 @@
 
 | Candidate | Priority | Published status | External message needed now? | Immediate action | Current gate |
 |---|---:|---|---:|---|---|
-| SubPipe | 1 | Official Zenodo API metadata identifies record `12666132`, version 3.0.1, as open under CC BY 4.0 | Optional clarification only | Archive the record/API metadata and license text, confirm every intended file is covered, plan attribution, then run internal per-asset approval | `LICENSE_SNAPSHOT_REQUIRED` |
+| SubPipe | 1 | Official Zenodo API metadata identifies record `12666132`, version 3.0.1, but its reviewed rights field is null | **Yes** | Obtain an authorized file-scoped license grant, archive it with the record metadata, then run internal per-asset approval | `OWNER_LICENSE_CLARIFICATION_REQUIRED` |
 | InspectVQA | 2 | Dataset card says CC BY-NC 4.0 or another owner-approved license | **Yes** | Ask the data owner for explicit project-specific written permission and identity/provenance clarification | `OWNER_PERMISSION_REQUIRED` |
-| CleanCam | 3 | Official Zenodo API metadata identifies record `18952474`, version v1.0.0, as open under CC BY 4.0 | Optional clarification only | Resolve the “newer version” notice, snapshot the selected version/license, separate real/synthetic assets, and run internal per-asset approval | `VERSION_AND_LICENSE_SNAPSHOT_REQUIRED` |
+| CleanCam | 3 | Current official record is `21515620`, version v2.0.0; the reviewed rights field is null | **Yes** | Obtain an authorized version/file-scoped license grant, separate real/synthetic assets, and run internal per-asset approval | `OWNER_LICENSE_CLARIFICATION_REQUIRED` |
 | Claru | 4, conditional | Commercial sample-request/provider workflow; no public reusable dataset license found | **Yes, only after budget/terms pre-screen** | Request a small representative sample, price, and written rights matrix through the dataset page's “Request a Sample Pack / Get in Touch” route | `COMMERCIAL_TERMS_REQUIRED` |
 
 Public availability does not equal repository approval. Even CC BY 4.0 assets must have versioned source evidence, exact attribution, original asset URL, license URL, download timestamp, SHA-256, named reviewer, and `approval_status=approved` before use.
@@ -73,22 +73,22 @@ An unclear answer is not approval. Record it as `manual_review` and keep assets 
 
 **Metadata endpoint reviewed:** <https://zenodo.org/api/records/12666132>
 
-**Observed metadata:** version 3.0.1, open access, CC BY 4.0, DOI `10.5281/zenodo.12666132`.
+**Observed metadata:** version 3.0.1, DOI `10.5281/zenodo.12666132`; the official API response reviewed on 2026-08-26 exposes `metadata.rights=null`.
 
-CC BY 4.0 does not normally require separate owner permission, but the repository still needs an internal evidence package. Before any download:
+Public access and citation wording do not establish the required ML reuse rights. Before any download:
 
 - save a dated human-readable record snapshot and API metadata snapshot;
-- save the canonical CC BY 4.0 license text/URL;
+- obtain and save an authorized license grant plus its canonical text/URL;
 - record creators, DOI, version, citation, file list, and intended attribution;
 - verify the license applies to each intended RGB/annotation file and note any third-party exceptions;
 - predeclare whether extracted video frames may be redistributed or only stored privately;
 - after authorized download, calculate SHA-256 per accepted asset and complete reviewer approval.
 
-**Optional clarification subject:** SubPipe 3.0.1 — confirmation of CC BY 4.0 coverage for extracted RGB frames and derived labels
+**Required clarification subject:** SubPipe 3.0.1 — license coverage for extracted RGB frames and derived labels
 
 > Hello,
 >
-> We are evaluating SubPipe 3.0.1 for the OceanSense Conrad Challenge student project. Zenodo API metadata for DOI 10.5281/zenodo.12666132 identifies the record as open under CC BY 4.0. Could you please confirm that CC BY 4.0 covers all RGB/video and annotation files in the release, including extracted still frames and derived class mappings? Please also confirm the preferred attribution/citation and identify any third-party files or site imagery that carry different restrictions.
+> We are evaluating SubPipe 3.0.1 for the OceanSense Conrad Challenge student project. The public Zenodo record and API metadata for DOI 10.5281/zenodo.12666132 do not expose a specific license grant. Could an authorized owner/licensor identify the applicable license and confirm that it covers all RGB/video and annotation files in the release, including extracted still frames, derived class mappings, ML training/evaluation, and checkpoint/results publication? Please also confirm the preferred attribution/citation and identify any third-party files or site imagery that carry different restrictions.
 >
 > We plan to keep sonar/navigation modalities separate from the current RGB classifier and will preserve version, source, attribution, and file hashes.
 
@@ -96,29 +96,29 @@ The optional note must not be described as legally required permission unless in
 
 ## 6. CleanCam Internal Approval and Optional Version Clarification
 
-**Authoritative record:** <https://zenodo.org/records/18952474>
+**Authoritative current record:** <https://zenodo.org/records/21515620>
 
-**Metadata endpoint reviewed:** <https://zenodo.org/api/records/18952474>
+**Metadata endpoint reviewed:** <https://zenodo.org/api/records/21515620>
 
-**Observed metadata:** version v1.0.0, open access, CC BY 4.0, DOI `10.5281/zenodo.18952474`; the record page reports that a newer version exists.
+**Observed metadata:** current version v2.0.0, DOI `10.5281/zenodo.21515620`; the official API response reviewed on 2026-08-26 exposes `metadata.rights=null`. The previous v1.0.0 record is superseded.
 
 Before any download:
 
 - resolve and select the exact frozen version; do not silently mix versions;
-- snapshot the selected record/API metadata and CC BY 4.0 evidence;
+- snapshot the selected record/API metadata and obtain an authorized license grant;
 - preserve creator attribution, DOI, version, official capture-disjoint split, file list, and checksums;
 - separate 18,972 reported real images from 3,600 reported synthetic images;
 - treat viewport fouling as camera-condition/visibility robustness unless a reviewer justifies a canonical Model 1 label mapping;
 - do not count synthetic images toward the primary real-image evaluation minimum;
 - pass all selected assets through internal per-asset approval.
 
-**Optional clarification subject:** CleanCam version and recommended use for external camera-condition evaluation
+**Required clarification subject:** CleanCam version, license, and recommended use for external camera-condition evaluation
 
 > Hello,
 >
 > We are preparing an approved visual evaluation set for the OceanSense Conrad Challenge student project. We are considering CleanCam for camera-fouling and visibility-robustness evaluation, not as direct structural-defect ground truth.
 >
-> Could you identify the current recommended frozen release, confirm that the Zenodo CC BY 4.0 license covers the real and synthetic image files plus metadata, and provide the preferred citation/attribution? Please also confirm whether the official capture-disjoint split should be preserved when selecting a small independent evaluation subset and whether there are any restrictions beyond CC BY 4.0.
+> We found current release v2.0.0 at DOI 10.5281/zenodo.21515620, but its public API metadata does not expose a specific license grant. Could an authorized owner/licensor confirm the recommended frozen release, identify the applicable license and covered real/synthetic files plus metadata, and provide the preferred citation/attribution? Please also confirm whether ML training/evaluation, checkpoint/results publication, and limited attributed examples are permitted; whether the official capture-disjoint split should be preserved; and whether any storage or redistribution restrictions apply.
 
 ## 7. Ready-to-Send Claru Commercial Inquiry
 
@@ -148,9 +148,9 @@ Before any download:
 
 | Candidate | Owner/route | Package status | Send status | Response deadline | Approval decision |
 |---|---|---|---|---|---|
-| SubPipe | Zenodo record/creators | Internal evidence checklist ready; optional clarification ready | `NOT_SENT` | Set by human sender | `PENDING_INTERNAL_REVIEW` |
+| SubPipe | Authorized record owner/licensor | Required license clarification ready | `READY_FOR_HUMAN_SEND` | Set by human sender | `LICENSE_SCOPE_UNRESOLVED` |
 | InspectVQA | Hugging Face Community/owner | Permission request ready | `NOT_SENT` | Set by human sender | `OWNER_PERMISSION_REQUIRED` |
-| CleanCam | Zenodo record/creators | Internal evidence checklist and optional version note ready | `NOT_SENT` | Set by human sender | `PENDING_VERSION_REVIEW` |
+| CleanCam | Authorized record owner/licensor | Required v2.0.0 license clarification ready | `READY_FOR_HUMAN_SEND` | Set by human sender | `LICENSE_SCOPE_UNRESOLVED` |
 | Claru | Dataset sample/contact route | Commercial inquiry ready | `NOT_SENT` | Set by human sender | `COMMERCIAL_TERMS_REQUIRED` |
 
 For every sent message, record sender, recipient/route, UTC timestamp, exact message hash/copy, response deadline, response file, reviewer, and final decision. Do not put an asset into `dataset/manifests/approved_assets.csv` merely because a request was sent.

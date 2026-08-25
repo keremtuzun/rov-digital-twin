@@ -7,11 +7,11 @@
 
 ## 1. Executive Status
 
-**REQUESTS PREPARED**
+**REQUESTS PREPARED — LICENSE CLARIFICATION REQUIRED**
 
 Exact requests are prepared below, but the repository contains no sent-message receipt, email/thread URL, provider response, signed terms, or completed internal approval record. Therefore no request is recorded as sent and no dataset is currently approved for Model 1 training or primary evaluation.
 
-SubPipe and CleanCam have published CC BY 4.0 metadata recorded in the existing permission package, but they still require a dated license/version snapshot, file-scope verification, attribution record, and internal per-asset approval before use. Dryad is usable only as CC0 tabular context after its metadata is archived; it is not visual Model 1 data. K-Pipelines is synthetic and cannot count toward primary evaluation. All other tracks require explicit owner/provider clarification.
+The official SubPipe `3.0.1` and current CleanCam `v2.0.0` API metadata were rechecked on 2026-08-26. Both responses exposed `metadata.rights=null`, so earlier repository statements that these specific records were CC BY 4.0 are not accepted as evidence. Metadata summaries are now archived locally, but both sources require authorized written license/file-scope clarification and internal approval before use. Dryad is usable only as CC0 tabular context after its metadata is archived; it is not visual Model 1 data. K-Pipelines is synthetic and cannot count toward primary evaluation. All other tracks require explicit owner/provider clarification.
 
 For every future send or response, append the sender, recipient/route, UTC timestamp, exact message copy and SHA-256, thread/message URL or receipt, response deadline, response evidence path, reviewer, and decision. A prepared or sent request is never equivalent to approval.
 
@@ -19,9 +19,9 @@ For every future send or response, append the sender, recipient/route, UTC times
 
 | Dataset | URL | Owner/Contact | Request Needed? | Request Status | License Status | Approval Evidence | Usable for Primary Evaluation? | Usable for Supplemental Testing? | Next Action |
 |---|---|---|---:|---|---|---|---:|---:|---|
-| SubPipe | <https://zenodo.org/records/12666132> | Zenodo record creators/maintainers | Optional clarification; internal review required | `PREPARED_NOT_SENT` | Existing official-record review reports v3.0.1, CC BY 4.0; exact file coverage not yet archived/approved | None in approved local evidence structure | No | No, pending internal approval | Archive record/API/license/citation evidence; verify RGB/annotation file coverage; send optional clarification only if an exception remains unclear |
+| SubPipe | <https://zenodo.org/records/12666132> | Zenodo record creators/maintainers | Yes | `READY_FOR_HUMAN_SEND` | v3.0.1 confirmed; API license/rights field is null; public/citation wording is not a license grant | Metadata review at `data/model1_baseline_v2/licenses/subpipe/README.md`; no approval | No | No | Send written license/file-scope clarification to an authorized owner/licensor |
 | InspectVQA | <https://huggingface.co/datasets/anonymousSubmissionVqa2026/InspectVQA> | Hugging Face Community for `anonymousSubmissionVqa2026`, then identified licensor | Yes | `PREPARED_NOT_SENT` | Dataset card states CC BY-NC 4.0 or owner-approved alternative; licensor authority and competition/output rights unresolved | None | No | No | Post the request in the dataset Community area; obtain an identifiable owner response covering images, annotations, derivatives, outputs, and restrictions |
-| CleanCam | <https://zenodo.org/records/18952474> | Zenodo record creators/maintainers | Optional version clarification; internal review required | `PREPARED_NOT_SENT` | Existing official-record review reports v1.0.0, CC BY 4.0 and a newer-version notice; selected version not frozen | None in approved local evidence structure | No; not a structural-defect primary source | No, pending internal approval | Resolve the current frozen release; archive license/citation evidence; separate real/synthetic; send optional version note if needed |
+| CleanCam | <https://zenodo.org/records/21515620> | Zenodo record creators/maintainers | Yes | `READY_FOR_HUMAN_SEND` | Current v2.0.0 confirmed; API license/rights field is null; v1.0.0 is superseded | Metadata review at `data/model1_baseline_v2/licenses/cleancam/README.md`; no approval | No; not a structural-defect primary source | No | Send written version/license/file-scope clarification; preserve real/synthetic separation |
 | Claru Underwater Inspection | <https://claru.ai/datasets/underwater-inspection> | Claru “Request a Sample Pack / Get in Touch” route | Yes | `PREPARED_NOT_SENT` | Commercial/provider terms; no public reusable dataset license recorded | None | No | No | Submit inquiry only after budget/contract pre-screen; require written rights matrix, price, provenance, sample terms, and reproducibility allowances |
 | Structural Defects — Bonnín-Pascual / Ortiz | <https://xiscobonnin.github.io/resources/> | Francisco Bonnín Pascual, University of the Balearic Islands; contact listed on resource page | Yes | `PREPARED_NOT_SENT` | Download and citation are published; explicit image/mask reuse license not recorded | None | No; non-underwater supplemental source only | No | Send written permission/license request covering images, masks, ML use, derivatives, checkpoints, examples, and attribution |
 | WPI / ARL Corrosion | <https://arl.wpi.edu/corrosion_dataset/> | WPI Automation and Robotics Lab dataset maintainer/contact channel | Yes | `PREPARED_NOT_SENT` | Access/citation information reported; explicit dataset license and output rights unresolved | None | No; laboratory/non-underwater supplemental source only | No | Identify the authorized maintainer and send the prepared request; archive explicit terms and covered version/file list |
@@ -34,7 +34,7 @@ For every future send or response, append the sender, recipient/route, UTC times
 
 ### 3.1 SubPipe — optional file-scope clarification
 
-**Route:** Zenodo record creator contact. Send only if the archived record and file metadata do not resolve coverage.  
+**Route:** Authorized Zenodo record creator/owner contact. This clarification is required.
 **Subject:** SubPipe 3.0.1 license scope clarification — OceanSense Conrad Challenge
 
 > Hello,
@@ -43,7 +43,7 @@ For every future send or response, append the sender, recipient/route, UTC times
 >
 > We would request only the release's RGB/video files, relevant annotations, file/version manifest, checksums, annotation guide, and citation metadata; sonar and navigation data would remain outside this visual classifier. We do not plan to redistribute raw source media publicly. We may need to store approved files privately, extract still frames, resize/preprocess them, create derived labels, publish trained checkpoints, aggregate/per-class metrics, complete prediction logs, and a limited number of attributed failure examples.
 >
-> Zenodo metadata identifies the record as CC BY 4.0. Could you explicitly confirm in writing that this license covers every intended RGB/video and annotation file, extracted still frames and derived labels, and identify any third-party or site imagery exceptions? Please also confirm whether trained checkpoints and the described research outputs may be published, the exact required attribution/citation, any redistribution or storage limits, and the exact version/file list covered.
+> The current public record and API metadata we reviewed do not expose a specific license grant. Could an authorized owner/licensor explicitly identify the applicable license and confirm in writing that it covers every intended RGB/video and annotation file, extracted still frames and derived labels, and identify any third-party or site imagery exceptions? Please also confirm whether trained checkpoints and the described research outputs may be published, the exact required attribution/citation, any redistribution or storage limits, and the exact version/file list covered.
 >
 > We will preserve the DOI, version, attribution, license URL, source URLs, and hashes. We will not use files whose coverage remains unclear. Thank you.
 
@@ -64,7 +64,7 @@ For every future send or response, append the sender, recipient/route, UTC times
 
 ### 3.3 CleanCam — optional release/version clarification
 
-**Route:** Zenodo record creator contact. Send if the selected current version or file-scope evidence is unclear.  
+**Route:** Authorized Zenodo record creator/owner contact. This clarification is required.
 **Subject:** CleanCam release and license clarification — OceanSense Conrad Challenge robustness study
 
 > Hello,
@@ -73,7 +73,7 @@ For every future send or response, append the sender, recipient/route, UTC times
 >
 > We would request the selected release's real RGB images, separately identified synthetic images, metadata, official capture-disjoint split, annotation guide, file manifest/checksums, and citation information. We do not plan to redistribute raw source images publicly. We may store approved assets privately, resize/preprocess them, create reviewed derived mappings, and publish trained checkpoints, aggregate/per-class robustness metrics, prediction logs, and limited attributed failure examples.
 >
-> Could you confirm the currently recommended immutable release and explicitly confirm that its CC BY 4.0 terms cover both the identified real and synthetic image files plus metadata/annotations? Please state whether the described derivatives and checkpoint/results publication are allowed, whether any raw/derived redistribution or storage limits apply, and the exact required citation/attribution. Please also identify any third-party exceptions and whether the official capture-disjoint split must be retained for subset evaluation.
+> We found current release v2.0.0 at DOI 10.5281/zenodo.21515620, but the public API metadata we reviewed does not expose a specific license grant. Could an authorized owner/licensor confirm the recommended immutable release, identify the applicable license, and confirm that it covers both the identified real and synthetic image files plus metadata/annotations? Please state whether the described derivatives and checkpoint/results publication are allowed, whether any raw/derived redistribution or storage limits apply, and the exact required citation/attribution. Please also identify any third-party exceptions and whether the official capture-disjoint split must be retained for subset evaluation.
 >
 > We will keep real and synthetic results separate, preserve citation/license/version evidence, and will not use unresolved files. Thank you.
 
@@ -155,9 +155,9 @@ Create one evidence folder per candidate under `data/model1_baseline_v2/licenses
 
 | Dataset | Required evidence before use |
 |---|---|
-| SubPipe | dated record-page and API metadata snapshots; CC BY 4.0 URL/text; DOI, version, creators, citation, attribution; covered file manifest and exceptions; permitted training/evaluation/derivative/output uses; redistribution limits; review date and named internal approval |
+| SubPipe | dated record-page and API metadata snapshots; authorized license grant/text/URL; DOI, version, creators, citation, attribution; covered file manifest and exceptions; permitted training/evaluation/derivative/output uses; redistribution limits; review date and named internal approval |
 | InspectVQA | dataset-card snapshot; exact version/commit and file list; CC BY-NC 4.0 text or alternative grant; identifiable owner/licensor and authority; complete sent request and response; competition/non-commercial scope; storage/redistribution, derivatives/checkpoint publication, attribution, restrictions, and review date |
-| CleanCam | selected record/version and API snapshots; newer-version resolution; CC BY 4.0 text; creators/DOI/citation; real-versus-synthetic file manifest; split documentation; allowed derivatives/outputs, redistribution limits, review date, and internal approval |
+| CleanCam | selected record/version and API snapshots; current v2.0.0 resolution; authorized license grant/text/URL; creators/DOI/citation; real-versus-synthetic file manifest; split documentation; allowed derivatives/outputs, redistribution limits, review date, and internal approval |
 | Claru | sent inquiry and provider response; sample terms; signed contract/order if proceeding; licensor/source-rights statement; covered files/version; price/term; allowed use; storage/deletion/access/export restrictions; raw/derived redistribution and checkpoint/result publication rights; attribution; review date |
 | Structural Defects | page snapshot and citation; exact image/mask file list; explicit owner/licensor response and license text; training/evaluation and competition permission; derivatives, checkpoint/results/examples rights; redistribution/storage limits; review date |
 | WPI / ARL Corrosion | page snapshot and citation; exact version/file list and ratings guide; authorized-owner response/license; permitted use and derivatives; checkpoint/results publication; redistribution/storage/access restrictions; attribution and review date |
@@ -236,7 +236,7 @@ The canonical fallback files from `docs/MODEL1_BASELINE_V2_FALLBACK_PLAN.md` rem
 Recommended order:
 
 1. Send InspectVQA permission request and Structural Defects/WPI license requests immediately.
-2. Archive SubPipe and CleanCam official version/license/citation evidence; send optional clarification only for unresolved file/version scope.
+2. Send the required SubPipe and CleanCam license/file-scope clarification and archive verifiable receipts and responses.
 3. Send the Claru inquiry only after a human confirms budget and acceptable contract constraints.
 4. Send the K-Pipelines provenance question if synthetic supplemental testing remains useful.
 5. Archive Dryad metadata as `CONTEXT_ONLY`; do not request or create visual rows.

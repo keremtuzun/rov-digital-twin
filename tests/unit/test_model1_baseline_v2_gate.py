@@ -42,5 +42,8 @@ def test_preflight_fails_closed_when_approved_dataset_package_is_absent():
     report = dataset_preflight(CONFIG)
     assert report["ready"] is False
     assert report["model_version"] == BASELINE_ID
-    assert any("missing dataset root" in error for error in report["errors"])
+    assert any("missing required file" in error and "manifest.csv" in error for error in report["errors"])
+    assert any("missing required file" in error and "labels.csv" in error for error in report["errors"])
+    assert any("missing required file" in error and "split.csv" in error for error in report["errors"])
+    assert any("missing activation approval" in error for error in report["errors"])
     assert any("manifest.csv" in error for error in report["errors"])
