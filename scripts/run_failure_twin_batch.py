@@ -8,7 +8,9 @@ from oceansense.failure_twin import generate_batch
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Generate claim-bounded inspection/failure twin data")
+    parser = argparse.ArgumentParser(
+        description="Generate claim-bounded 2D visual inspection fixtures"
+    )
     parser.add_argument("--config", type=Path, default=Path("config/failure_twin_mvp.json"))
     parser.add_argument("--output", type=Path, default=Path("outputs/failure_twin_mvp"))
     args = parser.parse_args()

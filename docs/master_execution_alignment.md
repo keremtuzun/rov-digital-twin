@@ -14,7 +14,7 @@ too easy to conflate.
 | Model 2 R&D | The transparent scoring heuristic did not implement the new standalone dynamic-state formulation | Formalized `P(S_t | O_1...O_t)` and added the experimental environment, schemas, debug plots and tests without training | Four same-distribution baselines and literature review must precede Model 2 v0 training |
 | Evaluation infrastructure | Several track-specific metrics and manifests existed | Shared dataset/prediction/run contracts, generic prediction evaluation and report generation added | Freeze package and integrated demonstration run manifest are not yet available |
 | Decision agents | Safety-gated high-level actions existed | Exact mission-level accept/reinspect/change-viewpoint/unknown/escalate interface added | Operator thresholds require validation; recommendation remains non-authoritative |
-| Two-twin demo | No single artifact-producing integration command | `run_digital_twin_demo.py` links all five shared IDs, pose, target, scenario ground truth, placeholder prediction, decision, logs and run report | Replace the placeholder only after Model 1 freeze; compare headless navigation with Unity |
+| Navigation/visual-fixture demo | No single artifact-producing interface command | `run_digital_twin_demo.py` links all five shared IDs, pose, target, visual-fixture truth, placeholder prediction, decision, logs and run report; it does not run Model 2 | Replace the placeholder only after Model 1 freeze; treat navigation checks separately from Model 2 |
 
 ## Architectural boundary
 

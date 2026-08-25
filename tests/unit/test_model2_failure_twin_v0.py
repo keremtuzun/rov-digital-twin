@@ -1,4 +1,6 @@
+import ast
 import json
+from pathlib import Path
 
 import networkx as nx
 import numpy as np
@@ -14,11 +16,37 @@ from oceansense.model2.simulator import (
 from oceansense.model2.visualization import visualize_scenario
 
 
+FORBIDDEN_MODEL2_IMPORT_PREFIXES = (
+    "mlagents", "unity", "oceansense.navigation", "rov_dt.ros", "rov_dt.intent_gateway",
+)
+
+
 def _nx_graph(structure):
     graph = nx.Graph()
     graph.add_nodes_from(node.component_id for node in structure.nodes)
     graph.add_edges_from(structure.edges)
     return graph
+
+
+def test_model2_stack_has_no_unity_navigation_or_robot_control_imports():
+    root = Path(__file__).resolve().parents[2]
+    sources = list((root / "src/oceansense/model2").glob("*.py")) + [
+        root / "scripts/generate_model2_dataset.py",
+        root / "scripts/visualize_model2_scenario.py",
+    ]
+    imported_modules = []
+    for source in sources:
+        tree = ast.parse(source.read_text(encoding="utf-8"), filename=str(source))
+        for node in ast.walk(tree):
+            if isinstance(node, ast.Import):
+                imported_modules.extend(alias.name for alias in node.names)
+            elif isinstance(node, ast.ImportFrom) and node.module:
+                imported_modules.append(node.module)
+    violations = [
+        module for module in imported_modules
+        if module.startswith(FORBIDDEN_MODEL2_IMPORT_PREFIXES)
+    ]
+    assert not violations
 
 
 def test_generated_structures_are_connected_and_reproducible():

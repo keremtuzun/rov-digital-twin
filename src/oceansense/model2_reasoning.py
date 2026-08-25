@@ -1,8 +1,11 @@
-"""Transparent Model 2 hypothesis: structural-temporal evidence reasoning.
+"""Legacy pre-v0 structural-temporal scoring heuristic.
 
 This is an R&D prototype, not a trained detector and not a validated proprietary claim.
 Model 1 supplies observations; this mechanism reasons about persistence, viewpoint,
 uncertainty, and relationships between inspected components.
+
+It is not the dynamic Model 2 v0 architecture and is retained only as historical,
+transparent research code until the required baselines are implemented.
 """
 
 from __future__ import annotations

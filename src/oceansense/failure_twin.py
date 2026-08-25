@@ -1,7 +1,8 @@
-"""Reproducible 2D inspection/failure twin for controlled Model 2 experiments.
+"""Reproducible 2D visual fixture for interface and controlled-image experiments.
 
 This module simulates inspected structures and visual evidence. It deliberately does
-not simulate robot motion and does not claim calibrated physical damage rendering.
+not implement the graph-based Model 2 Failure Twin v0, simulate robot motion, or claim
+calibrated physical damage rendering.
 """
 
 from __future__ import annotations
@@ -60,7 +61,7 @@ class FailureScenario:
             if value not in allowed:
                 raise ValueError(f"unsupported {name}: {value}")
         if self.width < 128 or self.height < 128:
-            raise ValueError("failure twin output must be at least 128x128")
+            raise ValueError("visual fixture output must be at least 128x128")
         for name in ("turbidity", "low_light", "backscatter", "occlusion"):
             if not 0 <= getattr(self, name) <= 1:
                 raise ValueError(f"{name} must be between 0 and 1")

@@ -15,7 +15,9 @@ def _git(*args: str) -> str:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run the linked Conrad two-twin software demo")
+    parser = argparse.ArgumentParser(
+        description="Run the navigation/visual-fixture interface demo (not Model 2)"
+    )
     parser.add_argument("--navigation-config", type=Path,
                         default=Path("configs/navigation_twin/demo_mission.json"))
     parser.add_argument("--failure-config", type=Path,

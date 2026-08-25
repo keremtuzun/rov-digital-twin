@@ -54,7 +54,8 @@ python scripts/visualize_model2_scenario.py data/simulated/model2_debug_v0/scena
   --output outputs/model2_debug_plots
 ```
 
-Run the complete artifact-producing two-twin demo without Unity or physical hardware:
+Run the navigation-plus-visual-fixture interface demo without Unity or physical hardware. This is not
+a Model 2 or Failure Twin v0 validation command:
 
 ```powershell
 python -m pip install -e ".[vision]"

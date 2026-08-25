@@ -1,4 +1,7 @@
-"""Artifact-producing integration between the separate navigation and failure twins."""
+"""Artifact integration between navigation replay and the separate 2D visual fixture.
+
+This command does not import, execute, train, or validate Model 2 or Failure Twin v0.
+"""
 
 from __future__ import annotations
 
@@ -65,7 +68,7 @@ def run_demo(
     branch: str,
     operator_or_agent: str,
 ) -> dict[str, Any]:
-    """Run a headless two-twin demo with linked IDs and explicit placeholder evidence."""
+    """Run a navigation/visual-fixture demo with linked IDs and placeholder evidence."""
     output = Path(output_dir)
     output.mkdir(parents=True, exist_ok=True)
     failure_payload = _load(failure_config_path)
@@ -96,7 +99,7 @@ def run_demo(
         if len(set(values)) != 1 or any(value is None or not str(value).strip() for value in values)
     }
     if mismatches:
-        raise RuntimeError(f"two-twin shared ID mismatch: {mismatches}")
+        raise RuntimeError(f"navigation/visual-fixture shared ID mismatch: {mismatches}")
     bundle_paths = write_navigation_bundle(
         output / "navigation_twin",
         states=navigation.states,
@@ -155,7 +158,7 @@ def run_demo(
     }
     if any(not str(traceability[name]).strip() for name in
            ("run_id", "mission_id", "frame_id", "target_id", "scenario_id")):
-        raise RuntimeError("two-twin traceability contains an empty shared ID")
+        raise RuntimeError("navigation/visual-fixture traceability contains an empty shared ID")
     trace_path = output / "integration_trace.json"
     trace_path.write_text(json.dumps(traceability, indent=2, sort_keys=True), encoding="utf-8")
     limitations = [
