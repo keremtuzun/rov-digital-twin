@@ -1,77 +1,93 @@
 # Twin 1 Status Report
 
-## Executive decision
+## Executive Status
 
-**PARTIALLY STABLE.** Twin 1 compiles in the declared Unity editor, passes the repository's static checks,
-and passes all current EditMode tests. It is not declared fully stable because no automated PlayMode visual
-capture was reviewed and the real Model 1 checkpoint/data needed for end-to-end perception are absent.
+**Partially Stable.** Unity batch compilation, repository static validation and all current EditMode tests pass.
+Automated PlayMode visual/soak output and real Model 1 integration remain unverified.
 
-## Purpose and boundary
+## Purpose
 
-Twin 1 is the existing Unity robot/navigation and inspection-capture system under `unity/`. It simulates ROV
-motion, sensors, hydrodynamic/environment disturbances, navigation policy inference, camera capture, and the
-HTTP handoff to the OceanSense perception/decision API. It supports operator demonstration and controlled
-data generation; it is not proof that Unity perfectly reproduces open-sea physics.
+Twin 1 is the existing Unity robot/navigation and inspection-capture system under `unity/`. It supports ROV
+simulation, sensor/environment emulation, navigation-policy inference, operator demonstration, image capture,
+synthetic scenario generation and HTTP handoff to the current perception/decision workflow. It is not evidence
+that Unity perfectly reproduces open-sea physics.
 
-Twin 2 is the separate Python comparison/twin implementation under `src/oceansense/model2/`. No Twin 2 code,
-configuration, result, or claim is used in this review.
+## Architecture / Design
 
-## Relevant files
+- **Technology:** Unity `6000.5.9f1`, C#, ML-Agents, ROS connector, Python HTTP API integration.
+- **Primary role:** robot/navigation digital twin and current inspection-workflow support.
+- **Main modules:** vehicle/hydrodynamics/environment/sensors/mission scripts, `ROVCameraCapture.cs`,
+  `SyntheticCaptureController.cs`, `OceanSenseApiClient.cs`, `MissionController.cs`, dashboard and tests.
+- **Configuration:** Unity ProjectSettings/Packages, scene/prefab builder, behavior parameters and runtime fields.
+- **Dependencies:** declared Unity packages; Python API only for perception/decision handoff.
+- **Trust boundary:** captured Unity frames/metadata are synthetic/demo data. They may support development or
+  separately labelled training studies, but cannot be mixed silently with real validation/test evidence.
 
-| Area | Files / role |
+## Files and Modules
+
+| Area | Path / role |
 |---|---|
-| Unity project identity | `unity/ProjectSettings/ProjectVersion.txt` — Unity `6000.5.9f1` |
-| Packages | `unity/Packages/manifest.json` — ML-Agents and ROS integration dependencies |
-| Robot/environment | `unity/Assets/ROVDigitalTwin/Scripts/` — vehicle, sensors, hydrodynamics, mission and environment logic |
-| Image capture | `ROVCameraCapture.cs` — PNG capture from the configured camera |
-| API bridge | `OceanSenseApiClient.cs` — calls `/api/perception/analyze`, then `/api/agent/decide` |
-| Synthetic capture | `SyntheticCaptureController.cs` — seeded PNG and JSON condition metadata; explicitly marked synthetic |
-| Operator flow | `MissionController.cs` — inspection analysis and synthetic-capture controls |
-| Tests | `unity/Assets/ROVDigitalTwin/Tests/EditMode/` and Python API/contract tests |
+| Project identity | `unity/ProjectSettings/ProjectVersion.txt` |
+| Packages | `unity/Packages/manifest.json` |
+| Runtime | `unity/Assets/ROVDigitalTwin/Scripts/` |
+| Models | `unity/Assets/ROVDigitalTwin/Models/` - navigation `.onnx`, not Model 1 |
+| EditMode tests | `unity/Assets/ROVDigitalTwin/Tests/EditMode/` |
+| Static validation | `scripts/validate_unity_project.py` |
+| API | `src/oceansense/api.py` |
 
-The two committed `.onnx` files in `unity/Assets/ROVDigitalTwin/Models/` are navigation policies. They are not
-the Model 1 visual classifier.
+## Inputs
 
-## Input/output contract
+| Name | Format | Producer | Used by Model 1? | Notes |
+|---|---|---|---|---|
+| Environment/scenario state | Unity serialized fields/runtime values | scene/operator | Indirect | current, waves, visibility, contamination and related parameters |
+| Navigation actions | 8 continuous floats | ML-Agents policy/operator | No | drives thruster/control behavior |
+| Robot/sensor observations | 39 floats plus 16 sonar rays | Unity subsystems | No | navigation/twin state, not Model 1 labels |
+| Camera frame/context | PNG plus mission metadata | Unity camera/mission | Yes, via API | synthetic/demo provenance must remain explicit |
+| Perception JSON | canonical API response | Model 1 API/fixture | Yes | fixture response is contract evidence only |
 
-| Direction | Input | Output |
-|---|---|---|
-| Environment → robot | water/current/wave/visibility/contamination parameters | forces, sensor observations, camera scene |
-| Agent → vehicle | eight continuous thruster/control actions | ROV translation and rotation |
-| Camera → API client | captured PNG plus mission/capture context | perception request to `/api/perception/analyze` |
-| Perception → decision | canonical perception response | request to `/api/agent/decide` and decision JSON |
-| Synthetic capture | seed and scenario conditions | PNG plus JSON metadata with synthetic provenance |
+## Outputs
 
-Without `OCEANSENSE_CONDITION_CHECKPOINT` and `OCEANSENSE_DOMAIN_CHECKPOINT`, the Python API uses fixture
-classifiers. Fixture responses validate the wire contract only and must not be presented as Model 1 output.
+| Name | Format | Consumer | Training/eval safe? | Notes |
+|---|---|---|---|---|
+| ROV visualization/state | Unity scene/runtime telemetry | operator/dashboard | No | visual/demo and navigation validation |
+| Camera capture | PNG | API/data-review workflow | Conditional | synthetic; never sole real test evidence |
+| Scenario metadata | JSON | data-review workflow | Conditional | seed and conditions; synthetic provenance |
+| API decision | JSON | dashboard/operator | No as Model 1 metric | fixture or real checkpoint must be identified |
+| Navigation policy action | continuous vector | vehicle controller | No | unrelated to visual Model 1 checkpoint |
 
-## Verification evidence
+## Commands and Tests
 
-Audited on commit `65cf3ba9bca486f4bc3c19ee01b7831a802cc652`:
+| Command/check | Result |
+|---|---|
+| `python scripts/validate_unity_project.py` | PASS; package/version, subsystems, 8 actions, 39 observations, 16-ray sonar, schema and no-runtime-training checks |
+| Unity `-batchmode -nographics -quit` | exit 0; Unity 6000.5.9f1 compilation/import succeeded |
+| Unity `-runTests -testPlatform EditMode` | PASS: 8/8; 0 failed, 0 skipped |
+| `python -m pytest -q tests/test_oceansense_api.py tests/unit/test_master_execution_guide.py -k "not model2"` | PASS: 14; 2 deselected |
+| Automated PlayMode visual/capture/soak | Not run; unverified |
 
-| Check | Command / environment | Result |
-|---|---|---|
-| Static Unity contract | `python scripts/validate_unity_project.py` | PASS; required package/version, subsystem, action, observation, sonar, schema and no-runtime-training checks passed |
-| Unity compile/import | Unity `6000.5.9f1`, `-batchmode -nographics -quit` | exit `0`; batch-mode compilation completed successfully |
-| EditMode tests | Unity `-runTests -testPlatform EditMode` | PASS: 8/8, 0 failed, 0 skipped |
-| API/Model 1 contract tests | `python -m pytest -q tests/test_oceansense_api.py tests/unit/test_master_execution_guide.py -k "not model2"` | PASS: 14, 2 deselected |
-| PlayMode visual/capture test | not run | Unverified |
-| Real Model 1 end-to-end | unavailable | Blocked by missing checkpoint and approved image data |
+Machine-readable evidence: `outputs/model1_audit/twin1_verification.json`.
 
-Machine-readable results are summarized in `outputs/model1_audit/twin1_verification.json`. Local Unity logs and
-test XML are temporary evidence and are intentionally not treated as product artifacts.
+## Integration With Model 1
 
-## Known limitations
+`OceanSenseApiClient.cs` posts a capture to `/api/perception/analyze`, then sends the perception response to
+`/api/agent/decide`. Without `OCEANSENSE_CONDITION_CHECKPOINT` and `OCEANSENSE_DOMAIN_CHECKPOINT`, the API uses
+fixture classifiers. This proves the wire contract only; no actual Model 1 quality or end-to-end latency is
+validated. Twin 1 does not modify Model 1 manifests/splits automatically.
 
-- Hydrodynamics and environmental effects are parameterized approximations and still require calibration
-  against real vehicle telemetry and sea-trial measurements.
-- Static and EditMode success do not prove numerical stability for every long-duration PlayMode scenario.
-- Synthetic condition metadata helps coverage analysis but cannot replace real open-sea held-out evaluation.
-- The absence of a frozen visual checkpoint prevents claims about classification quality or complete latency.
-- No claim of “perfect,” “flawless,” or flip-free open-sea operation is supported by this evidence.
+## Limitations
 
-## Smallest path to stable
+- Hydrodynamics/environment effects are parameterized approximations awaiting real telemetry calibration.
+- EditMode/static success does not prove long-duration PlayMode numerical stability or correct rendered output.
+- No frozen visual checkpoint exists for complete integration.
+- Synthetic frames cannot establish open-sea generalization or safety.
+- No “perfect,” “flawless,” or flip-free open-sea claim is supported.
 
-Run a deterministic PlayMode soak/capture suite across bounded current, wave, buoyancy, contamination, and
-visibility cases; inspect captures; then repeat it with a frozen Model 1 checkpoint and record end-to-end
-latency, failures, and hashes. Stability requires explicit pass bounds, not only a visually successful demo.
+## Separation From Twin 2
+
+This is not the Python Twin 2/comparison implementation under `src/oceansense/model2/`. No Twin 2 code,
+configuration, results or validation claim is included or modified.
+
+## Next Step
+
+Run a seeded PlayMode soak/capture matrix across bounded current, waves, buoyancy, contamination and visibility;
+inspect rendered captures; then repeat with a frozen Model 1 checkpoint and record hashes, latency and failures.

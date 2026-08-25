@@ -3,7 +3,7 @@
   "audit_date": "2026-08-25",
   "decision": "blocked",
   "audited_branch": "codex/rov-digital-twin",
-  "audited_commit": "65cf3ba9bca486f4bc3c19ee01b7831a802cc652",
+  "audited_commit": "6c14eb0e288343ec0705c74af776548ef1615cea",
   "component": "model1_visual_perception",
   "metrics": {
     "accuracy": null,
