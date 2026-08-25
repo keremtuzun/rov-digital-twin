@@ -52,6 +52,16 @@ namespace ROVDigitalTwin
 
         public override void CollectObservations(VectorSensor sensor)
         {
+            // ML-Agents may request one final observation while a scene is being
+            // unloaded. Other scene objects can already be destroyed at that point;
+            // preserve the fixed contract without dereferencing stale references.
+            if (DutyManager == null || Vehicle == null || body == null ||
+                Imu == null || Depth == null || Dvl == null || Sonar == null)
+            {
+                for (int index = 0; index < ObservationSize; index++)
+                    sensor.AddObservation(0f);
+                return;
+            }
             DutyDefinition duty = DutyManager.CurrentDuty;
             Vector3 targetOffset = DutyManager.TargetPosition - transform.position;
             sensor.AddObservation(transform.InverseTransformDirection(targetOffset));

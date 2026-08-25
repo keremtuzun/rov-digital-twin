@@ -23,6 +23,18 @@ namespace ROVDigitalTwin
         public TelemetryUdpBridge Telemetry;
         [Range(0f, 1f)] public float NominalBatteryLevel = 1f;
 
+        private void Awake()
+        {
+            Vehicle ??= GetComponent<ROVVehicle>();
+            Hydrodynamics ??= GetComponent<Hydrodynamics6Dof>();
+            Depth ??= GetComponent<DepthSensor>();
+            Imu ??= GetComponent<ImuSensor>();
+            Dvl ??= GetComponent<DvlSensor>();
+            Sonar ??= GetComponent<ForwardSonarSensor>();
+            Power ??= GetComponent<SimulatedPowerSensor>();
+            Telemetry ??= GetComponent<TelemetryUdpBridge>();
+        }
+
         public void ApplyFault(SimulatedFault fault)
         {
             ActiveFault = fault;

@@ -11,10 +11,14 @@ namespace ROVDigitalTwin
         public int Width = 640;
         public int Height = 360;
         public string LastImagePath { get; private set; }
+        public bool IsConfigured => SourceCamera != null && Width > 0 && Height > 0;
 
         public IEnumerator Capture(Action<string> completed)
         {
-            yield return new WaitForEndOfFrame();
+            // WaitForEndOfFrame does not resume reliably in Editor batch mode. The
+            // camera is rendered explicitly below, so batch tests can capture directly.
+            if (!Application.isBatchMode)
+                yield return new WaitForEndOfFrame();
             RenderTexture target = RenderTexture.GetTemporary(Width, Height, 24, RenderTextureFormat.ARGB32);
             RenderTexture previous = RenderTexture.active;
             SourceCamera.targetTexture = target;

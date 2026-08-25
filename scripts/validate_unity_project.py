@@ -41,6 +41,19 @@ def main() -> None:
     require("for (int index = 0; index < 16; index++)" in agent, "16-ray sonar enters observations")
     require("SaveAsPrefabAsset" in builder and "SaveScene" in builder, "scene and prefab generation is implemented")
     require("mlagents-learn" not in agent + builder, "runtime/editor code cannot start training")
+    playmode = UNITY / "Assets/ROVDigitalTwin/Tests/PlayMode"
+    playmode_assembly = playmode / "ROVDigitalTwin.PlayModeTests.asmdef"
+    playmode_source = playmode / "Twin1RuntimePlayModeTests.cs"
+    require(playmode_assembly.is_file() and playmode_source.is_file(), "Twin 1 PlayMode test assembly exists")
+    playmode_text = playmode_source.read_text(encoding="utf-8")
+    for contract in (
+        "Twin1SceneRuntimeSmokeHasRequiredObjectsAndReferences",
+        "Twin1CameraCaptureWritesPngAndCleansUp",
+        "Twin1HttpAdapterHandlesUnavailableServiceAndIdentifiesFixtureExpectation",
+        "Twin1NavigationPolicyReferenceIsAssignedOrExplicitlyBlocked",
+        "Twin1BoundaryKeepsModel1Model2Twin2NavigationAndVisualFixturesDistinct",
+    ):
+        require(contract in playmode_text, f"PlayMode contract {contract} exists")
     telemetry = (scripts / "TelemetryUdpBridge.cs").read_text(encoding="utf-8")
     schema = json.loads((ROOT / "config/telemetry_schema_v1.json").read_text(encoding="utf-8"))
     for field in schema["required"]:

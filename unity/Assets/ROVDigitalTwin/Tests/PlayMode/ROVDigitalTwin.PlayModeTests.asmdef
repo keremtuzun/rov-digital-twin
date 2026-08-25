@@ -1,0 +1,7 @@
+{
+  "name": "ROVDigitalTwin.PlayModeTests",
+  "rootNamespace": "ROVDigitalTwin.Tests.PlayMode",
+  "references": ["ROVDigitalTwin", "Unity.ML-Agents", "Unity.InferenceEngine"],
+  "optionalUnityReferences": ["TestAssemblies"],
+  "autoReferenced": false
+}

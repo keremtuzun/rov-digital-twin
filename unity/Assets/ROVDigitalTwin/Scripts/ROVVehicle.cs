@@ -15,8 +15,16 @@ namespace ROVDigitalTwin
         private Rigidbody body;
         private Vector3 spawnPosition;
         private Quaternion spawnRotation;
+        private bool initialized;
 
-        public Rigidbody Body => body;
+        public Rigidbody Body
+        {
+            get
+            {
+                EnsureInitialized();
+                return body;
+            }
+        }
         public float BatteryLevel01 => BatteryLevel;
         public float EnergyCommandSquared { get; private set; }
         public float MeanAbsoluteCommand { get; private set; }
@@ -26,6 +34,13 @@ namespace ROVDigitalTwin
 
         private void Awake()
         {
+            EnsureInitialized();
+        }
+
+        private void EnsureInitialized()
+        {
+            if (initialized)
+                return;
             body = GetComponent<Rigidbody>();
             spawnPosition = transform.position;
             spawnRotation = transform.rotation;
@@ -33,6 +48,7 @@ namespace ROVDigitalTwin
                 Thrusters = GetComponentsInChildren<Thruster>();
             foreach (Thruster thruster in Thrusters)
                 thruster.Initialize(body);
+            initialized = true;
         }
 
         private void FixedUpdate()
@@ -66,6 +82,7 @@ namespace ROVDigitalTwin
 
         public void ResetVehicle(Vector3 position, Quaternion rotation, bool recharge = true)
         {
+            EnsureInitialized();
             transform.SetPositionAndRotation(position, rotation);
             body.linearVelocity = Vector3.zero;
             body.angularVelocity = Vector3.zero;

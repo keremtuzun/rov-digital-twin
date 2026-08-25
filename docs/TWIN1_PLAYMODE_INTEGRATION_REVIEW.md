@@ -9,16 +9,17 @@
 
 **PARTIALLY STABLE**
 
-Twin 1 has a compilable Unity 6 project, a committed scene/prefab, coherent static navigation/sensor/API contracts, and eight passing EditMode tests. It is not stable as a PlayMode or real Model 1 integration system:
+Twin 1 has a compilable Unity 6 project, a committed scene/prefab, coherent static navigation/sensor/API contracts, eight passing EditMode tests, and a real PlayMode test assembly. It is not yet fully stable or integrated with a real Model 1:
 
 - Unity batch import/compilation completed with exit code 0 on an exact temporary writable copy of the committed `Assets`, `Packages`, and `ProjectSettings`.
 - EditMode executed **8/8 passing tests**, zero failed/skipped/inconclusive.
-- The PlayMode test runner executed successfully but discovered **0 tests**. Its XML reports `testcasecount="0"`; its log says `No tests were executed`. This is not a PlayMode pass.
-- `OceanSenseApiClient.cs` implements an HTTP image-path/prediction handoff, but no Unity-to-API integration test exists.
+- The PlayMode runner now discovers **5 tests**: **4 passed, 0 failed, and 1 was explicitly ignored**. Runner exit code was 0. The ignored navigation-policy test records the committed scene's null ONNX assignment; it is not counted as passed.
+- Runtime tests load the committed scene, validate critical references, create/read/delete a real PNG capture, verify an unavailable HTTP service becomes an explicit adapter error, and verify the committed default backend expectation is named `fixture` rather than real Model 1.
+- The tests exposed and the implementation fixed three lifecycle defects: vehicle initialization depended on MonoBehaviour execution order, fault-controller references could remain null in the older serialized scene, and ML-Agents could collect observations through destroyed scene references during teardown. Batch capture no longer waits forever on `WaitForEndOfFrame`.
 - The API defaults to deterministic fixture classifiers when Model 1 checkpoint environment variables are absent. Both required visual checkpoints are absent, so current evidence does not include real Model 1 inference.
 - The two committed ONNX assets are ML-Agents navigation policies, not RGB perception models. The committed scene and prefab currently serialize `BehaviorParameters.m_Model` as null even though the procedural builder tries to assign the experimental navigation ONNX.
 
-The stable evidence is therefore limited to static structure, compilation, EditMode unit behavior, and Python fixture-level API contracts. Rendered PlayMode behavior, long-run numerical stability, capture correctness, live networking, active navigation-policy assignment, and real Model 1 end-to-end inference remain partial or blocked.
+The stable evidence now includes static structure, compilation, EditMode units, minimal scene runtime wiring, PNG capture lifecycle, unavailable-service handling, and fixture-boundary behavior. Long-run numerical stability, live successful HTTP inference, UDP lifecycle, active navigation-policy assignment, and real Model 1 end-to-end inference remain partial or blocked. Twin 1 therefore remains **PARTIALLY STABLE**.
 
 ## 2. Twin 1 Scope Definition
 
@@ -51,9 +52,9 @@ It does **not** establish calibrated open-sea physics, field safety, visual Mode
 | Test Type | Found? | Command / Evidence | Result | Notes |
 |---|---:|---|---|---|
 | EditMode tests | Yes | `unity/Assets/ROVDigitalTwin/Tests/Editor/HydrodynamicsTests.cs`; Unity command `-batchmode -nographics -runTests -testPlatform EditMode -testResults <temp>/editmode-real.xml` | Pass | XML: 8 total, 8 passed, 0 failed/skipped/inconclusive. Covers drag, rest state, 39/8 contract, depth-decaying wave component, contamination effects, attitude/thruster stop, advanced thrust curve, and deterministic fault reset. |
-| PlayMode tests | No | Searched `unity/Assets` for `[UnityTest]`/`UnityEngine.TestTools`; only Editor test assembly exists. The PlayMode runner command produced `<test-run testcasecount="0" ...>` | Blocked | Runner exit 0 only means invocation completed. Log explicitly says `No tests were executed`; no scene/runtime assertion was evaluated. |
+| PlayMode tests | Yes | `unity/Assets/ROVDigitalTwin/Tests/PlayMode/ROVDigitalTwin.PlayModeTests.asmdef` and `Twin1RuntimePlayModeTests.cs`; Unity runner XML | Pass with blocker | 5 discovered: 4 passed, 0 failed, 1 ignored. The ignored test names the null navigation ONNX assignment. Scene smoke, PNG capture/cleanup, unavailable HTTP/fixture identity, and system boundary tests passed. |
 | Build/static validation | Yes | `python scripts/validate_unity_project.py`; Unity 6000.5.9f1 writable-copy batch import/compile | Pass | Static validator passed package/version, subsystem, 39/8, 16-ray, builder, telemetry-schema, and no-runtime-training checks. Unity compile exited 0 with no compiler-error match. Direct OneDrive project launch was rejected as read-only, so exact source directories were copied to a unique temporary test project; the repository was not altered. |
-| Integration tests | Partial | `python -m pytest -q tests/test_oceansense_api.py tests/unit/test_master_execution_guide.py -k "not model2"` | Pass (fixture/API contract only) | 14 passed, 2 deselected. Tests inject `FixtureClassifier`/`FixtureDomainClassifier` and use a temporary fixture file. No Unity PlayMode HTTP call, rendered PNG inference, checkpoint load, UDP socket lifecycle, or real Model 1 prediction is exercised. |
+| Integration tests | Partial | Unity PlayMode unavailable-service test plus `python -m pytest -q tests/test_oceansense_api.py tests/unit/test_master_execution_guide.py -k "not model2"` | Pass for tested fixture/error contracts | Unity verifies explicit fixture expectation and graceful connection failure; Python had 14 passed, 2 deselected. No successful Unity-to-API response, checkpoint load, UDP socket lifecycle, or real Model 1 prediction is exercised. |
 
 The initial direct Unity command against the OneDrive reparse-point path is excluded as a test result: Unity logged `Project folder or disk is read only` and returned no test XML. The valid compile/EditMode/PlayMode discovery evidence came from a temporary writable copy containing the exact committed `Assets`, `Packages`, and `ProjectSettings`. The required reproducible commands are:
 
@@ -65,23 +66,25 @@ python -m pytest -q tests/test_oceansense_api.py tests/unit/test_master_executio
 & $unityEditor -batchmode -nographics -quit -projectPath $testProject -logFile $compileLog
 & $unityEditor -batchmode -nographics -projectPath $testProject `
   -runTests -testPlatform EditMode -testResults $editXml -logFile $editLog
-& $unityEditor -batchmode -nographics -projectPath $testProject `
+& $unityEditor -batchmode -projectPath $testProject `
   -runTests -testPlatform PlayMode -testResults $playXml -logFile $playLog
 ```
 
 Do not add `-quit` to the two test-runner calls: on this Unity/Test Framework combination it exited after import before executing tests and produced no XML. The test runner terminates batch mode after completion.
 
+The final PlayMode capture run intentionally retained a graphics device; `-nographics` is suitable for EditMode but cannot prove rendered PNG output. `ROVCameraCapture.Capture()` skips the unreliable `WaitForEndOfFrame` yield in batch mode and explicitly renders its source camera. The captured PNG was checked for a non-empty PNG signature and deleted by the test.
+
 ## 4. Model 1 Integration Evidence
 
 | Integration Claim | Supported? | Evidence | Notes |
 |---|---:|---|---|
-| Twin 1 can call the perception endpoint | Partial | `OceanSenseApiClient.CaptureAndAnalyze()` posts to `/api/perception/analyze` | C# code and scene wiring exist; no PlayMode network test proves the live call. |
+| Twin 1 can call the perception endpoint | Partial | `OceanSenseApiClient.CaptureAndAnalyze()` posts to `/api/perception/analyze`; PlayMode calls an unavailable loopback service | Adapter invocation and graceful error state are proven; no successful live response is proven. |
 | Twin 1 can call the decision endpoint with the same frame ID | Partial | `OceanSenseApiClient.cs` creates one GUID, sends perception JSON to `/api/agent/decide`, and reuses the frame ID | Python API tests validate matching-ID rejection/acceptance, but not from Unity. |
 | Twin 1 directly loads Model 1 checkpoints | No | No `.pt` loader or EfficientNet adapter exists in `unity/`; `OceanSenseApiClient.cs` only makes HTTP requests | Checkpoint ownership belongs to the Python API process. |
 | The Python integration can load real Model 1 checkpoints | Architecturally yes; operationally blocked | `src/oceansense/api.py:build_services()` reads `OCEANSENSE_CONDITION_CHECKPOINT` and `OCEANSENSE_DOMAIN_CHECKPOINT`; `src/oceansense/perception.py` loads Torchvision EfficientNet-B0 payloads | Both expected `.pt` files are missing, so this path was not run end-to-end. |
-| Current default API behavior is real Model 1 inference | No | `src/oceansense/api.py` constructs `FixtureClassifier()` and `FixtureDomainClassifier()` when checkpoint environment variables are absent | Fixtures return `unknown`/0.0 by default and identify versions/hashes as fixture evidence. |
+| Current default API behavior is real Model 1 inference | No | `src/oceansense/api.py` constructs fixture classifiers without checkpoint variables; Unity `BackendExpectation` defaults to `Fixture`; PlayMode verifies label `fixture` | Fixtures return `unknown`/0.0 by default. The Unity setting is an explicit expectation, not proof of server identity; a future real-model path must verify `/health` and hashes. |
 | Twin 1 exchanges an image with the API | Partial | `ROVCameraCapture.cs` writes a 640×360 PNG; `OceanSenseApiClient.cs` sends its local `image_path` | This works only when Unity and API share the filesystem. There is no authenticated binary upload/object-storage contract for remote use. |
-| Twin 1 receives prediction-like JSON | Partial | `LastPerceptionJson`, `LastDecisionJson`, and `OceanSenseDashboard.cs` | Interface is present; no real-checkpoint or PlayMode evidence proves model identity, latency, failure behavior, or render validity. |
+| Twin 1 receives prediction-like JSON | Partial | `LastPerceptionJson`, `LastDecisionJson`, and `OceanSenseDashboard.cs` | Interface is present; PlayMode proves these remain empty on connection failure. No successful response or real-checkpoint identity/latency is proven. |
 | Current inspection result is fixture/demo rather than validated inference | Yes | Missing Model 1 checkpoints; fixture fallback in `api.py`; fixture-injected API tests | Any currently demonstrated prediction must be labeled fixture unless `/health` and output model hash prove otherwise. |
 
 **Answers:** Twin 1 does not itself call an in-process Model 1 model or load its checkpoints. It has a real HTTP adapter capable of forwarding a rendered image path and receiving prediction JSON, but the current repository cannot demonstrate real Model 1 inference. The tested behavior is fixture/API-contract behavior. Scene randomization, target/pipeline visuals, and synthetic capture metadata are simulated inputs, not inferred inspection truth.
@@ -136,10 +139,10 @@ The current control integration is also partial. `CompleteProjectBuilder.cs` att
 | Static project/schema contract | Stable | `scripts/validate_unity_project.py` passed all checks | Keep synchronized with scene/runtime changes |
 | Hydrodynamics/safety unit behavior | Stable within tested units | EditMode 8/8 pass | Add broader parameter, non-finite, and regression coverage; unit tests do not prove trajectories |
 | Committed scene/prefab wiring | Partially Stable | Scene contains API, capture, sensors, UDP, agent, 39/8 behavior; serialized ONNX model is null | Add runtime reference assertions and resolve builder-versus-serialized-model mismatch |
-| PlayMode scene/runtime behavior | Blocked | PlayMode runner found 0 tests | Add and run scene load, reference, finite sensor/physics, reset/stop, capture, networking, and soak tests |
-| Camera capture | Demo Only | `ROVCameraCapture.cs`, 640×360 local PNG | Verify PlayMode render, cleanup, failure handling, metadata/frame identity, and headless behavior |
+| PlayMode scene/runtime behavior | Partially Stable | 5 discovered; 4 passed, 0 failed, 1 ignored | Resolve navigation assignment; add finite physics/sensor, reset/stop, UDP, successful API, and soak coverage |
+| Camera capture | Stable within tested lifecycle | PlayMode rendered a non-empty PNG, validated its signature, and deleted it without failure | Add dimensions/pixel-content, sidecar/frame identity, write-failure, repeated-capture, and platform coverage |
 | Synthetic capture/randomization | Demo Only | `SyntheticCaptureController.cs` and explicit synthetic sidecar | Add PlayMode artifact/schema test and visual review; keep outside real validation |
-| Python API contract | Partially Stable | 14 fixture/API tests pass | Add real image decoding, service identity, live Unity HTTP, timeout/retry/auth, and remote-transfer design |
+| Python/Unity API contract | Partially Stable | 14 Python fixture/API tests plus Unity unavailable-service/fixture-expectation test pass | Add successful live Unity HTTP, server identity, timeout/retry/auth, and remote-transfer design |
 | Real Model 1 inference | Blocked | Both `.pt` checkpoints missing; API defaults to fixtures | Recover/validate original pair or separately train/freeze v2, then run hashed end-to-end test |
 | Navigation observation/action contract | Stable | Static validation and EditMode assert 39 observations / 8 actions | Preserve versioning and add runtime observation/action finiteness tests |
 | Navigation ONNX activation/qualification | Partially Stable | Assets/config/model card exist; committed scene/prefab model reference is null; model is legacy dynamics | Resolve assignment, rerun current-simulator regression, never treat as perception evidence |
@@ -149,25 +152,23 @@ The current control integration is also partial. `CompleteProjectBuilder.cs` att
 
 ## 9. Required Work Before Twin 1 Stable
 
-1. Add a PlayMode test assembly and tests that load `OceanSenseDemo.unity`, assert all serialized component references, and verify exactly one ROV/agent/BehaviorParameters graph.
-2. Assert the runtime 39-observation/8-action contract, finite Rigidbody/sensor/telemetry values, bounded tilt/position, and zero thruster command after reset, episode termination, safe-volume exit, low battery, and emergency stop.
+1. Resolve whether the committed scene should reference the legacy navigation ONNX. Make builder, scene, prefab, documentation, and runtime health output agree; convert the ignored test to a pass only after the expected control policy is intentionally assigned and requalified, or explicitly test heuristic/guidance mode.
+2. Extend PlayMode coverage to finite Rigidbody/sensor/telemetry values, bounded tilt/position, and zero thruster command after reset, episode termination, safe-volume exit, low battery, and emergency stop.
 3. Run a seeded bounded-current/wave/visibility/contamination/fault matrix plus a documented soak duration; fail on non-finite physics, null references, socket/thread errors, runaway motion, or unresolved flips.
-4. Add PlayMode capture tests for PNG dimensions/readability, unique/stable frame ID, explicit synthetic provenance, complete randomization sidecar, write failures, and cleanup.
+4. Extend capture coverage to PNG dimensions/content, unique frame identity, synthetic sidecar/provenance, write failures, repeated captures, and cleanup across supported graphics platforms.
 5. Add UDP tests for 1,000 schema-valid samples, invalid JSON rejection, high-level-only command acceptance, packet impairment, teardown, and two consecutive Play sessions without port conflicts.
-6. Resolve whether the committed scene should reference the legacy navigation ONNX. Make builder, scene, prefab, documentation, and runtime health output agree. Requalify any active policy against current dynamics; otherwise explicitly run heuristic/guidance mode.
-7. Add a Unity-to-local-API PlayMode integration test using an explicitly named fixture service. Verify capture → perception → decision frame-ID continuity, timeout/error behavior, and that fixture identity is visible rather than presented as Model 1.
-8. After valid Model 1 checkpoints become available, add a separate gated end-to-end test that sets both checkpoint paths, verifies `/health` is non-fixture, records model/data hashes and latency, analyzes a provenance-safe RGB frame, and rejects partial/mismatched checkpoint configurations.
+6. Add a successful Unity-to-local-API PlayMode integration test using an explicitly named fixture service. Verify capture → perception → decision frame-ID continuity, server fixture identity, timeout/error behavior, and no presentation as Model 1.
+7. After valid Model 1 checkpoints become available, add a separate gated end-to-end test that sets both checkpoint paths, verifies `/health` is non-fixture, records model/data hashes and latency, analyzes a provenance-safe RGB frame, and rejects partial/mismatched configurations.
+8. Add a licensed Unity CI job that archives compile, EditMode, and PlayMode logs/XML and fails on zero discovery, failures, or unexpected ignores.
 9. Replace shared-local-path image exchange with authenticated upload/object storage before remote deployment, or document local-only scope and validate path access/security.
-10. Add a licensed Unity CI job that archives compile, EditMode, and PlayMode logs/XML and fails when PlayMode test count is zero.
-11. Update operator/demo documentation so rendered captures, fixture responses, navigation ONNX, real Model 1 predictions, and future Model 2/Twin 2 evidence cannot be confused.
-12. Retain hydrodynamic and field-performance limitations until parameter identification, HIL/tank, and supervised field evidence exist; software PlayMode stability alone is not physical validation.
+10. Retain hydrodynamic and field-performance limitations until parameter identification, HIL/tank, and supervised field evidence exist; PlayMode stability alone is not physical validation.
 
 ## 10. Recommended Next Action
 
-**add missing PlayMode tests**
+**resolve the navigation-policy assignment blocker, then expand PlayMode runtime coverage**
 
-Start with scene load/reference assertions, finite sensor/physics checks, emergency stop, capture-sidecar provenance, and UDP lifecycle. These tests can be implemented and run with fixture API identity while Model 1 checkpoints remain blocked. Add the real Model 1 integration test only after a valid checkpoint pair and evidence package exist.
+Decide whether Twin 1 should intentionally assign and requalify `OceanSenseROV_OpenSea_Experimental.onnx` or remain in an explicitly tested heuristic/guidance mode. Then add finite sensor/physics, emergency-stop, UDP lifecycle, successful fixture-server, and soak tests. Add real Model 1 integration only after a valid checkpoint pair and evidence package exist.
 
 ## Integrity Statement
 
-No Model 1 training was performed and no Model 1 architecture/checkpoint was changed. No external dataset was downloaded. No navigation ONNX was treated as perception. A zero-test PlayMode result was not reported as a pass. Fixture/demo outputs were not treated as real inference or validation data. No Model 2 or Twin 2 file was modified. The only planned repository change from this review is this evidence document.
+No Model 1 training was performed and no Model 1 architecture/checkpoint was changed. No external dataset was downloaded. No navigation ONNX was treated as perception or silently assigned. Fixture/demo outputs were not treated as real inference or validation data. No Model 2 or Twin 2 file was modified. The report states the exact PlayMode outcome—5 discovered, 4 passed, 1 ignored, 0 failed—and retains the navigation assignment and real Model 1 blockers.

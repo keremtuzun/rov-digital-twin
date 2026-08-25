@@ -6,21 +6,31 @@ using UnityEngine.Networking;
 
 namespace ROVDigitalTwin
 {
+    public enum PerceptionBackendExpectation
+    {
+        Fixture,
+        Model1
+    }
+
     public sealed class OceanSenseApiClient : MonoBehaviour
     {
         public string ApiBaseUrl = "http://127.0.0.1:8000";
+        public PerceptionBackendExpectation BackendExpectation = PerceptionBackendExpectation.Fixture;
         public ROVCameraCapture CameraCapture;
         public ROVVehicle Vehicle;
         public DepthSensor Depth;
         public string LastStatus { get; private set; } = "idle";
         public string LastPerceptionJson { get; private set; } = "";
         public string LastDecisionJson { get; private set; } = "";
+        public string BackendExpectationLabel => BackendExpectation == PerceptionBackendExpectation.Fixture
+            ? "fixture" : "model1";
+        public bool ExpectsFixtureBackend => BackendExpectation == PerceptionBackendExpectation.Fixture;
 
         public void AnalyzeCurrentView() => StartCoroutine(CaptureAndAnalyze());
 
         private IEnumerator CaptureAndAnalyze()
         {
-            LastStatus = "capturing";
+            LastStatus = $"capturing ({BackendExpectationLabel})";
             string imagePath = null;
             yield return CameraCapture.Capture(path => imagePath = path);
             string frameId = Guid.NewGuid().ToString("N");
