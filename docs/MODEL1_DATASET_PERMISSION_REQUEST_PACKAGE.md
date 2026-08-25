@@ -69,8 +69,10 @@ An unclear answer is not approval. Record it as `manual_review` and keep assets 
 
 ## 5. SubPipe Internal Approval and Optional Clarification
 
-**Authoritative record:** <https://zenodo.org/records/12666132>  
-**Metadata endpoint reviewed:** <https://zenodo.org/api/records/12666132>  
+**Authoritative record:** <https://zenodo.org/records/12666132>
+
+**Metadata endpoint reviewed:** <https://zenodo.org/api/records/12666132>
+
 **Observed metadata:** version 3.0.1, open access, CC BY 4.0, DOI `10.5281/zenodo.12666132`.
 
 CC BY 4.0 does not normally require separate owner permission, but the repository still needs an internal evidence package. Before any download:
@@ -94,8 +96,10 @@ The optional note must not be described as legally required permission unless in
 
 ## 6. CleanCam Internal Approval and Optional Version Clarification
 
-**Authoritative record:** <https://zenodo.org/records/18952474>  
-**Metadata endpoint reviewed:** <https://zenodo.org/api/records/18952474>  
+**Authoritative record:** <https://zenodo.org/records/18952474>
+
+**Metadata endpoint reviewed:** <https://zenodo.org/api/records/18952474>
+
 **Observed metadata:** version v1.0.0, open access, CC BY 4.0, DOI `10.5281/zenodo.18952474`; the record page reports that a newer version exists.
 
 Before any download:
