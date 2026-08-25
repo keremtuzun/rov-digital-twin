@@ -1,0 +1,40 @@
+{
+  "schema_version": "1.0",
+  "audit_date": "2026-08-25",
+  "decision": "blocked",
+  "audited_branch": "codex/rov-digital-twin",
+  "audited_commit": "65cf3ba9bca486f4bc3c19ee01b7831a802cc652",
+  "component": "model1_visual_perception",
+  "metrics": {
+    "accuracy": null,
+    "macro_precision": null,
+    "macro_recall": null,
+    "macro_f1": null,
+    "latency_ms": null
+  },
+  "missing_required_artifacts": [
+    "dataset/processed/labels.csv",
+    "dataset/annotations/bboxes.json",
+    "models/oceansense_domain_efficientnet_b0.pt",
+    "models/oceansense_condition_efficientnet_b0.pt",
+    "outputs/evaluation_reports/multidomain_metrics.json"
+  ],
+  "approved_asset_count": 0,
+  "commands": [
+    {
+      "command": "python scripts/validate_image_dataset.py dataset/processed/labels.csv --boxes dataset/annotations/bboxes.json --report outputs/model1_audit/dataset_validation.json",
+      "exit_code": 1,
+      "reason": "dataset/processed/labels.csv does not exist"
+    },
+    {
+      "command": "python scripts/evaluate_multidomain.py --labels dataset/processed/labels.csv --domain-checkpoint models/oceansense_domain_efficientnet_b0.pt --condition-checkpoint models/oceansense_condition_efficientnet_b0.pt --output outputs/evaluation_reports/multidomain_metrics.json",
+      "exit_code": 1,
+      "reason": "dataset/processed/labels.csv does not exist"
+    }
+  ],
+  "notes": [
+    "Fixture API responses are not evaluation evidence.",
+    "Telemetry weak-point and Unity navigation artifacts are not Model 1 checkpoints.",
+    "No metric has been inferred or fabricated."
+  ]
+}

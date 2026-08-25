@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "audit_date": "2026-08-25",
+  "decision": "partially_stable",
+  "audited_commit": "65cf3ba9bca486f4bc3c19ee01b7831a802cc652",
+  "unity_version": "6000.5.9f1",
+  "checks": {
+    "static_project_validation": {"status": "pass", "exit_code": 0},
+    "batchmode_compile": {"status": "pass", "exit_code": 0},
+    "editmode_tests": {"status": "pass", "total": 8, "passed": 8, "failed": 0, "skipped": 0},
+    "api_and_non_model2_contract_tests": {"status": "pass", "passed": 14, "deselected": 2},
+    "playmode_visual_capture": {"status": "not_run"},
+    "real_model1_end_to_end": {"status": "blocked", "reason": "No approved visual checkpoint or dataset"}
+  },
+  "twin2_excluded": true,
+  "limitations": [
+    "Hydrodynamics require calibration against real telemetry.",
+    "No automated long-duration PlayMode soak evidence was produced.",
+    "Fixture API classifiers validate contracts only."
+  ]
+}

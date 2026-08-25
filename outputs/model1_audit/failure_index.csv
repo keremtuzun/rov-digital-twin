@@ -1,0 +1,1 @@
+sample_id,split,mission_or_video_id,source_name,license,ground_truth,prediction,confidence,failure_code,visibility_level,inspection_domain,synthetic,reviewer,disposition,image_path
