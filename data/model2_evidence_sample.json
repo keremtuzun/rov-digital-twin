@@ -1,0 +1,59 @@
+{
+  "observations": [
+    {
+      "frame_id": "frame-001",
+      "target_id": "weld-01",
+      "timestamp": 1.0,
+      "component_type": "weld",
+      "condition_label": "possible_structural_concern",
+      "concern_score": 0.72,
+      "uncertainty": 0.18,
+      "viewpoint_angle_deg": 5.0,
+      "distance_m": 1.0,
+      "evidence_ref": "frame-001"
+    },
+    {
+      "frame_id": "frame-002",
+      "target_id": "weld-01",
+      "timestamp": 2.0,
+      "component_type": "weld",
+      "condition_label": "possible_structural_concern",
+      "concern_score": 0.78,
+      "uncertainty": 0.14,
+      "viewpoint_angle_deg": 22.0,
+      "distance_m": 1.2,
+      "evidence_ref": "frame-002"
+    },
+    {
+      "frame_id": "frame-003",
+      "target_id": "weld-01",
+      "timestamp": 3.0,
+      "component_type": "weld",
+      "condition_label": "possible_structural_concern",
+      "concern_score": 0.81,
+      "uncertainty": 0.12,
+      "viewpoint_angle_deg": 38.0,
+      "distance_m": 1.4,
+      "evidence_ref": "frame-003"
+    },
+    {
+      "frame_id": "frame-003",
+      "target_id": "pipe-01",
+      "timestamp": 3.0,
+      "component_type": "pipe",
+      "condition_label": "possible_structural_concern",
+      "concern_score": 0.64,
+      "uncertainty": 0.20,
+      "viewpoint_angle_deg": 38.0,
+      "distance_m": 1.4,
+      "evidence_ref": "frame-003"
+    }
+  ],
+  "relations": [
+    {
+      "source_target_id": "weld-01",
+      "destination_target_id": "pipe-01",
+      "relation_type": "weld_connects"
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "prototype_version": "model2_structural_temporal_hypothesis_v0.1",
+  "capability_gap": "Single-frame labels do not represent cross-view persistence or structural relationships.",
+  "primary_hypothesis": "Viewpoint-weighted temporal persistence plus structural-neighbor support improves ranking of inspection concerns over a Model 1 score-only baseline.",
+  "fallback_hypothesis": "Temporal persistence without structural graph metadata improves uncertainty-triggered reinspection decisions.",
+  "minimum_frames": 3,
+  "required_ablations": [
+    "without_temporal",
+    "without_structure",
+    "model1_score_only"
+  ],
+  "claim_boundary": "Research prototype only; no validated real-world defect-detection claim."
+}

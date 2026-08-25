@@ -77,6 +77,25 @@ class ApiContractTests(unittest.TestCase):
         })
         self.assertEqual(response.status_code, 422)
 
+    def test_guide_compatible_mission_decision_is_high_level_only(self):
+        response = self.client.post("/api/mission/decide", json={
+            "mission_id": "mission-1",
+            "frame_id": "frame-1",
+            "robot_pose": {"x": 0, "y": 0, "z": -2, "roll": 0, "pitch": 0, "yaw": 0},
+            "inspection_target": {
+                "target_id": "pipe-1", "type": "pipe", "expected_geometry": {},
+                "current_viewpoint": {"angle_deg": 65}, "distance_to_target": 1.0,
+                "inspection_status": "started",
+            },
+            "model1_outputs": [{"frame_id": "frame-1", "confidence": 0.8}],
+            "model2_outputs": [],
+            "uncertainty": {"entropy": 0.2},
+            "environment": {"visibility": "moderate"},
+        })
+        self.assertEqual(response.status_code, 200, response.text)
+        self.assertEqual(response.json()["decision"], "change_viewpoint")
+        self.assertNotIn("thruster", response.text.lower())
+
 
 if __name__ == "__main__":
     unittest.main()

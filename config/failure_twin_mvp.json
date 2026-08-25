@@ -1,0 +1,9 @@
+{
+  "schema_version": "1.0.0",
+  "generator": "oceansense.failure_twin_v1",
+  "count": 100,
+  "seed": 2026,
+  "width": 512,
+  "height": 320,
+  "claim_boundary": "Synthetic controlled inspection evidence only; not calibrated physical truth."
+}

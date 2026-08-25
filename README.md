@@ -1,27 +1,71 @@
 # OceanSense / ROV Digital Twin Intelligence Stack
 
-This repository implements the project as one integrated OceanSense system rather than separating it
-by teammate. It contains the image-intelligence and decision pipeline, a complete Unity digital-twin
-project scaffold, the procedural underwater ROV/environment, sensor and hydrodynamic simulation,
-ML-Agents interface, dashboard, and ROS 2 bridge.
+This repository is the software-first Conrad/OceanSense inspection stack. The current phase proves
+data discipline, repeatable evaluation, simulation interfaces and evidence-bounded inspection
+reasoning without requiring a physical robot. Hardware construction and claims of physical deployment
+are explicitly deferred until the staged validation gates are satisfied.
 
-The implemented intelligence pipeline is:
+The software is organized around four distinct pillars:
+
+1. **Model 1** - a conventional underwater visual-inspection baseline. Its code exists, but a
+   license-reviewed real dataset and approved checkpoint do not; Model 1 v1 freeze is therefore
+   blocked rather than fabricated.
+2. **Navigation digital twin** - Unity robot motion, thrusters, hydrodynamics, sensors, missions and
+   PPO research. It simulates the robot and viewpoint context, not structural damage truth.
+3. **Inspection/failure digital twin** - a separate seeded 2D controlled-data generator for structures,
+   defects, masks, severity and metadata. Its output is synthetic experimental evidence only.
+4. **Model 2 research** - a non-traditional structural-temporal reasoning hypothesis that consumes
+   Model 1 observations, viewpoint history, uncertainty and structural relations. It includes explicit
+   score-only/temporal/structural ablations and is not presented as a validated proprietary invention.
+
+The target software-first demonstration chain is:
 
 ```text
-licensed multi-domain underwater dataset -> validation/split -> domain classifier + condition classifier
-  -> domain-aware condition/risk score -> optional YOLOv8n concern boxes
-  -> rule-based safety decision -> grounded cautious explanation -> JSON/FastAPI
+recorded/simulated navigation event -> frame + pose + target context
+  -> frozen Model 1 observation -> failure analysis / dataset gaps
+  -> optional Model 2 structural-temporal reasoning + ablations
+  -> evidence-only mission decision -> accept / reinspect / change viewpoint / unknown / escalate
 ```
 
-The repository does **not** claim a trained underwater image model: no license-reviewed image snapshot
-is committed. It includes a 250,081-step experimental hybrid PPO waypoint policy and a trained
+The repository does **not** claim a frozen underwater Model 1: no license-reviewed image snapshot or
+approved checkpoint is committed. The telemetry weak-point classifier is a vehicle-health baseline,
+not Model 1. The repository includes a 250,081-step experimental hybrid PPO waypoint policy and a trained
 synthetic-telemetry weak-point classifier. A historical frozen high-difficulty simulation evaluation
 recorded success 1.0 in all 24 reporting windows and no flip event across 59,919 steps. Subsequent
 actuator/environment changes make that ONNX artifact a legacy-dynamics baseline, not a validation of
 the current simulator. Neither model is approved for real-vehicle control; metrics, limitations and
 promotion gates are versioned with the artifacts.
 
-## Unity digital twin quick start
+## Execution-guide workflows
+
+Generate 100 reproducible failure-twin pairs with masks and metadata:
+
+```powershell
+python -m pip install -e ".[vision]"
+python scripts/run_failure_twin_batch.py --config config/failure_twin_mvp.json `
+  --output outputs/failure_twin_mvp
+```
+
+Run the Model 2 structural-temporal hypothesis and required ablations:
+
+```powershell
+python scripts/run_model2_experiment.py inputs/model2_evidence.json --target-id pipe_01 `
+  --output outputs/model2_ablation.json
+```
+
+Validate shared prediction records and export metrics/failures:
+
+```powershell
+python scripts/evaluate_predictions.py outputs/predictions.jsonl `
+  --metrics outputs/metrics.json --failure-index outputs/failure_index.csv
+python scripts/generate_report.py experiments/run_manifest.json --output outputs/run_report.md
+```
+
+See `docs/master_execution_alignment.md`, `docs/claim_boundaries.md`,
+`docs/model1_freeze_report.md`, `docs/failure_twin_spec.md` and
+`docs/model2_research_log.md` for current evidence boundaries and next gates.
+
+## Navigation digital twin quick start
 
 Open the `unity` folder with Unity 6. The project restores ML-Agents and ROS-TCP-Connector, then
 automatically generates the `OceanSenseDemo` scene and editable ROV prefab. See `unity/README.md` for

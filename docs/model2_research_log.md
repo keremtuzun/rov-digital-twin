@@ -1,0 +1,42 @@
+# Model 2 research log
+
+## Capability gap
+
+Conventional single-frame inspection models label visible pixels or frames but do not establish whether
+evidence persists across time/viewpoints or whether observations agree with the inspected structure's
+relationships. A confident single view can therefore be brittle, poorly localized in structural context
+or misleading under turbidity and occlusion.
+
+## Primary hypothesis
+
+A transparent structural-temporal evidence mechanism can improve concern ranking and reinspection
+decisions by combining:
+
+- Model 1 concern scores and uncertainty;
+- viewpoint angle and distance weighting;
+- persistence across distinct frames;
+- relations such as weld-connects-pipe and coating-on-component;
+- an explicit unknown state when history or viewpoint diversity is insufficient.
+
+The implemented prototype is `model2_structural_temporal_hypothesis_v0.1`. It produces a structured
+condition state and mechanism trace. It is evaluated against three required ablations: without temporal
+memory, without structural support and Model 1 score-only.
+
+## Fallback hypothesis
+
+If structural metadata is too unreliable, temporal persistence plus viewpoint-aware uncertainty alone
+may improve reinspection decisions over a single-frame threshold.
+
+## What is not yet proven
+
+- No literature matrix or novelty review has been completed in this repository.
+- No real Model 1 checkpoint or approved field dataset has evaluated the hypothesis.
+- Thresholds are engineering hypotheses, not calibrated structural-risk probabilities.
+- The code is not called a proprietary invention until novelty and empirical contribution are supported.
+
+## Falsifiable experiment
+
+Run the full mechanism and all ablations on the same mission-grouped records. Compare false acceptance,
+reinspection recall, temporal consistency, calibration and synthetic-to-real behavior separately. Reject
+the primary hypothesis if it does not consistently outperform score-only and temporal-only baselines on
+held-out real missions.

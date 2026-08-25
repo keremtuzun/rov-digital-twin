@@ -1,0 +1,26 @@
+{
+  "schema_version": "1.0.0",
+  "run_id": "EXAMPLE-NOT-A-RESULT",
+  "date": "2026-08-25T00:00:00+03:00",
+  "git_commit": "replace-with-exact-commit",
+  "branch": "replace-with-exact-branch",
+  "operator_or_agent": "example",
+  "track": "model2_research",
+  "config_path": "config/model2_hypothesis_v1.json",
+  "dataset_manifest": "replace-with-manifest-path",
+  "checkpoint_or_prototype_version": "model2_structural_temporal_hypothesis_v0.1",
+  "inputs": [
+    "data/model2_evidence_sample.json"
+  ],
+  "outputs": [
+    "outputs/model2_ablation_sample.json"
+  ],
+  "metrics": {},
+  "synthetic_or_real_or_mixed": "synthetic",
+  "limitations": [
+    "Example manifest only; contains no empirical result or validated dataset."
+  ],
+  "next_actions": [
+    "Replace placeholders and run on manifest-linked held-out evidence."
+  ]
+}

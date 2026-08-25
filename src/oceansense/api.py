@@ -6,6 +6,8 @@ from pathlib import Path
 from pydantic import BaseModel, Field
 
 from .decision import DecisionAgent
+from .mission_decision import MissionDecisionInput, decide_mission
+from .navigation_contracts import InspectionTarget, RobotPose
 from .perception import (
     FixtureClassifier,
     FixtureDomainClassifier,
@@ -110,6 +112,36 @@ class DecisionBody(BaseModel):
     mission_context: ContextBody = Field(default_factory=ContextBody)
 
 
+class RobotPoseBody(BaseModel):
+    x: float
+    y: float
+    z: float
+    roll: float
+    pitch: float
+    yaw: float
+
+
+class InspectionTargetBody(BaseModel):
+    target_id: str = Field(min_length=1)
+    type: str
+    expected_geometry: dict = Field(default_factory=dict)
+    current_viewpoint: dict[str, float] = Field(default_factory=dict)
+    distance_to_target: float = Field(ge=0)
+    inspection_status: str = "unknown"
+
+
+class MissionDecisionBody(BaseModel):
+    mission_id: str = Field(min_length=1)
+    frame_id: str = Field(min_length=1)
+    robot_pose: RobotPoseBody
+    inspection_target: InspectionTargetBody
+    model1_outputs: list[dict] = Field(default_factory=list)
+    model2_outputs: list[dict] = Field(default_factory=list)
+    uncertainty: dict[str, float | bool] = Field(default_factory=dict)
+    environment: dict = Field(default_factory=dict)
+    history: list[dict] = Field(default_factory=list)
+
+
 def build_services() -> tuple[PerceptionService, DecisionAgent]:
     classifier_path = os.getenv("OCEANSENSE_CONDITION_CHECKPOINT") or os.getenv("OCEANSENSE_CLASSIFIER_CHECKPOINT")
     domain_path = os.getenv("OCEANSENSE_DOMAIN_CHECKPOINT")
@@ -186,6 +218,26 @@ def create_app(perception_service: PerceptionService | None = None, decision_age
                 vehicle_profile=source.vehicle_profile if source else "unknown",
             )
             return decision_agent.decide(result, MissionContext(**body.mission_context.model_dump())).to_dict()
+        except ValueError as exc:
+            raise HTTPException(status_code=422, detail=str(exc)) from exc
+
+    @app.post("/api/mission/decide")
+    def decide_from_mission_evidence(body: MissionDecisionBody) -> dict:
+        """Guide-compatible evidence decision; output contains high-level intent only."""
+        try:
+            target = InspectionTarget(**body.inspection_target.model_dump())
+            request = MissionDecisionInput(
+                mission_id=body.mission_id,
+                frame_id=body.frame_id,
+                robot_pose=RobotPose(**body.robot_pose.model_dump()),
+                inspection_target=target,
+                model1_outputs=body.model1_outputs,
+                model2_outputs=body.model2_outputs,
+                uncertainty=body.uncertainty,
+                environment=body.environment,
+                history=body.history,
+            )
+            return decide_mission(request).__dict__
         except ValueError as exc:
             raise HTTPException(status_code=422, detail=str(exc)) from exc
 
