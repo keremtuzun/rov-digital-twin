@@ -1,6 +1,18 @@
 # Model 2 research log
 
-## Capability gap
+## Track correction from the standalone specification
+
+Model 2 is now formally a dynamic structural-state inference track. It estimates hidden, evolving
+component condition from partial/noisy observation sequences. It is not a second detector, a bigger
+vision model or a generic LLM task. The new `oceansense.model2` Failure Twin v0 provides the graph,
+hidden dynamics, observation masks and scenario-level debug dataset required before baseline or Model 2
+training.
+
+The earlier heuristic below remains a transparent pre-v0 idea only. Its existence does not satisfy the
+new baseline matrix and its historical synthetic outputs are not evidence for the dynamic-state
+hypothesis.
+
+## Earlier capability gap
 
 Conventional single-frame inspection models label visible pixels or frames but do not establish whether
 evidence persists across time/viewpoints or whether observations agree with the inspected structure's
@@ -33,6 +45,8 @@ may improve reinspection decisions over a single-frame threshold.
 - No real Model 1 checkpoint or approved field dataset has evaluated the hypothesis.
 - Thresholds are engineering hypotheses, not calibrated structural-risk probabilities.
 - The code is not called a proprietary invention until novelty and empirical contribution are supported.
+- No Last Observation, Independent MLP, Temporal GRU or Static GNN baseline has yet been run on the new
+  Failure Twin v0 dataset; Model 2 network training is therefore blocked by design.
 
 ## Falsifiable experiment
 

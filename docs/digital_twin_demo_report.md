@@ -2,8 +2,9 @@
 
 ## Purpose
 
-The demo command links the navigation and inspection/failure twins without collapsing their
-responsibilities. It produces artifacts, not only a screenshot:
+The demo command links the navigation twin and 2D visual inspection fixture without collapsing their
+responsibilities. It does not run the graph-based Model 2 Failure Twin v0. It produces artifacts, not
+only a screenshot:
 
 ```powershell
 python scripts/run_digital_twin_demo.py --run-id digital-twin-demo-v1

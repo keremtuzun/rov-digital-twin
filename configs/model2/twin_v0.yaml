@@ -1,0 +1,27 @@
+{
+  "dataset_version": "failure-twin-v0-debug-100",
+  "dataset_seed": 20260825,
+  "scenario_count": 100,
+  "twin": {
+    "n_nodes": 20,
+    "timesteps": 10,
+    "structure_types": ["chain", "branched_pipeline", "small_lattice", "mixed_structure"],
+    "observation_coverage": 0.5,
+    "intrinsic_degradation": 0.012,
+    "noise_std": 0.01,
+    "neighbor_coupling": 0.15,
+    "environment_effect_weight": 0.01,
+    "environment_level": 0.5,
+    "false_positive_rate": 0.04,
+    "false_negative_rate": 0.08,
+    "severity_noise_std": 0.08,
+    "confidence_noise_std": 0.05,
+    "clip_range": [0.0, 1.0],
+    "condition_weights": [0.3, 0.3, 0.25, 0.15],
+    "component_type_overrides": {
+      "weld": 1.15,
+      "joint": 1.1,
+      "support": 0.95
+    }
+  }
+}

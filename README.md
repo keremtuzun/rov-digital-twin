@@ -12,11 +12,17 @@ The software is organized around four distinct pillars:
    blocked rather than fabricated.
 2. **Navigation digital twin** - Unity robot motion, thrusters, hydrodynamics, sensors, missions and
    PPO research. It simulates the robot and viewpoint context, not structural damage truth.
-3. **Inspection/failure digital twin** - a separate seeded 2D controlled-data generator for structures,
-   defects, masks, severity and metadata. Its output is synthetic experimental evidence only.
+3. **Failure Twin / inspection research environment** - a graph-based hidden degradation simulator with
+   partial/noisy observations for Model 2. The older seeded 2D image-pair generator remains a separate
+   visual fixture for interface demos; neither simulator claims calibrated physical truth.
 4. **Model 2 research** - a non-traditional structural-temporal reasoning hypothesis that consumes
    Model 1 observations, viewpoint history, uncertainty and structural relations. It includes explicit
    score-only/temporal/structural ablations and is not presented as a validated proprietary invention.
+
+The current standalone Model 2 track now begins one level earlier: `oceansense.model2` generates
+connected structural graphs, simulator-only degradation trajectories and partial/noisy masked
+Model-1-like observations. This is an experimental environment, not a second image detector. No Model 2
+network has been trained; the four required baselines gate that later work.
 
 The target software-first demonstration chain is:
 
@@ -38,6 +44,16 @@ promotion gates are versioned with the artifacts.
 
 ## Execution-guide workflows
 
+Generate the fixed Model 2 Failure Twin v0 debug dataset without training a model:
+
+```powershell
+python -m pip install -e ".[model2]"
+python scripts/generate_model2_dataset.py --config configs/model2/twin_v0.yaml `
+  --output data/simulated/model2_debug_v0
+python scripts/visualize_model2_scenario.py data/simulated/model2_debug_v0/scenario_000000 `
+  --output outputs/model2_debug_plots
+```
+
 Run the complete artifact-producing two-twin demo without Unity or physical hardware:
 
 ```powershell
@@ -45,7 +61,7 @@ python -m pip install -e ".[vision]"
 python scripts/run_digital_twin_demo.py --run-id digital-twin-demo-v1
 ```
 
-This command separately runs the controlled failure twin and deterministic navigation replay, links
+This command separately runs the controlled 2D visual fixture and deterministic navigation replay, links
 `mission_id`, `frame_id`, `target_id`, `scenario_id` and `run_id`, invokes an explicitly non-model
 placeholder because Model 1 is not frozen, produces a safe `flag_unknown` decision, and writes a run
 manifest plus JSON/Markdown reports under `experiments/runs/<run_id>/`.

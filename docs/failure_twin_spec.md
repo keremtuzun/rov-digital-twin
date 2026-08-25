@@ -1,7 +1,11 @@
-# Inspection/failure twin MVP specification
+# Visual inspection fixture specification
 
-The failure twin is controlled data infrastructure for research. It is separate from Unity navigation
-physics and does not claim physically calibrated damage rendering.
+This document describes the seeded 2D image-pair fixture used by the integration demo. It is not the
+dynamic graph-based Failure Twin v0 used to develop Model 2. That separate research environment is
+documented in `MODEL2_RESEARCH_SPEC.md`.
+
+The visual fixture is controlled data infrastructure for interface research. It is separate from Unity
+navigation physics and does not claim physically calibrated damage rendering.
 
 `oceansense.failure_twin` generates seeded normal/degraded pairs for pipes, welds, joints, plates,
 cables, supports and concrete piers. Supported controlled conditions include corrosion, cracks, coating

@@ -10,8 +10,8 @@ too easy to conflate.
 | Model 1 conventional baseline | Training/evaluation code existed; no approved real dataset or checkpoint | Model 1 is named separately from telemetry diagnostics; freeze report and shared prediction evaluation are defined | Approved manifest, checkpoint and clean-checkout validation are absent |
 | Dataset expansion | Seven catalog sources with conservative license notes | Existing governance remains authoritative; gaps are tied to Model 1 freeze/failure analysis | At least 15 researched sources and five usable sources require evidence-backed review |
 | Navigation twin | Strong Unity ROV, PPO, faults and sim-to-real reliability work | Navigation is explicitly limited to robot motion/viewpoint context; separate RobotState/SensorFrame/Target/Event replay logs and a deterministic headless mission runner are defined | Current Unity before/after fidelity metrics remain open |
-| Inspection/failure twin | Structural damage generation was mixed conceptually with synthetic camera capture | Separate seeded 2D generator emits normal/degraded pairs, masks/boxes, numeric severity, full scenario metadata and leakage-safe split manifests | Human sanity review and comparison with real visual distributions are required |
-| Model 2 R&D | Vision, telemetry and LLM components could be mistaken for Model 2 | Structural-temporal evidence reasoner, graph support and mandatory ablations define a falsifiable hypothesis | Literature matrix, approved real evaluation data and empirical comparison are required |
+| Inspection/failure twin | A seeded 2D visual-pair generator existed but could not test hidden dynamic-state inference | Kept the visual fixture separate and added Failure Twin v0: connected graphs, simulator-only degradation trajectories, masked/noisy Model-1-like observations and scenario-level datasets | Dynamics remain deliberately uncalibrated; visual and graph twins must not be conflated |
+| Model 2 R&D | The transparent scoring heuristic did not implement the new standalone dynamic-state formulation | Formalized `P(S_t | O_1...O_t)` and added the experimental environment, schemas, debug plots and tests without training | Four same-distribution baselines and literature review must precede Model 2 v0 training |
 | Evaluation infrastructure | Several track-specific metrics and manifests existed | Shared dataset/prediction/run contracts, generic prediction evaluation and report generation added | Freeze package and integrated demonstration run manifest are not yet available |
 | Decision agents | Safety-gated high-level actions existed | Exact mission-level accept/reinspect/change-viewpoint/unknown/escalate interface added | Operator thresholds require validation; recommendation remains non-authoritative |
 | Two-twin demo | No single artifact-producing integration command | `run_digital_twin_demo.py` links all five shared IDs, pose, target, scenario ground truth, placeholder prediction, decision, logs and run report | Replace the placeholder only after Model 1 freeze; compare headless navigation with Unity |
@@ -26,21 +26,27 @@ Navigation twin / recorded mission
         -> Model 2 structural-temporal research hypothesis
         -> mission decision recommendation
 
-Failure twin
-        -> controlled synthetic frames + masks + severity + metadata
+Failure Twin v0
+        -> structural graph + hidden dynamic state
+        -> partial/noisy masked Model-1-like observations
         -> Model 2 experiments and evaluation only
+
+2D visual fixture
+        -> controlled synthetic frames + masks + severity + metadata
+        -> interface demonstration only
 ```
 
-The failure twin never supplies robot dynamics. The navigation twin never claims structural-damage ground
-truth. Telemetry fault classification remains a vehicle-health capability and is not renamed Model 1 or
-Model 2. LLM components may explain structured evidence but do not establish metrics or technical truth.
+Failure Twin v0 never supplies robot dynamics or image evidence. The navigation twin never claims
+structural-damage ground truth. Telemetry fault classification remains a vehicle-health capability and
+is not renamed Model 1 or Model 2. LLM components may explain structured evidence but do not establish
+metrics or technical truth.
 
 ## Immediate priorities
 
 1. Acquire or approve a real Model 1 dataset manifest and checkpoint before attempting a freeze.
 2. Run Model 1 evaluation and create a reviewed failure index; use it to drive source expansion.
 3. Clear the Unity licensing/build blocker and measure the selected calibrated drag/thruster improvement.
-4. Generate and human-review the first failure-twin batch without treating it as field validation.
-5. Complete Model 2 literature research, then evaluate full vs ablated mechanisms on real and synthetic
-   conditions separately.
+4. Review the Failure Twin v0 debug dataset and its truth-only plots without treating it as field
+   validation.
+5. Implement the four same-distribution baselines before any Model 2 v0 network or architecture claim.
 6. Capture every major run with a shared run manifest, limitations and exact reproduction command.
