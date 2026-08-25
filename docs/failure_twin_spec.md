@@ -12,6 +12,7 @@ loss, deformation, biofouling, sediment coverage and leak-like visual anomalies.
 - structure/material/defect/pattern fields;
 - turbidity, lighting, blur, backscatter, occlusion, viewpoint and distance metadata;
 - stable scenario ID, seed and leakage-resistant split;
+- direct output image/mask/box paths, numeric severity and intended-use fields;
 - natural-language caption and an explicit synthetic evidence boundary.
 
 Run:
@@ -21,6 +22,7 @@ python scripts/run_failure_twin_batch.py --config config/failure_twin_mvp.json `
   --output outputs/failure_twin_mvp
 ```
 
-The default config emits 100 paired scenarios. Before using a batch, verify metadata completeness,
-deterministic regeneration, split isolation and human visual sanity. Synthetic results must be reported
+The default config emits 100 paired scenarios plus `train_manifest.jsonl`,
+`validation_manifest.jsonl`, `test_manifest.jsonl` and a cross-split leakage summary. Before using a
+batch, verify metadata completeness, deterministic regeneration, split isolation and human visual sanity. Synthetic results must be reported
 separately from real inspection data and cannot establish real-world accuracy or physical severity.

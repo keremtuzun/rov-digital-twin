@@ -9,11 +9,12 @@ too easy to conflate.
 | --- | --- | --- | --- |
 | Model 1 conventional baseline | Training/evaluation code existed; no approved real dataset or checkpoint | Model 1 is named separately from telemetry diagnostics; freeze report and shared prediction evaluation are defined | Approved manifest, checkpoint and clean-checkout validation are absent |
 | Dataset expansion | Seven catalog sources with conservative license notes | Existing governance remains authoritative; gaps are tied to Model 1 freeze/failure analysis | At least 15 researched sources and five usable sources require evidence-backed review |
-| Navigation twin | Strong Unity ROV, PPO, faults and sim-to-real reliability work | Navigation is explicitly limited to robot motion/viewpoint context; replay contracts are defined | Current Unity rebuild and before/after fidelity metrics remain open |
-| Inspection/failure twin | Structural damage generation was mixed conceptually with synthetic camera capture | Separate seeded 2D generator emits normal/degraded pairs, masks, severity, split and metadata | Human sanity review and comparison with real visual distributions are required |
+| Navigation twin | Strong Unity ROV, PPO, faults and sim-to-real reliability work | Navigation is explicitly limited to robot motion/viewpoint context; separate RobotState/SensorFrame/Target/Event replay logs and a deterministic headless mission runner are defined | Current Unity before/after fidelity metrics remain open |
+| Inspection/failure twin | Structural damage generation was mixed conceptually with synthetic camera capture | Separate seeded 2D generator emits normal/degraded pairs, masks/boxes, numeric severity, full scenario metadata and leakage-safe split manifests | Human sanity review and comparison with real visual distributions are required |
 | Model 2 R&D | Vision, telemetry and LLM components could be mistaken for Model 2 | Structural-temporal evidence reasoner, graph support and mandatory ablations define a falsifiable hypothesis | Literature matrix, approved real evaluation data and empirical comparison are required |
 | Evaluation infrastructure | Several track-specific metrics and manifests existed | Shared dataset/prediction/run contracts, generic prediction evaluation and report generation added | Freeze package and integrated demonstration run manifest are not yet available |
 | Decision agents | Safety-gated high-level actions existed | Exact mission-level accept/reinspect/change-viewpoint/unknown/escalate interface added | Operator thresholds require validation; recommendation remains non-authoritative |
+| Two-twin demo | No single artifact-producing integration command | `run_digital_twin_demo.py` links all five shared IDs, pose, target, scenario ground truth, placeholder prediction, decision, logs and run report | Replace the placeholder only after Model 1 freeze; compare headless navigation with Unity |
 
 ## Architectural boundary
 

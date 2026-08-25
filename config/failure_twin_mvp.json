@@ -5,5 +5,6 @@
   "seed": 2026,
   "width": 512,
   "height": 320,
+  "intended_use": "model2_r_and_d",
   "claim_boundary": "Synthetic controlled inspection evidence only; not calibrated physical truth."
 }

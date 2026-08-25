@@ -10,7 +10,7 @@ from typing import Any
 
 TARGET_TYPES = {"pipe", "weld", "joint", "hull", "cable", "support", "concrete", "unknown"}
 MISSION_EVENTS = {
-    "waypoint_reached", "target_found", "inspection_started", "anomaly_flagged",
+    "waypoint_reached", "target_found", "inspection_started", "frame_captured", "anomaly_flagged",
     "reinspection_requested", "inspection_completed",
 }
 DECISIONS = {"accept_detection", "request_reinspection", "change_viewpoint", "flag_unknown", "escalate"}
@@ -42,6 +42,7 @@ class RobotState:
     heading: float
     simulated_battery: float
     mission_status: str
+    run_id: str = "unversioned"
 
     def __post_init__(self) -> None:
         _nonempty(self.mission_id, "mission_id")
@@ -62,6 +63,10 @@ class SensorFrame:
     visibility_metadata: dict[str, Any]
     turbidity_estimate: float | None
     robot_pose_at_capture: RobotPose
+    lighting_condition: str = "unknown"
+    target_id: str | None = None
+    scenario_id: str | None = None
+    run_id: str = "unversioned"
 
     def __post_init__(self) -> None:
         for value, name in ((self.frame_id, "frame_id"), (self.mission_id, "mission_id"),
@@ -81,6 +86,10 @@ class InspectionTarget:
     current_viewpoint: dict[str, float]
     distance_to_target: float
     inspection_status: str
+    mission_id: str = "unversioned"
+    location: dict[str, float] = field(default_factory=dict)
+    scenario_id: str | None = None
+    run_id: str = "unversioned"
 
     def __post_init__(self) -> None:
         _nonempty(self.target_id, "target_id")
@@ -101,6 +110,9 @@ class MissionEvent:
     robot_state: RobotState | None = None
     sensor_frame: SensorFrame | None = None
     metadata: dict[str, Any] = field(default_factory=dict)
+    notes: str = ""
+    scenario_id: str | None = None
+    run_id: str = "unversioned"
 
     def __post_init__(self) -> None:
         _nonempty(self.event_id, "event_id")
@@ -124,6 +136,9 @@ class DecisionFeedback:
     decision: str
     accepted_by_navigation: bool
     resulting_action: str
+    related_target_id: str | None = None
+    scenario_id: str | None = None
+    run_id: str = "unversioned"
 
     def __post_init__(self) -> None:
         for value, name in ((self.decision_id, "decision_id"), (self.mission_id, "mission_id"),
@@ -158,6 +173,40 @@ def write_mission_events(events: list[MissionEvent], path: str | Path) -> Path:
     output.write_text("".join(json.dumps(event.to_dict(), sort_keys=True) + "\n" for event in events),
                       encoding="utf-8")
     return output
+
+
+def _write_records(records: list[Any], path: str | Path) -> Path:
+    output = Path(path)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.write_text(
+        "".join(json.dumps(asdict(record), sort_keys=True) + "\n" for record in records),
+        encoding="utf-8",
+    )
+    return output
+
+
+def write_navigation_bundle(
+    output_dir: str | Path,
+    *,
+    states: list[RobotState],
+    frames: list[SensorFrame],
+    targets: list[InspectionTarget],
+    events: list[MissionEvent],
+    feedback: list[DecisionFeedback] | None = None,
+) -> dict[str, Path]:
+    """Write separate replay logs so consumers do not need Unity or nested event payloads."""
+    output = Path(output_dir)
+    paths = {
+        "robot_states": _write_records(states, output / "robot_states.jsonl"),
+        "sensor_frames": _write_records(frames, output / "sensor_frames.jsonl"),
+        "inspection_targets": _write_records(targets, output / "inspection_targets.jsonl"),
+        "mission_events": write_mission_events(events, output / "mission_events.jsonl"),
+    }
+    if feedback is not None:
+        paths["decision_feedback"] = _write_records(
+            feedback, output / "decision_feedback.jsonl"
+        )
+    return paths
 
 
 def read_mission_events(path: str | Path) -> list[MissionEvent]:

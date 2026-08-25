@@ -22,6 +22,7 @@ DEFECTS = {
 }
 SEVERITIES = {"mild": 1, "moderate": 2, "severe": 3, "critical": 4}
 PATTERNS = {"localized", "linear", "ring_shaped", "patchy", "spreading", "edge_adjacent", "weld_adjacent"}
+INTENDED_USES = {"model2_r_and_d", "evaluation_fixture", "demo", "ablation"}
 
 
 @dataclass(frozen=True)
@@ -42,6 +43,9 @@ class FailureScenario:
     occlusion: float = 0.0
     viewpoint_angle_deg: float = 15.0
     distance_m: float = 1.2
+    lighting_condition: str = "artificial_light"
+    contrast: float = 0.8
+    intended_use: str = "model2_r_and_d"
 
     def __post_init__(self) -> None:
         if not self.scenario_id.strip():
@@ -62,6 +66,10 @@ class FailureScenario:
                 raise ValueError(f"{name} must be between 0 and 1")
         if not 0 <= self.viewpoint_angle_deg <= 85 or self.distance_m <= 0:
             raise ValueError("viewpoint angle or distance is outside the supported MVP range")
+        if not 0.1 <= self.contrast <= 1.5:
+            raise ValueError("contrast must be between 0.1 and 1.5")
+        if self.intended_use not in INTENDED_USES:
+            raise ValueError(f"unsupported intended_use: {self.intended_use}")
 
 
 def _split_for(scenario_id: str) -> str:
@@ -139,6 +147,7 @@ def _apply_water_conditions(image: Any, scenario: FailureScenario, rng: random.R
     blue_green = Image.new("RGB", image.size, (18, 82, 91))
     image = Image.blend(image, blue_green, scenario.turbidity * 0.45)
     image = ImageEnhance.Brightness(image).enhance(max(0.2, 1.0 - scenario.low_light * 0.7))
+    image = ImageEnhance.Contrast(image).enhance(scenario.contrast)
     if scenario.blur_radius:
         image = image.filter(ImageFilter.GaussianBlur(scenario.blur_radius))
     draw = ImageDraw.Draw(image)
@@ -179,19 +188,54 @@ def generate_pair(scenario: FailureScenario, output_dir: str | Path) -> dict[str
     normal.save(paths["normal_image"])
     degraded.save(paths["degraded_image"])
     mask.save(paths["ground_truth_mask"])
+    mask_box = mask.getbbox()
+    severity_score = SEVERITIES[scenario.severity] / max(SEVERITIES.values())
+    visual_condition = {
+        "turbidity": scenario.turbidity,
+        "low_light": scenario.low_light,
+        "blur_radius": scenario.blur_radius,
+        "backscatter": scenario.backscatter,
+        "occlusion_level": scenario.occlusion,
+        "contrast": scenario.contrast,
+    }
     metadata = {
         "schema_version": "1.0.0",
+        "scenario_id": scenario.scenario_id,
+        "random_seed": scenario.seed,
+        "structure_type": scenario.structure_type,
+        "material_type": scenario.material_type,
+        "defect_type": scenario.defect_type,
+        "severity_label": scenario.severity,
+        "severity_score": severity_score,
+        "spatial_pattern": scenario.spatial_pattern,
+        "visual_condition": visual_condition,
+        "viewpoint_angle": scenario.viewpoint_angle_deg,
+        "camera_distance": scenario.distance_m,
+        "turbidity": scenario.turbidity,
+        "lighting": scenario.lighting_condition,
+        "occlusion_level": scenario.occlusion,
+        "output_image_path": str(paths["degraded_image"]),
+        "mask_path": str(paths["ground_truth_mask"]),
+        "box_coordinates": list(mask_box) if mask_box else None,
         "scenario": asdict(scenario),
         "split": _split_for(scenario.scenario_id),
         "synthetic_or_real": "synthetic",
+        "intended_use": scenario.intended_use,
         "generator": "oceansense.failure_twin_v1",
         "ground_truth": {"mask_path": str(paths["ground_truth_mask"]),
-                         "severity_ordinal": SEVERITIES[scenario.severity]},
+                         "box_coordinates": list(mask_box) if mask_box else None,
+                         "severity_ordinal": SEVERITIES[scenario.severity],
+                         "severity_score": severity_score},
         "artifacts": {key: str(path) for key, path in paths.items() if key != "metadata"},
         "caption": (f"Synthetic {scenario.structure_type} with {scenario.severity} "
                     f"{scenario.defect_type}; uncalibrated visual scenario."),
         "claim_boundary": ("Controlled synthetic evidence for software experiments; not physical "
                            "damage truth and not real-world validation."),
+        "limitations": [
+            "Geometry and degradation are controlled 2D approximations.",
+            "Severity is a generator parameter, not a calibrated engineering assessment.",
+            "Synthetic evidence cannot establish real-world inspection accuracy.",
+        ],
     }
     paths["metadata"].write_text(json.dumps(metadata, indent=2), encoding="utf-8")
     return metadata
@@ -217,9 +261,28 @@ def generate_batch(config: dict[str, Any], output_dir: str | Path) -> list[dict[
             turbidity=rng.uniform(0.05, 0.65), low_light=rng.uniform(0.0, 0.55),
             blur_radius=rng.uniform(0.0, 1.4), backscatter=rng.uniform(0.0, 0.5),
             occlusion=rng.uniform(0.0, 0.25), viewpoint_angle_deg=rng.uniform(0.0, 60.0),
-            distance_m=rng.uniform(0.5, 3.0),
+            distance_m=rng.uniform(0.5, 3.0), contrast=rng.uniform(0.55, 1.15),
+            intended_use=str(config.get("intended_use", "model2_r_and_d")),
         )
         records.append(generate_pair(scenario, output_dir))
     index_path = Path(output_dir) / "index.jsonl"
     index_path.write_text("".join(json.dumps(record) + "\n" for record in records), encoding="utf-8")
+    for split in ("train", "validation", "test"):
+        split_records = [record for record in records if record["split"] == split]
+        (Path(output_dir) / f"{split}_manifest.jsonl").write_text(
+            "".join(json.dumps(record, sort_keys=True) + "\n" for record in split_records),
+            encoding="utf-8",
+        )
+    split_summary = {
+        split: sorted(record["scenario_id"] for record in records if record["split"] == split)
+        for split in ("train", "validation", "test")
+    }
+    assigned_scenarios = [
+        scenario_id for values in split_summary.values() for scenario_id in values
+    ]
+    if len(assigned_scenarios) != len(set(assigned_scenarios)):
+        raise RuntimeError("scenario leakage detected across failure-twin splits")
+    (Path(output_dir) / "split_manifest.json").write_text(
+        json.dumps(split_summary, indent=2, sort_keys=True), encoding="utf-8"
+    )
     return records

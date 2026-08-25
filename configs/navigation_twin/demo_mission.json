@@ -1,0 +1,25 @@
+{
+  "mission_id": "demo-mission-001",
+  "run_id": "assigned-by-runner",
+  "target_id": "pipe-001",
+  "target_type": "pipe",
+  "duration_s": 30.0,
+  "timestep_s": 0.25,
+  "commanded_speed_mps": 1.0,
+  "start_xyz": [0.0, -6.0, -8.0],
+  "target_xyz": [8.0, -7.0, 9.0],
+  "current_xyz_mps": [0.08, 0.0, -0.03],
+  "battery_start": 0.95,
+  "battery_drain_per_s": 0.0008,
+  "visibility_condition": "moderate",
+  "turbidity_value": 0.35,
+  "lighting_condition": "artificial_light",
+  "capture_distance_m": 1.2,
+  "scenario_id": "assigned-by-runner",
+  "frame_reference": "assigned-by-runner",
+  "camera_intrinsics": null,
+  "expected_geometry": {
+    "shape": "cylinder",
+    "nominal_diameter_m": 0.7
+  }
+}

@@ -3,8 +3,9 @@ import json
 
 import pytest
 
+from oceansense.digital_twin_demo import run_demo
 from oceansense.experiment import PredictionRecord, RunManifest, read_run_manifest, write_run_manifest
-from oceansense.failure_twin import FailureScenario, generate_pair
+from oceansense.failure_twin import FailureScenario, generate_batch, generate_pair
 from oceansense.mission_decision import MissionDecisionInput, decide_mission
 from oceansense.model2_reasoning import (
     EvidenceObservation,
@@ -19,7 +20,9 @@ from oceansense.navigation_contracts import (
     SensorFrame,
     read_mission_events,
     write_mission_events,
+    write_navigation_bundle,
 )
+from oceansense.navigation_twin import NavigationMissionConfig, simulate_navigation
 
 
 def _observation(frame: int, target: str = "weld-1", score: float = 0.8):
@@ -45,6 +48,23 @@ def test_failure_twin_is_reproducible_and_explicitly_synthetic(tmp_path):
     assert first["synthetic_or_real"] == "synthetic"
     assert "not physical" in first["claim_boundary"]
     assert first["scenario"] == second["scenario"]
+    assert first["severity_score"] == 0.5
+    assert first["box_coordinates"]
+
+
+def test_failure_twin_batch_writes_disjoint_split_manifests(tmp_path):
+    pytest.importorskip("PIL")
+    output = tmp_path / "failure"
+    records = generate_batch({"count": 24, "seed": 12, "width": 128, "height": 128}, output)
+    split_sets = {
+        split: {record["scenario_id"] for record in records if record["split"] == split}
+        for split in ("train", "validation", "test")
+    }
+    assert len(records) == len(set().union(*split_sets.values()))
+    assert not (split_sets["train"] & split_sets["validation"])
+    assert not (split_sets["train"] & split_sets["test"])
+    assert not (split_sets["validation"] & split_sets["test"])
+    assert all((output / f"{split}_manifest.jsonl").exists() for split in split_sets)
 
 
 def test_model2_uses_temporal_and_structural_terms_and_exports_ablations():
@@ -83,6 +103,46 @@ def test_navigation_event_log_round_trips_for_ui_independent_replay(tmp_path):
                          related_frame_id="f1", sensor_frame=frame)
     path = write_mission_events([event], tmp_path / "events.jsonl")
     assert read_mission_events(path) == [event]
+
+
+def test_navigation_twin_has_state_config_behavior_and_separate_logs(tmp_path):
+    config = NavigationMissionConfig(
+        mission_id="mission-a", run_id="run-a", target_id="pipe-1", target_type="pipe",
+        duration_s=10.0, timestep_s=0.25, commanded_speed_mps=1.0,
+        start_xyz=(0.0, -2.0, 0.0), target_xyz=(0.0, -2.0, 3.0),
+        current_xyz_mps=(0.0, 0.0, 0.05), frame_reference="failure.png",
+        scenario_id="scenario-a",
+    )
+    run = simulate_navigation(config)
+    assert run.metrics["reached_capture_distance"] is True
+    assert run.frames[0].scenario_id == "scenario-a"
+    assert any(event.event_type == "frame_captured" for event in run.events)
+    paths = write_navigation_bundle(
+        tmp_path / "navigation", states=run.states, frames=run.frames,
+        targets=run.targets, events=run.events,
+    )
+    assert set(paths) == {
+        "robot_states", "sensor_frames", "inspection_targets", "mission_events",
+    }
+    assert all(path.exists() and path.stat().st_size for path in paths.values())
+
+
+def test_two_twin_demo_links_all_ids_and_fails_safe_without_model1(tmp_path):
+    pytest.importorskip("PIL")
+    root = __import__("pathlib").Path(__file__).resolve().parents[2]
+    result = run_demo(
+        navigation_config_path=root / "configs/navigation_twin/demo_mission.json",
+        failure_config_path=root / "configs/failure_twin/demo_scenario.json",
+        output_dir=tmp_path / "demo", run_id="run-demo", git_commit="fixture-commit",
+        branch="fixture-branch", operator_or_agent="pytest",
+    )
+    trace = result["traceability"]
+    assert all(trace[field] for field in
+               ("mission_id", "frame_id", "target_id", "scenario_id", "run_id"))
+    assert result["prediction"]["model_name"] == "placeholder_no_frozen_model1"
+    assert result["decision"]["decision"] == "flag_unknown"
+    assert (tmp_path / "demo/run_manifest.json").exists()
+    assert (tmp_path / "demo/navigation_twin/robot_states.jsonl").exists()
 
 
 def test_mission_decision_changes_viewpoint_and_never_returns_raw_control():

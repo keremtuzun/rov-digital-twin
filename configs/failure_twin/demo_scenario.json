@@ -1,0 +1,21 @@
+{
+  "scenario_id": "demo-corrosion-001",
+  "structure_type": "pipe",
+  "material_type": "coated_steel",
+  "defect_type": "corrosion",
+  "severity": "moderate",
+  "spatial_pattern": "weld_adjacent",
+  "seed": 42001,
+  "width": 512,
+  "height": 320,
+  "turbidity": 0.35,
+  "low_light": 0.2,
+  "blur_radius": 0.5,
+  "backscatter": 0.2,
+  "occlusion": 0.05,
+  "viewpoint_angle_deg": 20.0,
+  "distance_m": 1.2,
+  "lighting_condition": "artificial_light",
+  "contrast": 0.85,
+  "intended_use": "demo"
+}

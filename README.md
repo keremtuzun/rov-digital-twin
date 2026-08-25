@@ -38,6 +38,18 @@ promotion gates are versioned with the artifacts.
 
 ## Execution-guide workflows
 
+Run the complete artifact-producing two-twin demo without Unity or physical hardware:
+
+```powershell
+python -m pip install -e ".[vision]"
+python scripts/run_digital_twin_demo.py --run-id digital-twin-demo-v1
+```
+
+This command separately runs the controlled failure twin and deterministic navigation replay, links
+`mission_id`, `frame_id`, `target_id`, `scenario_id` and `run_id`, invokes an explicitly non-model
+placeholder because Model 1 is not frozen, produces a safe `flag_unknown` decision, and writes a run
+manifest plus JSON/Markdown reports under `experiments/runs/<run_id>/`.
+
 Generate 100 reproducible failure-twin pairs with masks and metadata:
 
 ```powershell

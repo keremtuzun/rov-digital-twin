@@ -31,3 +31,5 @@ dataset/raw/
 dataset/images/
 dataset/extracted/
 dataset/imagefolders/
+data/simulated/
+experiments/runs/

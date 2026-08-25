@@ -21,3 +21,11 @@ After the licensing/build issue is cleared, run fixed-seed legacy-vs-advanced th
 same station-keeping and waypoint missions. Export replayable RobotState, SensorFrame and MissionEvent
 logs, and compare trajectory error, tilt, energy, mission success, collisions and actuator response lag.
 Report every simulator profile separately and do not reuse historical PPO metrics as current evidence.
+
+## Replay/export implementation
+
+`oceansense.navigation_twin` provides a deterministic headless contract runner, while Unity remains the
+high-fidelity simulator. The runner loads mission/current/visibility/battery configuration, advances
+vehicle state, captures a target frame, and exports separate RobotState, SensorFrame, InspectionTarget
+and MissionEvent JSONL logs. Its kinematics are deliberately labeled uncalibrated and exist so the
+inspection stack and two-twin demo can run without Unity UI or hardware.
