@@ -125,7 +125,7 @@ Train two separate classifiers without changing the current EfficientNet-B0 arch
 | Hardware | one CUDA GPU with at least 8 GB preferred; CPU allowed but expected to be slow |
 | Precision | full precision for the first reproducible baseline; mixed precision requires a separately recorded config |
 
-Before a run, extend `scripts/train_classifier.py`/config handling so it can consume `configs/model1_baseline_v2.yaml`, save the explicit v2 identity, select on validation macro F1, implement the declared scheduler/early stopping, and record complete history/config/environment. This preparation is required because the current script hard-codes a v1 model version, selects on validation accuracy, and has no scheduler or early stopping. It does not authorize an architecture change.
+Preparation was implemented on 2026-08-26. `scripts/train_classifier.py` now consumes the locked `configs/model1_baseline_v2.yaml`, requires the non-mutating dataset/activation preflight, saves the explicit v2 identity, selects on validation macro F1, implements the declared warm-up/cosine schedule and early stopping, and records history, hashes, run identity, and environment metadata. This implementation does not activate the fallback or authorize training; without approved data and a real activation approval, the command exits before importing the training runtime.
 
 Intended gated commands, documented but **not executed**:
 
@@ -151,7 +151,7 @@ python scripts/train_classifier.py `
   --data-manifest data/model1_baseline_v2/manifest.csv
 ```
 
-The commands become executable only after the config option and declared behavior are implemented, reviewed, and tested in a separate authorized preparation task.
+The config behavior is implemented and tested, but the commands remain blocked until `scripts/preflight_model1_baseline_v2.py` returns `ready: true`. That requires the complete approved dataset package, matching checksums, group-disjoint class floors, real-only primary test data, and `docs/MODEL1_BASELINE_V2_ACTIVATION_APPROVAL.json`. The approval file must be created only after a real activation decision; it is intentionally absent now.
 
 ## 9. Evaluation Plan
 
@@ -165,7 +165,7 @@ python scripts/evaluate_multidomain.py `
   --output reports/model1_baseline_v2_metrics.json
 ```
 
-Before evaluation, extend the evaluator so it writes the complete prediction ledger, `reports/model1_baseline_v2_confusion_matrix.png`, and reviewed examples under `reports/model1_baseline_v2_failure_cases/`; the current evaluator retains only a 20-sample preview and does not produce the required PNG or latency record.
+Evaluation preparation was implemented on 2026-08-26. The evaluator now writes the complete JSONL prediction ledger, condition confusion-matrix PNG, per-category failure-review JSONL files, domain and condition metrics, batch-size-1 p50/p95 latency after warm-up, and hashes for checkpoints and evidence artifacts. With `--config`, the same activation/dataset preflight blocks evaluation until the lawful immutable package exists.
 
 Required primary metrics:
 

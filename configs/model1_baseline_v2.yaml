@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "model_version": "model1_baseline_v2",
+  "architecture": "efficientnet_b0",
+  "activation": {
+    "recovery_deadline": "2026-09-01T17:00:00+03:00",
+    "requires_recorded_authorization": true,
+    "approval_file": "docs/MODEL1_BASELINE_V2_ACTIVATION_APPROVAL.json",
+    "allowed_reasons": [
+      "recovery_deadline_passed",
+      "checkpoint_invalid",
+      "evaluation_package_incomplete"
+    ]
+  },
+  "labels": {
+    "domain": [
+      "structure",
+      "nature_ecology",
+      "contamination",
+      "fishing_aquaculture",
+      "general_underwater",
+      "unknown"
+    ],
+    "condition": [
+      "normal_or_no_visible_concern",
+      "possible_structural_concern",
+      "biofouling",
+      "marine_debris",
+      "poor_visibility",
+      "ecological_stress_indicator",
+      "fish_or_habitat_activity",
+      "aquaculture_infrastructure_concern",
+      "unknown"
+    ]
+  },
+  "data": {
+    "root": "data/model1_baseline_v2",
+    "manifest": "data/model1_baseline_v2/manifest.csv",
+    "labels": "data/model1_baseline_v2/labels.csv",
+    "split": "data/model1_baseline_v2/split.csv",
+    "checksums": "data/model1_baseline_v2/checksums.sha256",
+    "required_evidence": [
+      "data/model1_baseline_v2/README.md",
+      "data/model1_baseline_v2/SOURCES.md",
+      "data/model1_baseline_v2/licenses",
+      "data/model1_baseline_v2/annotation_instructions.md",
+      "data/model1_baseline_v2/annotation_review.csv",
+      "data/model1_baseline_v2/dataset_validation.json"
+    ],
+    "require_all_assets_approved": true,
+    "require_real_test": true,
+    "require_group_disjoint_splits": true,
+    "minimum_per_class": {"train": 100, "val": 30, "test": 30}
+  },
+  "training": {
+    "weights": "imagenet",
+    "augmentation": "underwater_physical_aug_v1",
+    "augmentation_probability": 0.75,
+    "class_balance": "weighted_loss",
+    "optimizer": "adamw",
+    "learning_rate": 0.0003,
+    "weight_decay": 0.01,
+    "warmup_epochs": 3,
+    "minimum_learning_rate": 0.000001,
+    "batch_size": 16,
+    "maximum_epochs": 30,
+    "selection_metric": "validation_macro_f1",
+    "early_stopping_patience": 5,
+    "early_stopping_min_delta": 0.002,
+    "seed": 42,
+    "precision": "float32"
+  },
+  "artifacts": {
+    "domain": {
+      "checkpoint": "models/model1_baseline_v2_domain_efficientnet_b0.pt",
+      "training_report": "reports/model1_baseline_v2_domain_training.json"
+    },
+    "condition": {
+      "checkpoint": "models/model1_baseline_v2_condition_efficientnet_b0.pt",
+      "training_report": "reports/model1_baseline_v2_condition_training.json"
+    },
+    "evaluation_report": "reports/model1_baseline_v2_metrics.json",
+    "prediction_ledger": "reports/model1_baseline_v2_predictions.jsonl",
+    "confusion_matrix": "reports/model1_baseline_v2_confusion_matrix.png",
+    "failure_cases": "reports/model1_baseline_v2_failure_cases"
+  },
+  "freeze_thresholds": {
+    "domain_macro_f1": 0.80,
+    "domain_balanced_accuracy": 0.80,
+    "minimum_domain_recall": 0.60,
+    "condition_macro_f1": 0.70,
+    "condition_balanced_accuracy": 0.70,
+    "minimum_condition_recall": 0.50,
+    "safety_condition_recall": 0.75,
+    "maximum_expected_calibration_error": 0.15
+  }
+}
