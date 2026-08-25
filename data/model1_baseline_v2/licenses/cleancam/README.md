@@ -12,6 +12,8 @@
 - Decision: `LICENSE_SCOPE_UNRESOLVED`
 - Intended role if later approved: supplemental camera/visibility robustness only
 - Dataset approval: **not approved**
+- Official project repository: <https://github.com/khoa288/CleanCam>
+- Verified clarification route: <https://github.com/khoa288/CleanCam/issues/new>
 
 ## Creators
 
@@ -28,3 +30,5 @@ Minh Khoa Nguyen; Tuan Anh Hoang; Nam Nhat Anh Tran; Nam Nguyet Anh Tran; Minh H
 The current record describes CleanCam as a real/synthetic camera-fouling and water-column-degradation benchmark, but the official API response reviewed on the date above did not expose a license grant. The earlier `v1.0.0` record is not the current release. Neither public access nor Zenodo's default deposit setting is evidence that a specific record uses CC BY 4.0.
 
 Written confirmation must cover the selected immutable version, real and synthetic files, metadata and annotations, split requirements, transformations, training, checkpoint/results publication, examples, attribution, and restrictions. Real and synthetic results must remain separate. No archive was downloaded; the checksum above is publisher metadata and has not been independently verified against a local file.
+
+GitHub identifies the project repository license as MIT. That repository-level code license is not being extended to the separately hosted dataset archive without explicit confirmation.

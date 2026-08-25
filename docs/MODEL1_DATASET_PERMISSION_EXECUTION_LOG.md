@@ -19,9 +19,9 @@ For every future send or response, append the sender, recipient/route, UTC times
 
 | Dataset | URL | Owner/Contact | Request Needed? | Request Status | License Status | Approval Evidence | Usable for Primary Evaluation? | Usable for Supplemental Testing? | Next Action |
 |---|---|---|---:|---|---|---|---:|---:|---|
-| SubPipe | <https://zenodo.org/records/12666132> | Zenodo record creators/maintainers | Yes | `READY_FOR_HUMAN_SEND` | v3.0.1 confirmed; API license/rights field is null; public/citation wording is not a license grant | Metadata review at `data/model1_baseline_v2/licenses/subpipe/README.md`; no approval | No | No | Send written license/file-scope clarification to an authorized owner/licensor |
+| SubPipe | <https://zenodo.org/records/12666132> | `remaro-network/SubPipe-dataset` maintainers via verified public issue route | Yes | `READY_FOR_HUMAN_SEND` | v3.0.1 confirmed; API license/rights field is null; public/citation wording is not a license grant | Metadata review at `data/model1_baseline_v2/licenses/subpipe/README.md`; no approval | No | No | Kerem/teammate opens <https://github.com/remaro-network/SubPipe-dataset/issues/new>, records receipt, follows up after 5 business days |
 | InspectVQA | <https://huggingface.co/datasets/anonymousSubmissionVqa2026/InspectVQA> | Hugging Face Community for `anonymousSubmissionVqa2026`, then identified licensor | Yes | `PREPARED_NOT_SENT` | Dataset card states CC BY-NC 4.0 or owner-approved alternative; licensor authority and competition/output rights unresolved | None | No | No | Post the request in the dataset Community area; obtain an identifiable owner response covering images, annotations, derivatives, outputs, and restrictions |
-| CleanCam | <https://zenodo.org/records/21515620> | Zenodo record creators/maintainers | Yes | `READY_FOR_HUMAN_SEND` | Current v2.0.0 confirmed; API license/rights field is null; v1.0.0 is superseded | Metadata review at `data/model1_baseline_v2/licenses/cleancam/README.md`; no approval | No; not a structural-defect primary source | No | Send written version/license/file-scope clarification; preserve real/synthetic separation |
+| CleanCam | <https://zenodo.org/records/21515620> | `khoa288/CleanCam` maintainer via verified public issue route | Yes | `READY_FOR_HUMAN_SEND` | Current v2.0.0 confirmed; API license/rights field is null; v1.0.0 is superseded | Metadata review at `data/model1_baseline_v2/licenses/cleancam/README.md`; no approval | No; not a structural-defect primary source | No | Kerem/teammate opens <https://github.com/khoa288/CleanCam/issues/new>, records receipt, follows up after 5 business days |
 | Claru Underwater Inspection | <https://claru.ai/datasets/underwater-inspection> | Claru “Request a Sample Pack / Get in Touch” route | Yes | `PREPARED_NOT_SENT` | Commercial/provider terms; no public reusable dataset license recorded | None | No | No | Submit inquiry only after budget/contract pre-screen; require written rights matrix, price, provenance, sample terms, and reproducibility allowances |
 | Structural Defects — Bonnín-Pascual / Ortiz | <https://xiscobonnin.github.io/resources/> | Francisco Bonnín Pascual, University of the Balearic Islands; contact listed on resource page | Yes | `PREPARED_NOT_SENT` | Download and citation are published; explicit image/mask reuse license not recorded | None | No; non-underwater supplemental source only | No | Send written permission/license request covering images, masks, ML use, derivatives, checkpoints, examples, and attribution |
 | WPI / ARL Corrosion | <https://arl.wpi.edu/corrosion_dataset/> | WPI Automation and Robotics Lab dataset maintainer/contact channel | Yes | `PREPARED_NOT_SENT` | Access/citation information reported; explicit dataset license and output rights unresolved | None | No; laboratory/non-underwater supplemental source only | No | Identify the authorized maintainer and send the prepared request; archive explicit terms and covered version/file list |
@@ -34,7 +34,7 @@ For every future send or response, append the sender, recipient/route, UTC times
 
 ### 3.1 SubPipe — optional file-scope clarification
 
-**Route:** Authorized Zenodo record creator/owner contact. This clarification is required.
+**Route:** <https://github.com/remaro-network/SubPipe-dataset/issues/new>. This clarification is required; the respondent must confirm authority over the dataset files.
 **Subject:** SubPipe 3.0.1 license scope clarification — OceanSense Conrad Challenge
 
 > Hello,
@@ -64,7 +64,7 @@ For every future send or response, append the sender, recipient/route, UTC times
 
 ### 3.3 CleanCam — optional release/version clarification
 
-**Route:** Authorized Zenodo record creator/owner contact. This clarification is required.
+**Route:** <https://github.com/khoa288/CleanCam/issues/new>. This clarification is required; the respondent must confirm authority over the dataset files.
 **Subject:** CleanCam release and license clarification — OceanSense Conrad Challenge robustness study
 
 > Hello,
@@ -236,7 +236,7 @@ The canonical fallback files from `docs/MODEL1_BASELINE_V2_FALLBACK_PLAN.md` rem
 Recommended order:
 
 1. Send InspectVQA permission request and Structural Defects/WPI license requests immediately.
-2. Send the required SubPipe and CleanCam license/file-scope clarification and archive verifiable receipts and responses.
+2. Kerem or a designated teammate sends the required SubPipe and CleanCam clarification through the verified GitHub issue routes, archives the issue URLs/timestamps, and follows up after five business days without a response.
 3. Send the Claru inquiry only after a human confirms budget and acceptable contract constraints.
 4. Send the K-Pipelines provenance question if synthetic supplemental testing remains useful.
 5. Archive Dryad metadata as `CONTEXT_ONLY`; do not request or create visual rows.

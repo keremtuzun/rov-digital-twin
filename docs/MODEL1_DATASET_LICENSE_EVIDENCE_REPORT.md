@@ -22,7 +22,7 @@ These are metadata review summaries, not dataset approval records. No raw images
 
 ## Next gate
 
-1. A human sends the already prepared clarification to an authorized SubPipe owner/licensor and CleanCam maintainer.
+1. A human sends the already prepared clarification through the verified official project issue routes documented in `docs/MODEL1_DATASET_CONTACT_ROUTE_REPORT.md`.
 2. Archive a verifiable sent receipt and the complete response.
 3. Confirm respondent authority, exact covered version/files, license text/URL, intended ML and competition uses, transformations, checkpoint/results publication, example-image use, attribution, storage, and redistribution.
 4. A named internal reviewer approves or rejects the evidence.

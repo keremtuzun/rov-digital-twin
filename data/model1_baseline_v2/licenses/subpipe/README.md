@@ -11,6 +11,8 @@
 - License observed in API `metadata.rights`: `null`
 - Decision: `LICENSE_SCOPE_UNRESOLVED`
 - Dataset approval: **not approved**
+- Official project repository: <https://github.com/remaro-network/SubPipe-dataset>
+- Verified clarification route: <https://github.com/remaro-network/SubPipe-dataset/issues/new>
 
 ## Creators
 
@@ -27,5 +29,7 @@ Olaya Álvarez-Tuñón; Luiza Ribeiro Marnet; László Antal; Martin Aubard; Mar
 ## Evidence boundary
 
 The record description calls SubPipe public and gives mandatory copyright/citation wording, but the official API response reviewed on the date above did not expose a license grant. Public download access and a citation request do not by themselves establish permission for derivatives, training, checkpoint publication, or redistribution. A written clarification from an authorized owner/licensor is required before any file is admitted.
+
+GitHub identifies the project repository license as GPL-3.0. That repository-level code/document license is not being extended to the separately hosted dataset archive without explicit confirmation.
 
 No archive was downloaded. The checksums above are publisher metadata and have not been independently verified against local dataset files.
