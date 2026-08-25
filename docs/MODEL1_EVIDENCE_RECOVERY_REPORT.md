@@ -1,8 +1,8 @@
 # Model 1 Evidence Recovery Report
 
-Audit date: 2026-08-25  
-Branch: `codex/rov-digital-twin`  
-Audited commit: `cefc3fc5eeae180e502aa9df6d537ae6ecd97253`
+- Audit date: 2026-08-25
+- Branch: `codex/rov-digital-twin`
+- Audited commit: `cefc3fc5eeae180e502aa9df6d537ae6ecd97253`
 
 ## 1. Executive Decision
 
