@@ -32,4 +32,5 @@ dataset/images/
 dataset/extracted/
 dataset/imagefolders/
 data/simulated/
+data/model1_baseline_v2/raw/
 experiments/runs/
