@@ -1,0 +1,76 @@
+{
+  "approved_for_model_training": false,
+  "array_layouts": {
+    "observation_mask": [
+      "scenario",
+      "timestep",
+      "node"
+    ],
+    "observations": [
+      "scenario",
+      "timestep",
+      "node",
+      "obs_dim"
+    ],
+    "states": [
+      "scenario",
+      "timestep",
+      "node",
+      "state_dim"
+    ]
+  },
+  "claim_boundary": "D0 validates a synthetic data contract only; it is not Model 2 training, superiority evidence, calibrated physics, or real-world structural validation.",
+  "dataset_type": "synthetic_debug",
+  "debug_visualizations": [],
+  "dimensions": {
+    "node_count": 10,
+    "obs_dim": 6,
+    "scenario_count": 25,
+    "state_dim": 5,
+    "timesteps": 4
+  },
+  "files": {
+    "checksums": "checksums.json",
+    "config": "config.json",
+    "metadata": "metadata.json",
+    "observation_mask": "observation_mask.npy",
+    "observations": "observations.npy",
+    "splits": "splits.json",
+    "states": "states.npy",
+    "structure_graph": "structure_graph.json"
+  },
+  "hidden_truth_files": [
+    "states.npy"
+  ],
+  "inference_inputs": [
+    "observations.npy",
+    "observation_mask.npy",
+    "structure_graph.json"
+  ],
+  "observation_fields": [
+    "corrosion_probability",
+    "crack_probability",
+    "material_loss_probability",
+    "fatigue_probability",
+    "severity_estimate",
+    "confidence"
+  ],
+  "observed_proxy_fields": [
+    "corrosion_probability",
+    "crack_probability",
+    "material_loss_probability",
+    "fatigue_probability",
+    "severity_estimate",
+    "confidence"
+  ],
+  "release_id": "twin2-d0-debug-v1",
+  "release_level": "D0",
+  "schema_version": "1.0.0",
+  "state_fields": [
+    "corrosion",
+    "crack",
+    "material_loss",
+    "fatigue",
+    "condition"
+  ]
+}

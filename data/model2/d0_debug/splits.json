@@ -1,0 +1,45 @@
+{
+  "assignment_basis": [
+    "scenario_id",
+    "split_seed"
+  ],
+  "assignment_method": "sha256(scenario_id) fixed 70/15/15 buckets",
+  "scenario_level": true,
+  "schema_version": "1.0.0",
+  "split_seed": 20260825,
+  "splits": {
+    "test": [
+      "scenario_000009",
+      "scenario_000010",
+      "scenario_000019",
+      "scenario_000022"
+    ],
+    "train": [
+      "scenario_000000",
+      "scenario_000001",
+      "scenario_000002",
+      "scenario_000003",
+      "scenario_000004",
+      "scenario_000005",
+      "scenario_000006",
+      "scenario_000007",
+      "scenario_000008",
+      "scenario_000011",
+      "scenario_000012",
+      "scenario_000013",
+      "scenario_000014",
+      "scenario_000015",
+      "scenario_000016",
+      "scenario_000017",
+      "scenario_000018",
+      "scenario_000020",
+      "scenario_000023"
+    ],
+    "validation": [
+      "scenario_000021",
+      "scenario_000024"
+    ]
+  },
+  "target_independent": true,
+  "unit": "scenario"
+}

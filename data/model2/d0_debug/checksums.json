@@ -1,0 +1,13 @@
+{
+  "algorithm": "sha256",
+  "files": {
+    "config.json": "b17cfbefa47d9a5c477aa64a501279a1b0660a0d166209a7cfa3f552aafe0915",
+    "manifest.json": "95f9fdb4d801eace1add7cee37fb14f0563dc7d41c93d48edd0d46c20324b62a",
+    "metadata.json": "8ff7f174e8e5f00ac863292b218cd81ef8e2f035b0ac492b279527a3214777d9",
+    "observation_mask.npy": "94699024bf0ff55f9b9b25855432c4851043ea39af0a4e1fd5d7baac66e123c8",
+    "observations.npy": "b191bb4f86a9e597a47c6bf2ee8acd3964ade5104569979b7505a91b2796c828",
+    "splits.json": "60c74f6a57af1ae1f030946bb2c8803f8f2aaaf5fb76e07a96a0d85794296bb0",
+    "states.npy": "8dc875fd4242dba1207b916b2662278cc5a20d534d5cfb3d03707f450a96879e",
+    "structure_graph.json": "159a2b16ce9c4cefce963375fe94427131f0a3c32842231efaa0ad34eddbd332"
+  }
+}

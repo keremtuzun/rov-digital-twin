@@ -1,0 +1,3040 @@
+{
+  "scenario_graphs": [
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.417252,
+          "node_type": "beam",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.346515,
+          "node_type": "weld",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.857696,
+          "node_type": "joint",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.260804,
+          "node_type": "weld",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.354547,
+          "node_type": "beam",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.977665,
+          "node_type": "valve",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.241342,
+          "node_type": "beam",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.962258,
+          "node_type": "weld",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.885481,
+          "node_type": "connector",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.569883,
+          "node_type": "connector",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000000",
+      "structure_type": "chain"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.789366,
+          "node_type": "weld",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.952113,
+          "node_type": "beam",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.739358,
+          "node_type": "weld",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.217472,
+          "node_type": "valve",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.956946,
+          "node_type": "beam",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.474722,
+          "node_type": "connector",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.460527,
+          "node_type": "joint",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.602047,
+          "node_type": "support",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.728726,
+          "node_type": "support",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.827195,
+          "node_type": "joint",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000001",
+      "structure_type": "small_lattice"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.29339,
+          "node_type": "valve",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.436644,
+          "node_type": "connector",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.382386,
+          "node_type": "beam",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.597173,
+          "node_type": "weld",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.905337,
+          "node_type": "joint",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.535678,
+          "node_type": "beam",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.515817,
+          "node_type": "pipe",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.626275,
+          "node_type": "support",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.684082,
+          "node_type": "valve",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.576119,
+          "node_type": "joint",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000002",
+      "structure_type": "chain"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.432905,
+          "node_type": "weld",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.441209,
+          "node_type": "support",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.279109,
+          "node_type": "beam",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.395342,
+          "node_type": "beam",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.447848,
+          "node_type": "valve",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.740903,
+          "node_type": "weld",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.665257,
+          "node_type": "beam",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.618778,
+          "node_type": "support",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.601994,
+          "node_type": "weld",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.917335,
+          "node_type": "support",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000003",
+      "structure_type": "small_lattice"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.936181,
+          "node_type": "valve",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.524537,
+          "node_type": "connector",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.553582,
+          "node_type": "support",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.94491,
+          "node_type": "weld",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.802421,
+          "node_type": "joint",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.647344,
+          "node_type": "beam",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.316459,
+          "node_type": "beam",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.600538,
+          "node_type": "valve",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.965209,
+          "node_type": "support",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.3097,
+          "node_type": "beam",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000004",
+      "structure_type": "chain"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_009"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.55946,
+          "node_type": "support",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.90676,
+          "node_type": "connector",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.586866,
+          "node_type": "pipe",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.462983,
+          "node_type": "beam",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.933018,
+          "node_type": "weld",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.683189,
+          "node_type": "pipe",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.747403,
+          "node_type": "weld",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.490222,
+          "node_type": "joint",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.898864,
+          "node_type": "connector",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.327302,
+          "node_type": "joint",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000005",
+      "structure_type": "mixed_structure"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_009"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.247492,
+          "node_type": "connector",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.335024,
+          "node_type": "beam",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.888947,
+          "node_type": "weld",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.875941,
+          "node_type": "weld",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.906034,
+          "node_type": "pipe",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.687592,
+          "node_type": "pipe",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.365724,
+          "node_type": "weld",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.981521,
+          "node_type": "joint",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.836641,
+          "node_type": "beam",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.214277,
+          "node_type": "pipe",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000006",
+      "structure_type": "branched_pipeline"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_009"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.377587,
+          "node_type": "weld",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.314609,
+          "node_type": "pipe",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.691476,
+          "node_type": "joint",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.58633,
+          "node_type": "beam",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.390361,
+          "node_type": "weld",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.907818,
+          "node_type": "joint",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.712009,
+          "node_type": "connector",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.360701,
+          "node_type": "weld",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.291909,
+          "node_type": "joint",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.83852,
+          "node_type": "connector",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000007",
+      "structure_type": "mixed_structure"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.98515,
+          "node_type": "support",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.773767,
+          "node_type": "beam",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.451666,
+          "node_type": "support",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.284238,
+          "node_type": "pipe",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.721466,
+          "node_type": "valve",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.438487,
+          "node_type": "beam",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.301592,
+          "node_type": "connector",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.379626,
+          "node_type": "support",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.204704,
+          "node_type": "valve",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.374421,
+          "node_type": "weld",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000008",
+      "structure_type": "small_lattice"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.662344,
+          "node_type": "valve",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.786396,
+          "node_type": "beam",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.901278,
+          "node_type": "beam",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.213614,
+          "node_type": "valve",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.820881,
+          "node_type": "pipe",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.647475,
+          "node_type": "connector",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.963524,
+          "node_type": "valve",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.249872,
+          "node_type": "beam",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.356154,
+          "node_type": "connector",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.21016,
+          "node_type": "valve",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000009",
+      "structure_type": "chain"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.955726,
+          "node_type": "joint",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.608147,
+          "node_type": "weld",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.65291,
+          "node_type": "pipe",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.837321,
+          "node_type": "valve",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.387838,
+          "node_type": "support",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.514108,
+          "node_type": "pipe",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.411605,
+          "node_type": "support",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.436082,
+          "node_type": "beam",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.47464,
+          "node_type": "beam",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.676641,
+          "node_type": "support",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000010",
+      "structure_type": "small_lattice"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.771997,
+          "node_type": "support",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.668066,
+          "node_type": "support",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.628622,
+          "node_type": "joint",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.503721,
+          "node_type": "pipe",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.807071,
+          "node_type": "valve",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.647105,
+          "node_type": "pipe",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.414541,
+          "node_type": "weld",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.281608,
+          "node_type": "valve",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.844569,
+          "node_type": "support",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.330172,
+          "node_type": "joint",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000011",
+      "structure_type": "mixed_structure"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.862539,
+          "node_type": "joint",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.89192,
+          "node_type": "valve",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.218432,
+          "node_type": "pipe",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.267531,
+          "node_type": "joint",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.469226,
+          "node_type": "beam",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.359199,
+          "node_type": "joint",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.791381,
+          "node_type": "beam",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.788542,
+          "node_type": "joint",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.417784,
+          "node_type": "valve",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.477608,
+          "node_type": "pipe",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000012",
+      "structure_type": "small_lattice"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_009"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.648924,
+          "node_type": "connector",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.785333,
+          "node_type": "connector",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.849014,
+          "node_type": "support",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.917349,
+          "node_type": "weld",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.84699,
+          "node_type": "beam",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.287096,
+          "node_type": "support",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.984471,
+          "node_type": "weld",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.586229,
+          "node_type": "pipe",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.286035,
+          "node_type": "pipe",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.451275,
+          "node_type": "weld",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000013",
+      "structure_type": "branched_pipeline"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.895246,
+          "node_type": "support",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.465256,
+          "node_type": "joint",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.831243,
+          "node_type": "support",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.202473,
+          "node_type": "connector",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.659343,
+          "node_type": "weld",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.284699,
+          "node_type": "pipe",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.595293,
+          "node_type": "pipe",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.278876,
+          "node_type": "connector",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.832857,
+          "node_type": "connector",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.853296,
+          "node_type": "joint",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000014",
+      "structure_type": "small_lattice"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.948607,
+          "node_type": "joint",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.507489,
+          "node_type": "valve",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.292232,
+          "node_type": "joint",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.35271,
+          "node_type": "beam",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.29402,
+          "node_type": "joint",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.601941,
+          "node_type": "joint",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.946078,
+          "node_type": "valve",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.355535,
+          "node_type": "weld",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.283742,
+          "node_type": "connector",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.790864,
+          "node_type": "pipe",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000015",
+      "structure_type": "small_lattice"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.641607,
+          "node_type": "support",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.72525,
+          "node_type": "beam",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.583828,
+          "node_type": "beam",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.910697,
+          "node_type": "connector",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.556467,
+          "node_type": "pipe",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.817332,
+          "node_type": "joint",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.712911,
+          "node_type": "pipe",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.796,
+          "node_type": "support",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.811286,
+          "node_type": "valve",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.44863,
+          "node_type": "weld",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000016",
+      "structure_type": "chain"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.427948,
+          "node_type": "beam",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.778163,
+          "node_type": "joint",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.278487,
+          "node_type": "beam",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.601669,
+          "node_type": "joint",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.824735,
+          "node_type": "pipe",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.623133,
+          "node_type": "beam",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.475265,
+          "node_type": "valve",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.629221,
+          "node_type": "joint",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.478388,
+          "node_type": "weld",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.783877,
+          "node_type": "pipe",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000017",
+      "structure_type": "chain"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.636545,
+          "node_type": "joint",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.323595,
+          "node_type": "pipe",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.617518,
+          "node_type": "support",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.289395,
+          "node_type": "beam",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.628652,
+          "node_type": "joint",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.906887,
+          "node_type": "valve",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.530614,
+          "node_type": "valve",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.885043,
+          "node_type": "valve",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.90779,
+          "node_type": "connector",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.493495,
+          "node_type": "connector",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000018",
+      "structure_type": "small_lattice"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_009"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.358751,
+          "node_type": "connector",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.208379,
+          "node_type": "pipe",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.232243,
+          "node_type": "weld",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.355278,
+          "node_type": "support",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.538021,
+          "node_type": "weld",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.65796,
+          "node_type": "pipe",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.98425,
+          "node_type": "valve",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.722407,
+          "node_type": "valve",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.864506,
+          "node_type": "pipe",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.982715,
+          "node_type": "weld",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000019",
+      "structure_type": "branched_pipeline"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_009"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.747884,
+          "node_type": "beam",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.510728,
+          "node_type": "connector",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.418312,
+          "node_type": "pipe",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.380261,
+          "node_type": "joint",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.56547,
+          "node_type": "pipe",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.490074,
+          "node_type": "beam",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.697722,
+          "node_type": "connector",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.934799,
+          "node_type": "beam",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.969203,
+          "node_type": "connector",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.866759,
+          "node_type": "joint",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000020",
+      "structure_type": "mixed_structure"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.361943,
+          "node_type": "joint",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.828153,
+          "node_type": "beam",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.856935,
+          "node_type": "support",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.822874,
+          "node_type": "pipe",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.965306,
+          "node_type": "weld",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.857126,
+          "node_type": "connector",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.917144,
+          "node_type": "valve",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.731167,
+          "node_type": "connector",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.278891,
+          "node_type": "joint",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.496414,
+          "node_type": "beam",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000021",
+      "structure_type": "small_lattice"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.764112,
+          "node_type": "valve",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.588254,
+          "node_type": "connector",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.985475,
+          "node_type": "weld",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.281995,
+          "node_type": "beam",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.944611,
+          "node_type": "weld",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.424316,
+          "node_type": "pipe",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.503184,
+          "node_type": "connector",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.501196,
+          "node_type": "beam",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.950539,
+          "node_type": "joint",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.687576,
+          "node_type": "pipe",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000022",
+      "structure_type": "small_lattice"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.528297,
+          "node_type": "beam",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.25006,
+          "node_type": "beam",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.308115,
+          "node_type": "joint",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.681805,
+          "node_type": "connector",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.524607,
+          "node_type": "support",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.636824,
+          "node_type": "support",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.46638,
+          "node_type": "beam",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.915638,
+          "node_type": "pipe",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.275803,
+          "node_type": "weld",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.325436,
+          "node_type": "valve",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000023",
+      "structure_type": "mixed_structure"
+    },
+    {
+      "edges": [
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_000",
+          "target": "component_001"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_001",
+          "target": "component_002"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_002",
+          "target": "component_003"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_003",
+          "target": "component_004"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_005"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_004",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_005",
+          "target": "component_006"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_006",
+          "target": "component_007"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_007",
+          "target": "component_008"
+        },
+        {
+          "relation_type": "structural_neighbor",
+          "source": "component_008",
+          "target": "component_009"
+        }
+      ],
+      "nodes": [
+        {
+          "component_id": "component_000",
+          "criticality": 0.606879,
+          "node_type": "weld",
+          "tensor_index": 0
+        },
+        {
+          "component_id": "component_001",
+          "criticality": 0.929593,
+          "node_type": "beam",
+          "tensor_index": 1
+        },
+        {
+          "component_id": "component_002",
+          "criticality": 0.863091,
+          "node_type": "pipe",
+          "tensor_index": 2
+        },
+        {
+          "component_id": "component_003",
+          "criticality": 0.374852,
+          "node_type": "valve",
+          "tensor_index": 3
+        },
+        {
+          "component_id": "component_004",
+          "criticality": 0.921835,
+          "node_type": "valve",
+          "tensor_index": 4
+        },
+        {
+          "component_id": "component_005",
+          "criticality": 0.884918,
+          "node_type": "support",
+          "tensor_index": 5
+        },
+        {
+          "component_id": "component_006",
+          "criticality": 0.420224,
+          "node_type": "weld",
+          "tensor_index": 6
+        },
+        {
+          "component_id": "component_007",
+          "criticality": 0.881105,
+          "node_type": "joint",
+          "tensor_index": 7
+        },
+        {
+          "component_id": "component_008",
+          "criticality": 0.905603,
+          "node_type": "pipe",
+          "tensor_index": 8
+        },
+        {
+          "component_id": "component_009",
+          "criticality": 0.330135,
+          "node_type": "support",
+          "tensor_index": 9
+        }
+      ],
+      "scenario_id": "scenario_000024",
+      "structure_type": "mixed_structure"
+    }
+  ],
+  "schema_version": "1.0.0"
+}
