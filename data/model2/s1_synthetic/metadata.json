@@ -1,0 +1,3572 @@
+{
+  "claim_boundary": "S1 is an internal synthetic baseline-comparison release. It does not prove real-world performance, proprietary superiority, calibrated physics, or safety.",
+  "comparison_only": true,
+  "created_at_utc": "2026-08-26T19:20:11Z",
+  "dependencies": {
+    "networkx": "3.6.1",
+    "numpy": "2.5.2",
+    "python": "3.13.14",
+    "pyyaml": "6.0.3"
+  },
+  "generation_seed": 2026101,
+  "generation_seeds": [
+    2026101,
+    2026102,
+    2026103,
+    2026104
+  ],
+  "generator_name": "oceansense.model2.s1_release",
+  "generator_version": "oceansense-twin2-s1-release/1.0.0",
+  "release_id": "twin2-s1-synthetic-v1",
+  "runtime_notes": "Windows-11-10.0.26200-SP0",
+  "scenario_ids": [
+    "s1_scenario_000000",
+    "s1_scenario_000001",
+    "s1_scenario_000002",
+    "s1_scenario_000003",
+    "s1_scenario_000004",
+    "s1_scenario_000005",
+    "s1_scenario_000006",
+    "s1_scenario_000007",
+    "s1_scenario_000008",
+    "s1_scenario_000009",
+    "s1_scenario_000010",
+    "s1_scenario_000011",
+    "s1_scenario_000012",
+    "s1_scenario_000013",
+    "s1_scenario_000014",
+    "s1_scenario_000015",
+    "s1_scenario_000016",
+    "s1_scenario_000017",
+    "s1_scenario_000018",
+    "s1_scenario_000019",
+    "s1_scenario_000020",
+    "s1_scenario_000021",
+    "s1_scenario_000022",
+    "s1_scenario_000023",
+    "s1_scenario_000024",
+    "s1_scenario_000025",
+    "s1_scenario_000026",
+    "s1_scenario_000027",
+    "s1_scenario_000028",
+    "s1_scenario_000029",
+    "s1_scenario_000030",
+    "s1_scenario_000031",
+    "s1_scenario_000032",
+    "s1_scenario_000033",
+    "s1_scenario_000034",
+    "s1_scenario_000035",
+    "s1_scenario_000036",
+    "s1_scenario_000037",
+    "s1_scenario_000038",
+    "s1_scenario_000039",
+    "s1_scenario_000040",
+    "s1_scenario_000041",
+    "s1_scenario_000042",
+    "s1_scenario_000043",
+    "s1_scenario_000044",
+    "s1_scenario_000045",
+    "s1_scenario_000046",
+    "s1_scenario_000047",
+    "s1_scenario_000048",
+    "s1_scenario_000049",
+    "s1_scenario_000050",
+    "s1_scenario_000051",
+    "s1_scenario_000052",
+    "s1_scenario_000053",
+    "s1_scenario_000054",
+    "s1_scenario_000055",
+    "s1_scenario_000056",
+    "s1_scenario_000057",
+    "s1_scenario_000058",
+    "s1_scenario_000059",
+    "s1_scenario_000060",
+    "s1_scenario_000061",
+    "s1_scenario_000062",
+    "s1_scenario_000063",
+    "s1_scenario_000064",
+    "s1_scenario_000065",
+    "s1_scenario_000066",
+    "s1_scenario_000067",
+    "s1_scenario_000068",
+    "s1_scenario_000069",
+    "s1_scenario_000070",
+    "s1_scenario_000071",
+    "s1_scenario_000072",
+    "s1_scenario_000073",
+    "s1_scenario_000074",
+    "s1_scenario_000075",
+    "s1_scenario_000076",
+    "s1_scenario_000077",
+    "s1_scenario_000078",
+    "s1_scenario_000079",
+    "s1_scenario_000080",
+    "s1_scenario_000081",
+    "s1_scenario_000082",
+    "s1_scenario_000083",
+    "s1_scenario_000084",
+    "s1_scenario_000085",
+    "s1_scenario_000086",
+    "s1_scenario_000087",
+    "s1_scenario_000088",
+    "s1_scenario_000089",
+    "s1_scenario_000090",
+    "s1_scenario_000091",
+    "s1_scenario_000092",
+    "s1_scenario_000093",
+    "s1_scenario_000094",
+    "s1_scenario_000095",
+    "s1_scenario_000096",
+    "s1_scenario_000097",
+    "s1_scenario_000098",
+    "s1_scenario_000099",
+    "s1_scenario_000100",
+    "s1_scenario_000101",
+    "s1_scenario_000102",
+    "s1_scenario_000103",
+    "s1_scenario_000104",
+    "s1_scenario_000105",
+    "s1_scenario_000106",
+    "s1_scenario_000107",
+    "s1_scenario_000108",
+    "s1_scenario_000109",
+    "s1_scenario_000110",
+    "s1_scenario_000111",
+    "s1_scenario_000112",
+    "s1_scenario_000113",
+    "s1_scenario_000114",
+    "s1_scenario_000115",
+    "s1_scenario_000116",
+    "s1_scenario_000117",
+    "s1_scenario_000118",
+    "s1_scenario_000119",
+    "s1_scenario_000120",
+    "s1_scenario_000121",
+    "s1_scenario_000122",
+    "s1_scenario_000123",
+    "s1_scenario_000124",
+    "s1_scenario_000125",
+    "s1_scenario_000126",
+    "s1_scenario_000127",
+    "s1_scenario_000128",
+    "s1_scenario_000129",
+    "s1_scenario_000130",
+    "s1_scenario_000131",
+    "s1_scenario_000132",
+    "s1_scenario_000133",
+    "s1_scenario_000134",
+    "s1_scenario_000135",
+    "s1_scenario_000136",
+    "s1_scenario_000137",
+    "s1_scenario_000138",
+    "s1_scenario_000139",
+    "s1_scenario_000140",
+    "s1_scenario_000141",
+    "s1_scenario_000142",
+    "s1_scenario_000143",
+    "s1_scenario_000144",
+    "s1_scenario_000145",
+    "s1_scenario_000146",
+    "s1_scenario_000147",
+    "s1_scenario_000148",
+    "s1_scenario_000149",
+    "s1_scenario_000150",
+    "s1_scenario_000151",
+    "s1_scenario_000152",
+    "s1_scenario_000153",
+    "s1_scenario_000154",
+    "s1_scenario_000155",
+    "s1_scenario_000156",
+    "s1_scenario_000157",
+    "s1_scenario_000158",
+    "s1_scenario_000159",
+    "s1_scenario_000160",
+    "s1_scenario_000161",
+    "s1_scenario_000162",
+    "s1_scenario_000163",
+    "s1_scenario_000164",
+    "s1_scenario_000165",
+    "s1_scenario_000166",
+    "s1_scenario_000167",
+    "s1_scenario_000168",
+    "s1_scenario_000169",
+    "s1_scenario_000170",
+    "s1_scenario_000171",
+    "s1_scenario_000172",
+    "s1_scenario_000173",
+    "s1_scenario_000174",
+    "s1_scenario_000175",
+    "s1_scenario_000176",
+    "s1_scenario_000177",
+    "s1_scenario_000178",
+    "s1_scenario_000179",
+    "s1_scenario_000180",
+    "s1_scenario_000181",
+    "s1_scenario_000182",
+    "s1_scenario_000183",
+    "s1_scenario_000184",
+    "s1_scenario_000185",
+    "s1_scenario_000186",
+    "s1_scenario_000187",
+    "s1_scenario_000188",
+    "s1_scenario_000189",
+    "s1_scenario_000190",
+    "s1_scenario_000191",
+    "s1_scenario_000192",
+    "s1_scenario_000193",
+    "s1_scenario_000194",
+    "s1_scenario_000195",
+    "s1_scenario_000196",
+    "s1_scenario_000197",
+    "s1_scenario_000198",
+    "s1_scenario_000199"
+  ],
+  "scenario_records": [
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0000",
+      "replicate": 0,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000000",
+      "scenario_seed": 2026101,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0000",
+      "replicate": 1,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000001",
+      "scenario_seed": 2026119,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0000",
+      "replicate": 2,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000002",
+      "scenario_seed": 2026137,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0000",
+      "replicate": 3,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000003",
+      "scenario_seed": 2026155,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0001",
+      "replicate": 0,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000004",
+      "scenario_seed": 2027102,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0001",
+      "replicate": 1,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000005",
+      "scenario_seed": 2027120,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0001",
+      "replicate": 2,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000006",
+      "scenario_seed": 2027138,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0001",
+      "replicate": 3,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000007",
+      "scenario_seed": 2027152,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0002",
+      "replicate": 0,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000008",
+      "scenario_seed": 2028103,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0002",
+      "replicate": 1,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000009",
+      "scenario_seed": 2028121,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0002",
+      "replicate": 2,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000010",
+      "scenario_seed": 2028135,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0002",
+      "replicate": 3,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000011",
+      "scenario_seed": 2028153,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0003",
+      "replicate": 0,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000012",
+      "scenario_seed": 2029104,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0003",
+      "replicate": 1,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000013",
+      "scenario_seed": 2029118,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0003",
+      "replicate": 2,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000014",
+      "scenario_seed": 2029136,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0003",
+      "replicate": 3,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000015",
+      "scenario_seed": 2029154,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0004",
+      "replicate": 0,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000016",
+      "scenario_seed": 2030101,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0004",
+      "replicate": 1,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000017",
+      "scenario_seed": 2030119,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0004",
+      "replicate": 2,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000018",
+      "scenario_seed": 2030137,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0004",
+      "replicate": 3,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000019",
+      "scenario_seed": 2030155,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0005",
+      "replicate": 0,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000020",
+      "scenario_seed": 2031102,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0005",
+      "replicate": 1,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000021",
+      "scenario_seed": 2031120,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0005",
+      "replicate": 2,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000022",
+      "scenario_seed": 2031138,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0005",
+      "replicate": 3,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000023",
+      "scenario_seed": 2031152,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0006",
+      "replicate": 0,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000024",
+      "scenario_seed": 2032103,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0006",
+      "replicate": 1,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000025",
+      "scenario_seed": 2032121,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0006",
+      "replicate": 2,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000026",
+      "scenario_seed": 2032135,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0006",
+      "replicate": 3,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000027",
+      "scenario_seed": 2032153,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0007",
+      "replicate": 0,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000028",
+      "scenario_seed": 2033104,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0007",
+      "replicate": 1,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000029",
+      "scenario_seed": 2033118,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0007",
+      "replicate": 2,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000030",
+      "scenario_seed": 2033136,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0007",
+      "replicate": 3,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000031",
+      "scenario_seed": 2033154,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0008",
+      "replicate": 0,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000032",
+      "scenario_seed": 2034101,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0008",
+      "replicate": 1,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000033",
+      "scenario_seed": 2034119,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0008",
+      "replicate": 2,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000034",
+      "scenario_seed": 2034137,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0008",
+      "replicate": 3,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000035",
+      "scenario_seed": 2034155,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0009",
+      "replicate": 0,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000036",
+      "scenario_seed": 2035102,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0009",
+      "replicate": 1,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000037",
+      "scenario_seed": 2035120,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0009",
+      "replicate": 2,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000038",
+      "scenario_seed": 2035138,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0009",
+      "replicate": 3,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000039",
+      "scenario_seed": 2035152,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0010",
+      "replicate": 0,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000040",
+      "scenario_seed": 2036103,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0010",
+      "replicate": 1,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000041",
+      "scenario_seed": 2036121,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0010",
+      "replicate": 2,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000042",
+      "scenario_seed": 2036135,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0010",
+      "replicate": 3,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000043",
+      "scenario_seed": 2036153,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0011",
+      "replicate": 0,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000044",
+      "scenario_seed": 2037104,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0011",
+      "replicate": 1,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000045",
+      "scenario_seed": 2037118,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0011",
+      "replicate": 2,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000046",
+      "scenario_seed": 2037136,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0011",
+      "replicate": 3,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000047",
+      "scenario_seed": 2037154,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0012",
+      "replicate": 0,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000048",
+      "scenario_seed": 2038101,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0012",
+      "replicate": 1,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000049",
+      "scenario_seed": 2038119,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0012",
+      "replicate": 2,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000050",
+      "scenario_seed": 2038137,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0012",
+      "replicate": 3,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000051",
+      "scenario_seed": 2038155,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0013",
+      "replicate": 0,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000052",
+      "scenario_seed": 2039102,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0013",
+      "replicate": 1,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000053",
+      "scenario_seed": 2039120,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0013",
+      "replicate": 2,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000054",
+      "scenario_seed": 2039138,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0013",
+      "replicate": 3,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000055",
+      "scenario_seed": 2039152,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0014",
+      "replicate": 0,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000056",
+      "scenario_seed": 2040103,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0014",
+      "replicate": 1,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000057",
+      "scenario_seed": 2040121,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0014",
+      "replicate": 2,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000058",
+      "scenario_seed": 2040135,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0014",
+      "replicate": 3,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000059",
+      "scenario_seed": 2040153,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0015",
+      "replicate": 0,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000060",
+      "scenario_seed": 2041104,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0015",
+      "replicate": 1,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000061",
+      "scenario_seed": 2041118,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0015",
+      "replicate": 2,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000062",
+      "scenario_seed": 2041136,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0015",
+      "replicate": 3,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000063",
+      "scenario_seed": 2041154,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0016",
+      "replicate": 0,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000064",
+      "scenario_seed": 2042101,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0016",
+      "replicate": 1,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000065",
+      "scenario_seed": 2042119,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0016",
+      "replicate": 2,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000066",
+      "scenario_seed": 2042137,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0016",
+      "replicate": 3,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000067",
+      "scenario_seed": 2042155,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0017",
+      "replicate": 0,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000068",
+      "scenario_seed": 2043102,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0017",
+      "replicate": 1,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000069",
+      "scenario_seed": 2043120,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0017",
+      "replicate": 2,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000070",
+      "scenario_seed": 2043138,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0017",
+      "replicate": 3,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000071",
+      "scenario_seed": 2043152,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0018",
+      "replicate": 0,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000072",
+      "scenario_seed": 2044103,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0018",
+      "replicate": 1,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000073",
+      "scenario_seed": 2044121,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0018",
+      "replicate": 2,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000074",
+      "scenario_seed": 2044135,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0018",
+      "replicate": 3,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000075",
+      "scenario_seed": 2044153,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0019",
+      "replicate": 0,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000076",
+      "scenario_seed": 2045104,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0019",
+      "replicate": 1,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000077",
+      "scenario_seed": 2045118,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0019",
+      "replicate": 2,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000078",
+      "scenario_seed": 2045136,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0019",
+      "replicate": 3,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000079",
+      "scenario_seed": 2045154,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0020",
+      "replicate": 0,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000080",
+      "scenario_seed": 2046101,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0020",
+      "replicate": 1,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000081",
+      "scenario_seed": 2046119,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0020",
+      "replicate": 2,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000082",
+      "scenario_seed": 2046137,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0020",
+      "replicate": 3,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000083",
+      "scenario_seed": 2046155,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0021",
+      "replicate": 0,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000084",
+      "scenario_seed": 2047102,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0021",
+      "replicate": 1,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000085",
+      "scenario_seed": 2047120,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0021",
+      "replicate": 2,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000086",
+      "scenario_seed": 2047138,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0021",
+      "replicate": 3,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000087",
+      "scenario_seed": 2047152,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0022",
+      "replicate": 0,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000088",
+      "scenario_seed": 2048103,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0022",
+      "replicate": 1,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000089",
+      "scenario_seed": 2048121,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0022",
+      "replicate": 2,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000090",
+      "scenario_seed": 2048135,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0022",
+      "replicate": 3,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000091",
+      "scenario_seed": 2048153,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0023",
+      "replicate": 0,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000092",
+      "scenario_seed": 2049104,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0023",
+      "replicate": 1,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000093",
+      "scenario_seed": 2049118,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0023",
+      "replicate": 2,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000094",
+      "scenario_seed": 2049136,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0023",
+      "replicate": 3,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000095",
+      "scenario_seed": 2049154,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0024",
+      "replicate": 0,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000096",
+      "scenario_seed": 2050101,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0024",
+      "replicate": 1,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000097",
+      "scenario_seed": 2050119,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0024",
+      "replicate": 2,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000098",
+      "scenario_seed": 2050137,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0024",
+      "replicate": 3,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000099",
+      "scenario_seed": 2050155,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0025",
+      "replicate": 0,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000100",
+      "scenario_seed": 2051102,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0025",
+      "replicate": 1,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000101",
+      "scenario_seed": 2051120,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0025",
+      "replicate": 2,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000102",
+      "scenario_seed": 2051138,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0025",
+      "replicate": 3,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000103",
+      "scenario_seed": 2051152,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0026",
+      "replicate": 0,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000104",
+      "scenario_seed": 2052103,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0026",
+      "replicate": 1,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000105",
+      "scenario_seed": 2052121,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0026",
+      "replicate": 2,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000106",
+      "scenario_seed": 2052135,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0026",
+      "replicate": 3,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000107",
+      "scenario_seed": 2052153,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0027",
+      "replicate": 0,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000108",
+      "scenario_seed": 2053104,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0027",
+      "replicate": 1,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000109",
+      "scenario_seed": 2053118,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0027",
+      "replicate": 2,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000110",
+      "scenario_seed": 2053136,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0027",
+      "replicate": 3,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000111",
+      "scenario_seed": 2053154,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0028",
+      "replicate": 0,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000112",
+      "scenario_seed": 2054101,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0028",
+      "replicate": 1,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000113",
+      "scenario_seed": 2054119,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0028",
+      "replicate": 2,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000114",
+      "scenario_seed": 2054137,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0028",
+      "replicate": 3,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000115",
+      "scenario_seed": 2054155,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0029",
+      "replicate": 0,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000116",
+      "scenario_seed": 2055102,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0029",
+      "replicate": 1,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000117",
+      "scenario_seed": 2055120,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0029",
+      "replicate": 2,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000118",
+      "scenario_seed": 2055138,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0029",
+      "replicate": 3,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000119",
+      "scenario_seed": 2055152,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0030",
+      "replicate": 0,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000120",
+      "scenario_seed": 2056103,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0030",
+      "replicate": 1,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000121",
+      "scenario_seed": 2056121,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0030",
+      "replicate": 2,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000122",
+      "scenario_seed": 2056135,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0030",
+      "replicate": 3,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000123",
+      "scenario_seed": 2056153,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0031",
+      "replicate": 0,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000124",
+      "scenario_seed": 2057104,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0031",
+      "replicate": 1,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000125",
+      "scenario_seed": 2057118,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0031",
+      "replicate": 2,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000126",
+      "scenario_seed": 2057136,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0031",
+      "replicate": 3,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000127",
+      "scenario_seed": 2057154,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0032",
+      "replicate": 0,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000128",
+      "scenario_seed": 2058101,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0032",
+      "replicate": 1,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000129",
+      "scenario_seed": 2058119,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0032",
+      "replicate": 2,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000130",
+      "scenario_seed": 2058137,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0032",
+      "replicate": 3,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000131",
+      "scenario_seed": 2058155,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0033",
+      "replicate": 0,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000132",
+      "scenario_seed": 2059102,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0033",
+      "replicate": 1,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000133",
+      "scenario_seed": 2059120,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0033",
+      "replicate": 2,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000134",
+      "scenario_seed": 2059138,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0033",
+      "replicate": 3,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000135",
+      "scenario_seed": 2059152,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0034",
+      "replicate": 0,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000136",
+      "scenario_seed": 2060103,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0034",
+      "replicate": 1,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000137",
+      "scenario_seed": 2060121,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0034",
+      "replicate": 2,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000138",
+      "scenario_seed": 2060135,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0034",
+      "replicate": 3,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000139",
+      "scenario_seed": 2060153,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0035",
+      "replicate": 0,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000140",
+      "scenario_seed": 2061104,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0035",
+      "replicate": 1,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000141",
+      "scenario_seed": 2061118,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0035",
+      "replicate": 2,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000142",
+      "scenario_seed": 2061136,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0035",
+      "replicate": 3,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000143",
+      "scenario_seed": 2061154,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0036",
+      "replicate": 0,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000144",
+      "scenario_seed": 2062101,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0036",
+      "replicate": 1,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000145",
+      "scenario_seed": 2062119,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0036",
+      "replicate": 2,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000146",
+      "scenario_seed": 2062137,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0036",
+      "replicate": 3,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000147",
+      "scenario_seed": 2062155,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0037",
+      "replicate": 0,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000148",
+      "scenario_seed": 2063102,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0037",
+      "replicate": 1,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000149",
+      "scenario_seed": 2063120,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0037",
+      "replicate": 2,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000150",
+      "scenario_seed": 2063138,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0037",
+      "replicate": 3,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000151",
+      "scenario_seed": 2063152,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0038",
+      "replicate": 0,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000152",
+      "scenario_seed": 2064103,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0038",
+      "replicate": 1,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000153",
+      "scenario_seed": 2064121,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0038",
+      "replicate": 2,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000154",
+      "scenario_seed": 2064135,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0038",
+      "replicate": 3,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000155",
+      "scenario_seed": 2064153,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0039",
+      "replicate": 0,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000156",
+      "scenario_seed": 2065104,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0039",
+      "replicate": 1,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000157",
+      "scenario_seed": 2065118,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0039",
+      "replicate": 2,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000158",
+      "scenario_seed": 2065136,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0039",
+      "replicate": 3,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000159",
+      "scenario_seed": 2065154,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0040",
+      "replicate": 0,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000160",
+      "scenario_seed": 2066101,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0040",
+      "replicate": 1,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000161",
+      "scenario_seed": 2066119,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0040",
+      "replicate": 2,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000162",
+      "scenario_seed": 2066137,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0040",
+      "replicate": 3,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000163",
+      "scenario_seed": 2066155,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0041",
+      "replicate": 0,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000164",
+      "scenario_seed": 2067102,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0041",
+      "replicate": 1,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000165",
+      "scenario_seed": 2067120,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0041",
+      "replicate": 2,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000166",
+      "scenario_seed": 2067138,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0041",
+      "replicate": 3,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000167",
+      "scenario_seed": 2067152,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0042",
+      "replicate": 0,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000168",
+      "scenario_seed": 2068103,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0042",
+      "replicate": 1,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000169",
+      "scenario_seed": 2068121,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0042",
+      "replicate": 2,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000170",
+      "scenario_seed": 2068135,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0042",
+      "replicate": 3,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000171",
+      "scenario_seed": 2068153,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0043",
+      "replicate": 0,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000172",
+      "scenario_seed": 2069104,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0043",
+      "replicate": 1,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000173",
+      "scenario_seed": 2069118,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0043",
+      "replicate": 2,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000174",
+      "scenario_seed": 2069136,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0043",
+      "replicate": 3,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000175",
+      "scenario_seed": 2069154,
+      "split": "validation"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0044",
+      "replicate": 0,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000176",
+      "scenario_seed": 2070101,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0044",
+      "replicate": 1,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000177",
+      "scenario_seed": 2070119,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0044",
+      "replicate": 2,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000178",
+      "scenario_seed": 2070137,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0044",
+      "replicate": 3,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000179",
+      "scenario_seed": 2070155,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0045",
+      "replicate": 0,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000180",
+      "scenario_seed": 2071102,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0045",
+      "replicate": 1,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000181",
+      "scenario_seed": 2071120,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0045",
+      "replicate": 2,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000182",
+      "scenario_seed": 2071138,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "high_stress_ood",
+        "environment_level": 0.95,
+        "graph_family": "mixed_structure",
+        "noise_std": 0.03,
+        "observation_coverage": 0.2
+      },
+      "distribution_shift": [
+        "graph_family",
+        "degradation_regime",
+        "observation_coverage",
+        "noise_std",
+        "environment_level"
+      ],
+      "lineage_id": "lineage_0045",
+      "replicate": 3,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000183",
+      "scenario_seed": 2071152,
+      "split": "ood"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0046",
+      "replicate": 0,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000184",
+      "scenario_seed": 2072103,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0046",
+      "replicate": 1,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000185",
+      "scenario_seed": 2072121,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0046",
+      "replicate": 2,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000186",
+      "scenario_seed": 2072135,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0046",
+      "replicate": 3,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000187",
+      "scenario_seed": 2072153,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0047",
+      "replicate": 0,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000188",
+      "scenario_seed": 2073104,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0047",
+      "replicate": 1,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000189",
+      "scenario_seed": 2073118,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0047",
+      "replicate": 2,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000190",
+      "scenario_seed": 2073136,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0047",
+      "replicate": 3,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000191",
+      "scenario_seed": 2073154,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0048",
+      "replicate": 0,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000192",
+      "scenario_seed": 2074101,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0048",
+      "replicate": 1,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000193",
+      "scenario_seed": 2074119,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0048",
+      "replicate": 2,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000194",
+      "scenario_seed": 2074137,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0048",
+      "replicate": 3,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000195",
+      "scenario_seed": 2074155,
+      "split": "train"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0049",
+      "replicate": 0,
+      "root_seed": 2026102,
+      "scenario_id": "s1_scenario_000196",
+      "scenario_seed": 2075102,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "slow",
+        "environment_level": 0.5,
+        "graph_family": "small_lattice",
+        "noise_std": 0.01,
+        "observation_coverage": 0.35
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0049",
+      "replicate": 1,
+      "root_seed": 2026103,
+      "scenario_id": "s1_scenario_000197",
+      "scenario_seed": 2075120,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "moderate",
+        "environment_level": 0.5,
+        "graph_family": "chain",
+        "noise_std": 0.01,
+        "observation_coverage": 0.75
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0049",
+      "replicate": 2,
+      "root_seed": 2026104,
+      "scenario_id": "s1_scenario_000198",
+      "scenario_seed": 2075138,
+      "split": "test"
+    },
+    {
+      "distribution": {
+        "degradation_regime": "accelerated",
+        "environment_level": 0.5,
+        "graph_family": "branched_pipeline",
+        "noise_std": 0.01,
+        "observation_coverage": 0.55
+      },
+      "distribution_shift": [],
+      "lineage_id": "lineage_0049",
+      "replicate": 3,
+      "root_seed": 2026101,
+      "scenario_id": "s1_scenario_000199",
+      "scenario_seed": 2075152,
+      "split": "test"
+    }
+  ],
+  "schema_version": "1.1.0",
+  "synthetic_or_real": "synthetic"
+}

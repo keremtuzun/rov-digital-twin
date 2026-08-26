@@ -15,8 +15,15 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--strict", action="store_true")
     parser.add_argument("--json-out")
     parser.add_argument("--require-debug-d0", action="store_true")
+    parser.add_argument("--require-synthetic-s1", action="store_true")
     args = parser.parse_args(argv)
-    report = validate_release(args.release_dir, require_debug_d0=args.require_debug_d0)
+    if args.require_debug_d0 and args.require_synthetic_s1:
+        parser.error("D0 and S1 requirements are mutually exclusive")
+    report = validate_release(
+        args.release_dir,
+        require_debug_d0=args.require_debug_d0,
+        require_synthetic_s1=args.require_synthetic_s1,
+    )
     rendered = json.dumps(report, indent=2, sort_keys=True)
     print(rendered)
     if args.json_out:

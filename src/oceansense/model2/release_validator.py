@@ -78,7 +78,8 @@ def _connected(node_ids: set[str], edges: list[tuple[str, str]]) -> bool:
 
 
 def validate_release(
-    release_dir: str | Path, *, require_debug_d0: bool = False
+    release_dir: str | Path, *, require_debug_d0: bool = False,
+    require_synthetic_s1: bool = False,
 ) -> dict[str, Any]:
     """Validate structure, tensors, splits, checksums, provenance, and leakage controls."""
     release = Path(release_dir)
@@ -192,7 +193,11 @@ def validate_release(
     split_map = splits.get("splits", {})
     if not isinstance(split_map, dict):
         split_map = {}
-    required_splits = ("train", "validation", "test")
+    is_s1 = manifest.get("release_type") == "synthetic_comparison" or require_synthetic_s1
+    required_splits = (
+        ("train", "validation", "test", "ood")
+        if is_s1 else ("train", "validation", "test")
+    )
     split_sets: dict[str, set[str]] = {}
     for name in required_splits:
         values = split_map.get(name)
@@ -301,8 +306,14 @@ def validate_release(
         fail("schema_version_mismatch", "manifest/metadata schema versions must match")
     if metadata.get("release_id") != manifest.get("release_id"):
         fail("release_id_mismatch", "manifest/metadata release IDs must match")
-    if metadata.get("generation_seed") != config.get("dataset_seed"):
-        fail("seed_mismatch", "metadata generation seed must match config")
+    if "dataset_seed" in config:
+        if metadata.get("generation_seed") != config.get("dataset_seed"):
+            fail("seed_mismatch", "metadata generation seed must match config")
+    elif "generation_seeds" in config:
+        if metadata.get("generation_seeds") != config.get("generation_seeds"):
+            fail("seed_mismatch", "metadata generation seeds must match config")
+    else:
+        fail("seed_mismatch", "config must record dataset_seed or generation_seeds")
 
     if require_debug_d0:
         if manifest.get("release_level") != "D0":
@@ -313,6 +324,120 @@ def validate_release(
             fail("not_debug_d0", "D0 must exercise observed and unobserved mask states")
         if not metadata.get("claim_boundary"):
             fail("not_debug_d0", "D0 claim boundary is required")
+
+    if require_synthetic_s1 or manifest.get("release_level") == "S1":
+        if manifest.get("release_level") != "S1":
+            fail("not_synthetic_s1", "release_level must be S1")
+        if manifest.get("release_type") != "synthetic_comparison":
+            fail("not_synthetic_s1", "release_type must be synthetic_comparison")
+        if manifest.get("schema_version") != "1.1.0":
+            fail("invalid_s1_schema", "S1 schema_version must be 1.1.0")
+        if metadata.get("synthetic_or_real") != "synthetic":
+            fail("not_synthetic_s1", "S1 must be explicitly synthetic")
+        if metadata.get("comparison_only") is not True:
+            fail("not_synthetic_s1", "S1 must declare comparison_only=true")
+        thresholds = {
+            "scenario_count": 200, "timesteps": 5, "node_count": 10,
+        }
+        for field, minimum in thresholds.items():
+            if not isinstance(dimensions.get(field), int) or dimensions[field] < minimum:
+                fail("s1_size_threshold", f"S1 {field} must be at least {minimum}")
+        seeds = metadata.get("generation_seeds", [])
+        if not isinstance(seeds, list) or len(set(seeds)) < 3 or not all(
+            isinstance(seed, int) for seed in seeds
+        ):
+            fail("missing_s1_seeds", "S1 requires at least three integer generation seeds")
+            seeds = []
+        records = metadata.get("scenario_records", [])
+        if not isinstance(records, list) or len(records) != len(scenario_ids):
+            fail("missing_distribution_metadata", "one scenario record is required per scenario")
+            records = []
+        record_ids = [record.get("scenario_id", "") for record in records]
+        if set(record_ids) != set(scenario_ids) or len(record_ids) != len(set(record_ids)):
+            fail("missing_distribution_metadata", "scenario records must uniquely cover metadata IDs")
+        split_by_scenario = {
+            scenario_id: split_name
+            for split_name, values in split_sets.items()
+            for scenario_id in values
+        }
+        lineage_by_split = {name: set() for name in required_splits}
+        graph_families: set[str] = set()
+        degradation_regimes: set[str] = set()
+        coverage_levels: set[float] = set()
+        train_distributions: dict[str, set[str]] = {
+            "graph_family": set(), "degradation_regime": set(),
+            "observation_coverage": set(), "noise_std": set(),
+            "environment_level": set(),
+        }
+        ood_records: list[tuple[str, dict[str, Any], Any]] = []
+        ood_shift_detected = False
+        for record in records:
+            scenario_id = record.get("scenario_id", "")
+            split_name = record.get("split", "")
+            lineage_id = record.get("lineage_id", "")
+            distribution = record.get("distribution")
+            if split_by_scenario.get(scenario_id) != split_name:
+                fail("scenario_split_mismatch", f"{scenario_id}: metadata split disagrees")
+            if split_name not in lineage_by_split or not lineage_id:
+                fail("missing_lineage", f"{scenario_id}: valid split and lineage_id are required")
+            else:
+                lineage_by_split[split_name].add(lineage_id)
+            if record.get("root_seed") not in seeds:
+                fail("unrecorded_scenario_seed", f"{scenario_id}: root_seed is not recorded")
+            if not isinstance(distribution, dict):
+                fail("missing_distribution_metadata", f"{scenario_id}: distribution is required")
+                continue
+            required_distribution = (
+                "graph_family", "degradation_regime", "observation_coverage",
+                "noise_std", "environment_level",
+            )
+            if any(field not in distribution for field in required_distribution):
+                fail("missing_distribution_metadata", f"{scenario_id}: incomplete distribution")
+                continue
+            graph_families.add(str(distribution["graph_family"]))
+            degradation_regimes.add(str(distribution["degradation_regime"]))
+            coverage_levels.add(float(distribution["observation_coverage"]))
+            if split_name == "train":
+                for field in train_distributions:
+                    train_distributions[field].add(str(distribution[field]))
+            if split_name == "ood":
+                shifts = record.get("distribution_shift", [])
+                if not isinstance(shifts, list) or not shifts:
+                    fail("missing_ood_metadata", f"{scenario_id}: OOD shift reasons are required")
+                ood_records.append((scenario_id, distribution, shifts))
+        for _, distribution, shifts in ood_records:
+            if isinstance(shifts, list) and any(
+                field in distribution
+                and str(distribution[field]) not in train_distributions.get(field, set())
+                for field in shifts
+            ):
+                ood_shift_detected = True
+        for left_index, left in enumerate(required_splits):
+            for right in required_splits[left_index + 1:]:
+                overlap = lineage_by_split[left] & lineage_by_split[right]
+                if overlap:
+                    fail("lineage_overlap", f"lineage IDs overlap between {left} and {right}")
+        declared_lineages = splits.get("lineages")
+        if not isinstance(declared_lineages, dict) or any(
+            set(declared_lineages.get(split_name, [])) != lineage_by_split[split_name]
+            for split_name in required_splits
+        ):
+            fail("lineage_manifest_mismatch", "declared split lineages do not match scenario records")
+        if len(graph_families) < 3:
+            fail("insufficient_s1_distributions", "S1 requires at least three graph families")
+        if len(degradation_regimes) < 3:
+            fail("insufficient_s1_distributions", "S1 requires at least three degradation regimes")
+        if len(coverage_levels) < 3:
+            fail("insufficient_s1_distributions", "S1 requires at least three coverage levels")
+        ood_definition = splits.get("ood_definition")
+        if not isinstance(ood_definition, dict) or not ood_definition.get("reasons") or not ood_definition.get("shifted_dimensions"):
+            fail("missing_ood_metadata", "splits.ood_definition must document reasons and shifts")
+        if not ood_shift_detected:
+            fail("missing_ood_shift", "OOD records do not demonstrate a train-distribution shift")
+        if manifest.get("approved_for_proprietary_model_training") is not False:
+            fail("invalid_s1_claim", "S1 cannot approve proprietary Model 2 training")
+        if not metadata.get("claim_boundary"):
+            fail("invalid_s1_claim", "S1 synthetic comparison claim boundary is required")
 
     return {
         "valid": not errors,
