@@ -12,7 +12,9 @@
 - Decision: `LICENSE_SCOPE_UNRESOLVED`
 - Dataset approval: **not approved**
 - Official project repository: <https://github.com/remaro-network/SubPipe-dataset>
-- Verified clarification route: <https://github.com/remaro-network/SubPipe-dataset/issues/new>
+- Clarification request: <https://github.com/remaro-network/SubPipe-dataset/issues/9>
+- Request sent: `2026-08-26 00:41:04 +03:00`
+- Response status: pending
 
 ## Creators
 

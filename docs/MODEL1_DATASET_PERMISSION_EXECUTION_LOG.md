@@ -7,9 +7,9 @@
 
 ## 1. Executive Status
 
-**REQUESTS PREPARED — LICENSE CLARIFICATION REQUIRED**
+**SUBPIPE AND CLEANCAM REQUESTS SENT — RESPONSES PENDING**
 
-Exact requests are prepared below, but the repository contains no sent-message receipt, email/thread URL, provider response, signed terms, or completed internal approval record. Therefore no request is recorded as sent and no dataset is currently approved for Model 1 training or primary evaluation.
+The required SubPipe and CleanCam clarification requests were sent publicly from GitHub account `keremtuzun` on 2026-08-26 Europe/Istanbul. Their issue URLs and timestamps are recorded below. No provider response, signed terms, or completed internal approval record exists yet, so neither dataset is approved for Model 1 training or evaluation. All other prepared dataset requests remain unsent unless separately evidenced.
 
 The official SubPipe `3.0.1` and current CleanCam `v2.0.0` API metadata were rechecked on 2026-08-26. Both responses exposed `metadata.rights=null`, so earlier repository statements that these specific records were CC BY 4.0 are not accepted as evidence. Metadata summaries are now archived locally, but both sources require authorized written license/file-scope clarification and internal approval before use. Dryad is usable only as CC0 tabular context after its metadata is archived; it is not visual Model 1 data. K-Pipelines is synthetic and cannot count toward primary evaluation. All other tracks require explicit owner/provider clarification.
 
@@ -19,9 +19,9 @@ For every future send or response, append the sender, recipient/route, UTC times
 
 | Dataset | URL | Owner/Contact | Request Needed? | Request Status | License Status | Approval Evidence | Usable for Primary Evaluation? | Usable for Supplemental Testing? | Next Action |
 |---|---|---|---:|---|---|---|---:|---:|---|
-| SubPipe | <https://zenodo.org/records/12666132> | `remaro-network/SubPipe-dataset` maintainers via verified public issue route | Yes | `READY_FOR_HUMAN_SEND` | v3.0.1 confirmed; API license/rights field is null; public/citation wording is not a license grant | Metadata review at `data/model1_baseline_v2/licenses/subpipe/README.md`; no approval | No | No | Kerem/teammate opens <https://github.com/remaro-network/SubPipe-dataset/issues/new>, records receipt, follows up after 5 business days |
+| SubPipe | <https://zenodo.org/records/12666132> | `remaro-network/SubPipe-dataset` maintainers | Yes | `SENT_RESPONSE_PENDING` | v3.0.1 confirmed; API license/rights field is null; public/citation wording is not a license grant | Request <https://github.com/remaro-network/SubPipe-dataset/issues/9>; sent `2026-08-26 00:41:04 +03:00`; no approval | No | No | Review responses; follow up `2026-09-02 17:00 Europe/Istanbul` if none |
 | InspectVQA | <https://huggingface.co/datasets/anonymousSubmissionVqa2026/InspectVQA> | Hugging Face Community for `anonymousSubmissionVqa2026`, then identified licensor | Yes | `PREPARED_NOT_SENT` | Dataset card states CC BY-NC 4.0 or owner-approved alternative; licensor authority and competition/output rights unresolved | None | No | No | Post the request in the dataset Community area; obtain an identifiable owner response covering images, annotations, derivatives, outputs, and restrictions |
-| CleanCam | <https://zenodo.org/records/21515620> | `khoa288/CleanCam` maintainer via verified public issue route | Yes | `READY_FOR_HUMAN_SEND` | Current v2.0.0 confirmed; API license/rights field is null; v1.0.0 is superseded | Metadata review at `data/model1_baseline_v2/licenses/cleancam/README.md`; no approval | No; not a structural-defect primary source | No | Kerem/teammate opens <https://github.com/khoa288/CleanCam/issues/new>, records receipt, follows up after 5 business days |
+| CleanCam | <https://zenodo.org/records/21515620> | `khoa288/CleanCam` maintainer | Yes | `SENT_RESPONSE_PENDING` | Current v2.0.0 confirmed; API license/rights field is null; v1.0.0 is superseded | Request <https://github.com/khoa288/CleanCam/issues/1>; sent `2026-08-26 00:41:20 +03:00`; no approval | No; not a structural-defect primary source | No | Review responses; follow up `2026-09-02 17:00 Europe/Istanbul` if none |
 | Claru Underwater Inspection | <https://claru.ai/datasets/underwater-inspection> | Claru “Request a Sample Pack / Get in Touch” route | Yes | `PREPARED_NOT_SENT` | Commercial/provider terms; no public reusable dataset license recorded | None | No | No | Submit inquiry only after budget/contract pre-screen; require written rights matrix, price, provenance, sample terms, and reproducibility allowances |
 | Structural Defects — Bonnín-Pascual / Ortiz | <https://xiscobonnin.github.io/resources/> | Francisco Bonnín Pascual, University of the Balearic Islands; contact listed on resource page | Yes | `PREPARED_NOT_SENT` | Download and citation are published; explicit image/mask reuse license not recorded | None | No; non-underwater supplemental source only | No | Send written permission/license request covering images, masks, ML use, derivatives, checkpoints, examples, and attribution |
 | WPI / ARL Corrosion | <https://arl.wpi.edu/corrosion_dataset/> | WPI Automation and Robotics Lab dataset maintainer/contact channel | Yes | `PREPARED_NOT_SENT` | Access/citation information reported; explicit dataset license and output rights unresolved | None | No; laboratory/non-underwater supplemental source only | No | Identify the authorized maintainer and send the prepared request; archive explicit terms and covered version/file list |
@@ -236,7 +236,7 @@ The canonical fallback files from `docs/MODEL1_BASELINE_V2_FALLBACK_PLAN.md` rem
 Recommended order:
 
 1. Send InspectVQA permission request and Structural Defects/WPI license requests immediately.
-2. Kerem or a designated teammate sends the required SubPipe and CleanCam clarification through the verified GitHub issue routes, archives the issue URLs/timestamps, and follows up after five business days without a response.
+2. Monitor the sent SubPipe and CleanCam issues; archive complete responses and follow up on `2026-09-02 17:00 Europe/Istanbul` if neither has responded.
 3. Send the Claru inquiry only after a human confirms budget and acceptable contract constraints.
 4. Send the K-Pipelines provenance question if synthetic supplemental testing remains useful.
 5. Archive Dryad metadata as `CONTEXT_ONLY`; do not request or create visual rows.
@@ -245,4 +245,4 @@ After each manual send, update this log with evidence instead of changing the ex
 
 ## Integrity and Scope Statement
 
-No request was sent by this repository task. No approval was inferred from public availability. No external dataset or dataset archive was downloaded. No labels, metrics, checkpoints, responses, receipts, license files, or approvals were fabricated. No Model 1 training was run. No Model 2 or Twin 2 work was performed. Original Model 1 remains blocked/not frozen, and `model1_baseline_v2` remains an inactive fallback until its activation gate is met.
+The SubPipe and CleanCam requests above were sent and their public GitHub receipts are recorded. No approval was inferred from sending or public availability. No external dataset or dataset archive was downloaded. No labels, metrics, checkpoints, provider responses, license grants, or approvals were fabricated. No Model 1 training was run. No Model 2 or Twin 2 work was performed. Original Model 1 remains blocked/not frozen, and `model1_baseline_v2` remains an inactive fallback until its activation gate is met.

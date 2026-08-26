@@ -2,14 +2,14 @@
 
 **Verified:** 2026-08-26  
 **Scope:** SubPipe and CleanCam license/version clarification routes  
-**Communication state:** `READY_FOR_HUMAN_SEND`
+**Communication state:** `SENT`
 
 ## Verified routes
 
 | Dataset | Official project repository | Maintainer/owner route | Public issue route | Verified state |
 |---|---|---|---|---|
-| SubPipe | <https://github.com/remaro-network/SubPipe-dataset> | `remaro-network` organization maintainers | <https://github.com/remaro-network/SubPipe-dataset/issues/new> | Repository active, issues enabled, default branch `main` |
-| CleanCam | <https://github.com/khoa288/CleanCam> | `khoa288` repository maintainer | <https://github.com/khoa288/CleanCam/issues/new> | Repository active, issues enabled, default branch `main` |
+| SubPipe | <https://github.com/remaro-network/SubPipe-dataset> | `remaro-network` organization maintainers | <https://github.com/remaro-network/SubPipe-dataset/issues/9> | Sent by `keremtuzun`; open; awaiting response |
+| CleanCam | <https://github.com/khoa288/CleanCam> | `khoa288` repository maintainer | <https://github.com/khoa288/CleanCam/issues/1> | Sent by `keremtuzun`; open; awaiting response |
 
 The public issue routes are preferred because they are tied to the official project repositories, create a timestamped receipt, and allow the response to be archived. If a maintainer moves the discussion to email, the repo log must retain the issue URL and a copy/hash of the complete authorized response.
 
@@ -20,13 +20,11 @@ The public issue routes are preferred because they are tied to the official proj
 - The respondent must state that they own or are authorized to clarify the rights for the exact Zenodo dataset version and files.
 - A response that only points to the repository code license does not pass the dataset gate.
 
-## Execution plan
+## Send evidence
 
-1. Kerem or a designated teammate opens each verified issue route.
-2. Paste the exact prepared message from `docs/MODEL1_DATASET_PERMISSION_EXECUTION_LOG.md`.
-3. Before submitting, add a project contact name and a reply email only if desired.
-4. Record the final issue URL and Europe/Istanbul timestamp in the permission log.
-5. Follow up five business days after the verified send if there is no response.
-6. Do not download or approve dataset files until an authorized, file-scoped response passes internal review.
+| Dataset | Issue | UTC timestamp | Europe/Istanbul timestamp | Response | Next follow-up |
+|---|---|---|---|---|---|
+| SubPipe | <https://github.com/remaro-network/SubPipe-dataset/issues/9> | `2026-08-25T21:41:04Z` | `2026-08-26 00:41:04 +03:00` | Pending | `2026-09-02 17:00 Europe/Istanbul` if no response |
+| CleanCam | <https://github.com/khoa288/CleanCam/issues/1> | `2026-08-25T21:41:20Z` | `2026-08-26 00:41:20 +03:00` | Pending | `2026-09-02 17:00 Europe/Istanbul` if no response |
 
-No issue or message was sent during this repository task.
+The public issues contain the prepared messages without personal email addresses or dataset files. Do not download or approve dataset files until an authorized, file-scoped response passes internal review.

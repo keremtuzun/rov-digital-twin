@@ -13,7 +13,9 @@
 - Intended role if later approved: supplemental camera/visibility robustness only
 - Dataset approval: **not approved**
 - Official project repository: <https://github.com/khoa288/CleanCam>
-- Verified clarification route: <https://github.com/khoa288/CleanCam/issues/new>
+- Clarification request: <https://github.com/khoa288/CleanCam/issues/1>
+- Request sent: `2026-08-26 00:41:20 +03:00`
+- Response status: pending
 
 ## Creators
 
