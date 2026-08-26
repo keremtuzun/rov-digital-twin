@@ -1,0 +1,51 @@
+{
+  "schema_version": "1.0.0",
+  "generated_at_utc": "2026-08-26T17:21:19.440336Z",
+  "source_queue": "data/model1_baseline_v2/manifests/label_review_queue.csv",
+  "source_queue_sha256": "45ca6880fa4f5113d15d4a740167aa981a34f4d4bed3e471741bf41df1aa6a71",
+  "columns": [
+    "review_id",
+    "image_id",
+    "image_path_or_relative_key",
+    "image_sha256",
+    "source_dataset",
+    "source_site",
+    "source_camera_or_group",
+    "source_category_names",
+    "suggested_model1_label",
+    "suggestion_confidence",
+    "reviewer_label",
+    "reviewer_confidence",
+    "reviewer_notes",
+    "reviewer_decision",
+    "review_timestamp"
+  ],
+  "allowed_reviewer_decisions": [
+    "approve_suggestion",
+    "change_label",
+    "reject_image",
+    "mark_unknown",
+    "needs_adjudication"
+  ],
+  "allowed_reviewer_confidence": [
+    "high",
+    "medium",
+    "low"
+  ],
+  "blinding": "Each queue contains only one generic set of blank reviewer fields.",
+  "approved_labels_created": 0,
+  "files": {
+    "reviewer_1": {
+      "path": "reviewer_1_queue.csv",
+      "rows": 8610,
+      "sha256": "f7f655873cbc1696c679e0733bf74c14a8c3c37d9292718d2113f792f90b889f",
+      "shuffle_seed": 1101
+    },
+    "reviewer_2": {
+      "path": "reviewer_2_queue.csv",
+      "rows": 8610,
+      "sha256": "859e1c990a5ed44c4995edba6f30a5d6b08211c31780265008db033459f4019a",
+      "shuffle_seed": 1102
+    }
+  }
+}
