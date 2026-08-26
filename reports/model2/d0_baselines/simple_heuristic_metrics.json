@@ -1,0 +1,116 @@
+{
+  "baseline_contract": {
+    "confidence_use": "deterministic_observation_weight",
+    "definition": "Confidence-weight observed node-local proxies, then carry the latest estimate.",
+    "fallback_value": 0.0,
+    "mapping": {
+      "condition": "confidence*severity_estimate + (1-confidence)*mean(probabilities)",
+      "primitive_states": "confidence*probability + (1-confidence)*severity_estimate"
+    },
+    "neighbor_use": false
+  },
+  "baseline_name": "simple_heuristic",
+  "baseline_type": "deterministic_non_trained_smoke_baseline",
+  "d0_manifest_sha256": "95f9fdb4d801eace1add7cee37fb14f0563dc7d41c93d48edd0d46c20324b62a",
+  "d0_release_id": "twin2-d0-debug-v1",
+  "debug_only": true,
+  "input_files": [
+    "observations.npy",
+    "observation_mask.npy",
+    "structure_graph.json"
+  ],
+  "limitations": [
+    "D0 is a tiny synthetic data-contract release with uncalibrated dynamics.",
+    "Results are pipeline smoke evidence, not Model 2 or real-world performance.",
+    "No proprietary architecture or learned parameter is evaluated."
+  ],
+  "schema_version": "1.0.0",
+  "target_file_evaluation_only": "states.npy",
+  "test": {
+    "baseline_name": "simple_heuristic",
+    "classification_metrics": "not_computed_no_predeclared_weak_point_target",
+    "d0_manifest_sha256": "95f9fdb4d801eace1add7cee37fb14f0563dc7d41c93d48edd0d46c20324b62a",
+    "d0_release_id": "twin2-d0-debug-v1",
+    "debug_only": true,
+    "generated_at_utc": "2026-08-26T18:14:13.015721Z",
+    "hidden_state_input": false,
+    "mae_overall": 0.07845366870733414,
+    "mask_coverage": 0.475,
+    "number_of_nodes": 10,
+    "number_of_scenarios": 4,
+    "number_of_timestep_nodes": 160,
+    "number_of_timesteps": 4,
+    "observed_node_error": {
+      "count": 76,
+      "mae": 0.068515582867679,
+      "rmse": 0.10588474448105735
+    },
+    "per_state_dimension_mae": {
+      "condition": 0.06425714152392174,
+      "corrosion": 0.08798413307595183,
+      "crack": 0.0887111362523683,
+      "fatigue": 0.07901674029362767,
+      "material_loss": 0.07229919239080118
+    },
+    "per_state_dimension_rmse": {
+      "condition": 0.08411456421990432,
+      "corrosion": 0.13117633018297892,
+      "crack": 0.12607729390816955,
+      "fatigue": 0.1093183162614037,
+      "material_loss": 0.10354599666972489
+    },
+    "rmse_overall": 0.11211622652403196,
+    "schema_version": "1.0.0",
+    "split": "test",
+    "training_performed": false,
+    "unobserved_node_error": {
+      "count": 84,
+      "mae": 0.08744527018130785,
+      "rmse": 0.11746973811662641
+    }
+  },
+  "training_performed": false,
+  "validation": {
+    "baseline_name": "simple_heuristic",
+    "classification_metrics": "not_computed_no_predeclared_weak_point_target",
+    "d0_manifest_sha256": "95f9fdb4d801eace1add7cee37fb14f0563dc7d41c93d48edd0d46c20324b62a",
+    "d0_release_id": "twin2-d0-debug-v1",
+    "debug_only": true,
+    "generated_at_utc": "2026-08-26T18:14:13.015721Z",
+    "hidden_state_input": false,
+    "mae_overall": 0.07848406228709791,
+    "mask_coverage": 0.425,
+    "number_of_nodes": 10,
+    "number_of_scenarios": 2,
+    "number_of_timestep_nodes": 80,
+    "number_of_timesteps": 4,
+    "observed_node_error": {
+      "count": 34,
+      "mae": 0.0618358369314057,
+      "rmse": 0.08741440365799644
+    },
+    "per_state_dimension_mae": {
+      "condition": 0.07111154606900527,
+      "corrosion": 0.07452700927387923,
+      "crack": 0.08627004259178647,
+      "fatigue": 0.08250738919450669,
+      "material_loss": 0.0780043243063119
+    },
+    "per_state_dimension_rmse": {
+      "condition": 0.103441809864071,
+      "corrosion": 0.0956761220500443,
+      "crack": 0.12319279153013396,
+      "fatigue": 0.1325370833427828,
+      "material_loss": 0.11828260453848763
+    },
+    "rmse_overall": 0.11540142567654581,
+    "schema_version": "1.0.0",
+    "split": "validation",
+    "training_performed": false,
+    "unobserved_node_error": {
+      "count": 46,
+      "mae": 0.09078927233260956,
+      "rmse": 0.13233650068146596
+    }
+  }
+}

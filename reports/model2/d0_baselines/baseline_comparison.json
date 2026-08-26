@@ -1,0 +1,201 @@
+{
+  "baseline_names": [
+    "last_observation",
+    "simple_heuristic"
+  ],
+  "claim_boundary": "No Model 2 superiority claim is supported by this comparison.",
+  "d0_manifest_sha256": "95f9fdb4d801eace1add7cee37fb14f0563dc7d41c93d48edd0d46c20324b62a",
+  "d0_release_id": "twin2-d0-debug-v1",
+  "debug_only": true,
+  "generated_at_utc": "2026-08-26T18:14:13.015721Z",
+  "limitations": [
+    "D0 debug-only results cannot support a Model 2 superiority claim.",
+    "Synthetic-only scores do not establish real structural or ocean performance.",
+    "The comparison contains two smoke baselines, not the required six-baseline matrix."
+  ],
+  "metric_definitions": {
+    "mae": "Mean absolute error across selected scenario/time/node/state entries.",
+    "mask_coverage": "Fraction of evaluated timestep/node entries with mask=1.",
+    "observed_node": "Current timestep/node has observation_mask=1.",
+    "rmse": "Root mean squared error across selected entries.",
+    "unobserved_node": "Current timestep/node has observation_mask=0."
+  },
+  "schema_version": "1.0.0",
+  "test_metrics": {
+    "last_observation": {
+      "baseline_name": "last_observation",
+      "classification_metrics": "not_computed_no_predeclared_weak_point_target",
+      "d0_manifest_sha256": "95f9fdb4d801eace1add7cee37fb14f0563dc7d41c93d48edd0d46c20324b62a",
+      "d0_release_id": "twin2-d0-debug-v1",
+      "debug_only": true,
+      "generated_at_utc": "2026-08-26T18:14:13.015721Z",
+      "hidden_state_input": false,
+      "mae_overall": 0.0820142852551362,
+      "mask_coverage": 0.475,
+      "number_of_nodes": 10,
+      "number_of_scenarios": 4,
+      "number_of_timestep_nodes": 160,
+      "number_of_timesteps": 4,
+      "observed_node_error": {
+        "count": 76,
+        "mae": 0.07361695244418164,
+        "rmse": 0.11457264360519122
+      },
+      "per_state_dimension_mae": {
+        "condition": 0.06734485308406875,
+        "corrosion": 0.09041001588120708,
+        "crack": 0.09275832170606009,
+        "fatigue": 0.08330590172990923,
+        "material_loss": 0.07625233387443586
+      },
+      "per_state_dimension_rmse": {
+        "condition": 0.08717591749020537,
+        "corrosion": 0.13487434053866418,
+        "crack": 0.1334042980277012,
+        "fatigue": 0.11511599318497906,
+        "material_loss": 0.10850848479615478
+      },
+      "rmse_overall": 0.11714368802285838,
+      "schema_version": "1.0.0",
+      "split": "test",
+      "training_performed": false,
+      "unobserved_node_error": {
+        "count": 84,
+        "mae": 0.0896118720840951,
+        "rmse": 0.11942218489617688
+      }
+    },
+    "simple_heuristic": {
+      "baseline_name": "simple_heuristic",
+      "classification_metrics": "not_computed_no_predeclared_weak_point_target",
+      "d0_manifest_sha256": "95f9fdb4d801eace1add7cee37fb14f0563dc7d41c93d48edd0d46c20324b62a",
+      "d0_release_id": "twin2-d0-debug-v1",
+      "debug_only": true,
+      "generated_at_utc": "2026-08-26T18:14:13.015721Z",
+      "hidden_state_input": false,
+      "mae_overall": 0.07845366870733414,
+      "mask_coverage": 0.475,
+      "number_of_nodes": 10,
+      "number_of_scenarios": 4,
+      "number_of_timestep_nodes": 160,
+      "number_of_timesteps": 4,
+      "observed_node_error": {
+        "count": 76,
+        "mae": 0.068515582867679,
+        "rmse": 0.10588474448105735
+      },
+      "per_state_dimension_mae": {
+        "condition": 0.06425714152392174,
+        "corrosion": 0.08798413307595183,
+        "crack": 0.0887111362523683,
+        "fatigue": 0.07901674029362767,
+        "material_loss": 0.07229919239080118
+      },
+      "per_state_dimension_rmse": {
+        "condition": 0.08411456421990432,
+        "corrosion": 0.13117633018297892,
+        "crack": 0.12607729390816955,
+        "fatigue": 0.1093183162614037,
+        "material_loss": 0.10354599666972489
+      },
+      "rmse_overall": 0.11211622652403196,
+      "schema_version": "1.0.0",
+      "split": "test",
+      "training_performed": false,
+      "unobserved_node_error": {
+        "count": 84,
+        "mae": 0.08744527018130785,
+        "rmse": 0.11746973811662641
+      }
+    }
+  },
+  "training_performed": false,
+  "validation_metrics": {
+    "last_observation": {
+      "baseline_name": "last_observation",
+      "classification_metrics": "not_computed_no_predeclared_weak_point_target",
+      "d0_manifest_sha256": "95f9fdb4d801eace1add7cee37fb14f0563dc7d41c93d48edd0d46c20324b62a",
+      "d0_release_id": "twin2-d0-debug-v1",
+      "debug_only": true,
+      "generated_at_utc": "2026-08-26T18:14:13.015721Z",
+      "hidden_state_input": false,
+      "mae_overall": 0.08151118530608073,
+      "mask_coverage": 0.425,
+      "number_of_nodes": 10,
+      "number_of_scenarios": 2,
+      "number_of_timestep_nodes": 80,
+      "number_of_timesteps": 4,
+      "observed_node_error": {
+        "count": 34,
+        "mae": 0.06619928110654548,
+        "rmse": 0.09403044890160792
+      },
+      "per_state_dimension_mae": {
+        "condition": 0.07561255700420588,
+        "corrosion": 0.07617988878046163,
+        "crack": 0.08827214506454766,
+        "fatigue": 0.08619360024895287,
+        "material_loss": 0.08129773543223565
+      },
+      "per_state_dimension_rmse": {
+        "condition": 0.10749956923389432,
+        "corrosion": 0.09820401181901807,
+        "crack": 0.12443639176105584,
+        "fatigue": 0.13715927274027703,
+        "material_loss": 0.12162546825921854
+      },
+      "rmse_overall": 0.11856645524367297,
+      "schema_version": "1.0.0",
+      "split": "validation",
+      "training_performed": false,
+      "unobserved_node_error": {
+        "count": 46,
+        "mae": 0.09282867971443287,
+        "rmse": 0.13384137949715796
+      }
+    },
+    "simple_heuristic": {
+      "baseline_name": "simple_heuristic",
+      "classification_metrics": "not_computed_no_predeclared_weak_point_target",
+      "d0_manifest_sha256": "95f9fdb4d801eace1add7cee37fb14f0563dc7d41c93d48edd0d46c20324b62a",
+      "d0_release_id": "twin2-d0-debug-v1",
+      "debug_only": true,
+      "generated_at_utc": "2026-08-26T18:14:13.015721Z",
+      "hidden_state_input": false,
+      "mae_overall": 0.07848406228709791,
+      "mask_coverage": 0.425,
+      "number_of_nodes": 10,
+      "number_of_scenarios": 2,
+      "number_of_timestep_nodes": 80,
+      "number_of_timesteps": 4,
+      "observed_node_error": {
+        "count": 34,
+        "mae": 0.0618358369314057,
+        "rmse": 0.08741440365799644
+      },
+      "per_state_dimension_mae": {
+        "condition": 0.07111154606900527,
+        "corrosion": 0.07452700927387923,
+        "crack": 0.08627004259178647,
+        "fatigue": 0.08250738919450669,
+        "material_loss": 0.0780043243063119
+      },
+      "per_state_dimension_rmse": {
+        "condition": 0.103441809864071,
+        "corrosion": 0.0956761220500443,
+        "crack": 0.12319279153013396,
+        "fatigue": 0.1325370833427828,
+        "material_loss": 0.11828260453848763
+      },
+      "rmse_overall": 0.11540142567654581,
+      "schema_version": "1.0.0",
+      "split": "validation",
+      "training_performed": false,
+      "unobserved_node_error": {
+        "count": 46,
+        "mae": 0.09078927233260956,
+        "rmse": 0.13233650068146596
+      }
+    }
+  }
+}
