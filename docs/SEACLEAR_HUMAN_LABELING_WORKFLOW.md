@@ -1,7 +1,9 @@
 # SeaClear Human Labeling Workflow
 
-**Prepared:** 2026-08-26  
-**Workflow status:** `READY_FOR_HUMAN_REVIEW`  
+**Prepared:** 2026-08-26
+
+**Workflow status:** `READY_FOR_HUMAN_REVIEW`
+
 **Model 1 status:** **BLOCKED / NOT FROZEN**
 
 ## 1. Purpose and evidence boundary
