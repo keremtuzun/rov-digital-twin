@@ -1,0 +1,35 @@
+{
+  "all_assets_hashed": true,
+  "annotations": 31555,
+  "approval_status": "pending_review",
+  "categories": 40,
+  "proposed_condition_counts": {
+    "fish_or_habitat_activity": 658,
+    "marine_debris": 7503,
+    "review_required": 67,
+    "unknown": 382
+  },
+  "rows": 8610,
+  "site_counts": {
+    "Bistrina": 3652,
+    "Jakljan": 306,
+    "Lokrum": 972,
+    "Marseille": 3441,
+    "Slano": 239
+  },
+  "source": "SeaClear v1",
+  "source_group_counts": {
+    "Bistrina/Bluerobotics HD": 1390,
+    "Bistrina/Paralenz Vaquita Gen 2": 2069,
+    "Bistrina/SIP-E323CV": 193,
+    "Jakljan/Bluerobotics HD": 241,
+    "Jakljan/Paralenz Vaquita": 65,
+    "Lokrum/Bluerobotics HD": 556,
+    "Lokrum/Paralenz Vaquita Gen 2": 77,
+    "Lokrum/SIP-E323CV": 339,
+    "Marseille/SIP-E323CV": 3441,
+    "Slano/Bluerobotics HD": 168,
+    "Slano/Paralenz Vaquita": 71
+  },
+  "status": "STAGING_ONLY_NOT_APPROVED_FOR_TRAINING"
+}

@@ -207,8 +207,11 @@ namespace ROVDigitalTwin.Editor
             behavior.BehaviorName = "OceanSenseROV";
             behavior.BrainParameters.VectorObservationSize = ROVRLAgent.ObservationSize;
             behavior.BrainParameters.ActionSpec = ActionSpec.MakeContinuous(ROVRLAgent.ActionSize);
-            behavior.Model = AssetDatabase.LoadAssetAtPath<ModelAsset>(
-                Root + "/Models/OceanSenseROV_OpenSea_Experimental.onnx");
+            // The committed experimental ONNX predates the current plant model and is
+            // not deployment-approved. Keep runtime behavior explicit and recoverable
+            // until a current-simulator policy passes the qualification matrix.
+            behavior.Model = null;
+            behavior.BehaviorType = BehaviorType.HeuristicOnly;
             // Add the concrete agent before DecisionRequester. DecisionRequester requires an
             // Agent, and adding it first makes Unity silently attach an extra base Agent that
             // emits empty observations and placeholder heuristic actions at runtime.

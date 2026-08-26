@@ -9,7 +9,7 @@
 | Track | Final status | Evidence-based conclusion |
 |---|---|---|
 | Model 1 | **BLOCKED / NOT FROZEN** | The architecture and evaluation tooling exist, but both original visual checkpoints and the original evaluation package are missing. Original validation cannot run. |
-| Twin 1 | **PARTIALLY STABLE** | EditMode is 8/8 passed. PlayMode discovered 5 tests: 4 passed, 0 failed, and 1 ignored. The ignored navigation-policy test is a recorded blocker, not a pass. |
+| Twin 1 | **PARTIALLY STABLE** | EditMode is 8/8 passed. PlayMode is 9/9 passed with zero skipped/ignored/inconclusive. Heuristic-safe navigation and UDP lifecycle/intent gating are explicit; field/long-soak/successful API evidence remains incomplete. |
 | Dataset expansion | **PERMISSION / ACCESS STAGE** | Seven request or clarification messages are prepared, none is evidenced as sent, no external data was downloaded, and no visual dataset is approved for training or evaluation. |
 
 External dependencies remain the original Model 1 package, dataset permission and license evidence, and a Twin 1 navigation-mode decision. The recommended first action is to send the checkpoint-package request immediately, then send the prepared dataset permission requests in parallel.
@@ -62,9 +62,9 @@ The next human action is to send the prepared InspectVQA, Structural Defects, WP
 | Test surface | Discovered | Passed | Failed | Ignored | Result |
 |---|---:|---:|---:|---:|---|
 | EditMode | 8 | 8 | 0 | 0 | Passed |
-| PlayMode | 5 | 4 | 0 | 1 | Partial; blocker remains |
+| PlayMode | 9 | 9 | 0 | 0 | Pass for implemented runtime contracts |
 
-The ignored PlayMode test records that the committed scene has a null ML-Agents navigation ONNX reference. It is intentionally not counted as passed. Runtime evidence verifies scene smoke behavior, PNG capture and cleanup, graceful unavailable-HTTP-service handling, explicit fixture-backend identification, navigation-policy reference checking, and system-boundary naming.
+The committed scene, prefab, and builder now explicitly use ML-Agents `HeuristicOnly` with no active ONNX because the available policy is unqualified on the current plant model. Runtime evidence verifies scene smoke behavior, PNG capture and cleanup, finite physics/sensors, immediate thruster stop, synthetic provenance sidecars, graceful unavailable-HTTP-service handling, explicit fixture-backend identification, navigation mode, and system boundaries.
 
 Fixture classifiers and synthetic/demo visual fixtures do not constitute real Model 1 inference or Model 1 validation. The navigation ONNX files are control policies, not visual Model 1 checkpoints. Real Model 1 integration remains blocked by the missing visual checkpoints.
 
@@ -72,7 +72,7 @@ Remaining Twin 1 blockers are:
 
 - decide whether to assign and requalify the existing navigation control policy or declare heuristic/guidance mode;
 - prove one successful fixture-server API round trip in PlayMode;
-- add UDP lifecycle, soak, and fault-matrix runtime evidence;
+- add long-soak and expanded fault-matrix runtime evidence;
 - supply real Model 1 checkpoints before claiming live Model 1 inference;
 - complete Unity CI/runtime evidence without converting fixture or ignored results into validation claims.
 
@@ -87,7 +87,7 @@ Remaining Twin 1 blockers are:
 | Claru access/terms | Kerem/co-founder to pre-screen; Claru provider to answer | 2026-08-26 inquiry decision; provider response date TBD | `PREPARED_NOT_SENT`; commercially blocked | Price, delivery time, provenance, sample terms, training/evaluation/output rights, storage and reproducibility terms | Complete budget/contract pre-screen, then submit the prepared inquiry if viable |
 | CleanCam license/access | Kerem/co-founder rights reviewer | Evidence reviewed 2026-08-26; human send pending | Current v2.0.0 confirmed; official API rights field null; internal approval absent | Authorized license/file-scope grant, frozen file manifest, real/synthetic separation, citation, hashes, and approval record | Send required clarification and archive receipt/response |
 | SubPipe license evidence archive | Kerem/co-founder rights reviewer | Evidence reviewed 2026-08-26; human send pending | v3.0.1 confirmed; official API rights field null; internal approval absent | Authorized license/file-scope grant, attribution, hashes, exceptions, and approval record | Send required clarification and archive receipt/response |
-| Twin 1 navigation ONNX decision | OceanSense Twin 1 engineering owner | 2026-08-26 | Scene reference null; PlayMode test ignored as a known blocker | Written mode decision plus, if assigned, policy provenance/compatibility and passing PlayMode evidence | Choose requalified ONNX control or explicit heuristic/guidance mode, then update the scene and test expectation in a separate technical task |
+| Twin 1 current navigation mode | OceanSense Twin 1 engineering owner | 2026-08-26 | Resolved: explicit heuristic/guidance mode; PlayMode passes | Builder/scene/prefab/test agreement | Keep heuristic-safe mode until a new current-simulator RL policy is trained and independently qualified |
 
 Prepared, sent, received, and approved are separate states. No row may move to approved without the required evidence.
 
@@ -98,7 +98,7 @@ Prepared, sent, received, and approved are separate states. No row may move to a
 3. Archive license evidence for usable and context-only datasets.
 4. Decide the Twin 1 navigation mode.
 5. Add a successful fixture-server PlayMode test.
-6. Add UDP lifecycle, soak, and fault-matrix tests.
+6. Add long-soak and expanded fault-matrix tests; UDP lifecycle/intent gating now passes.
 7. Start Model 2 only after the Model 1 and Twin 1 status is cleanly recorded.
 
 Items 5 and 6 are future technical tasks, not work performed in this documentation step.

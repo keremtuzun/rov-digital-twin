@@ -50,10 +50,18 @@ def main() -> None:
         "Twin1SceneRuntimeSmokeHasRequiredObjectsAndReferences",
         "Twin1CameraCaptureWritesPngAndCleansUp",
         "Twin1HttpAdapterHandlesUnavailableServiceAndIdentifiesFixtureExpectation",
-        "Twin1NavigationPolicyReferenceIsAssignedOrExplicitlyBlocked",
+        "Twin1NavigationUsesExplicitHeuristicModeUntilPolicyIsRequalified",
+        "Twin1PhysicsAndSensorsRemainFiniteDuringRuntime",
+        "Twin1EmergencyStopZerosEveryThrusterImmediately",
+        "Twin1SyntheticCaptureWritesExplicitProvenanceSidecar",
+        "Twin1UdpLifecycleRejectsRawActuationAndRebindsCleanly",
         "Twin1BoundaryKeepsModel1Model2Twin2NavigationAndVisualFixturesDistinct",
     ):
         require(contract in playmode_text, f"PlayMode contract {contract} exists")
+    require("behavior.BehaviorType = BehaviorType.HeuristicOnly" in builder,
+            "builder explicitly selects recoverable heuristic navigation mode")
+    require("behavior.Model = null" in builder,
+            "builder does not activate the unqualified legacy navigation policy")
     telemetry = (scripts / "TelemetryUdpBridge.cs").read_text(encoding="utf-8")
     schema = json.loads((ROOT / "config/telemetry_schema_v1.json").read_text(encoding="utf-8"))
     for field in schema["required"]:

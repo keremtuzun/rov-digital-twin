@@ -12,6 +12,16 @@ license-dependent CI workflow was added.
 
 ## Windows batch sequence
 
+The repository provides a repeatable runner that copies only `Assets`, `Packages`, and
+`ProjectSettings` to a verified disposable directory, compiles, runs EditMode and PlayMode,
+rejects zero discovery/skips/failures, and writes logs/XML beneath the ignored `tmp/` directory:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/run_unity_validation.ps1
+```
+
+The manual equivalent is retained below for troubleshooting.
+
 Set the installed editor path explicitly, then run from the repository root:
 
 ```powershell

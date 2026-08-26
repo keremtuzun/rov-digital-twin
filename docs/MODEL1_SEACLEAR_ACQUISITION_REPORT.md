@@ -25,10 +25,14 @@ SeaClear is a real ROV dataset suitable for marine-debris/contamination and unde
 
 ## Next data gate
 
-1. Build an asset-level source manifest that preserves site/camera groups and relative paths.
-2. Define a reviewed mapping for debris/contamination only; reject unsupported classes.
-3. Run duplicate and leakage checks across site/camera groups.
-4. Create an immutable split only after the required class/domain coverage is complete.
+The first gate is now complete. `scripts/build_seaclear_source_manifest.py` produced `data/model1_baseline_v2/manifests/seaclear_source_assets.csv` with 8,610 unique IDs/paths/hashes and 11 preserved site/camera groups. The manifest SHA-256 is `28efe2b996c9676b7ff100289b62ba679e98192ea7344a7624501170eee43e07`.
+
+Remaining gates:
+
+1. Perform independent image-level review under `data/model1_baseline_v2/annotation_instructions.md`; source-derived proposals are not approvals.
+2. Acquire lawful representative coverage for the condition/domain classes SeaClear cannot establish.
+3. Run duplicate and leakage checks across site/camera groups after selected rows and other sources are complete.
+4. Create an immutable split only after all locked class floors can be met.
 5. Obtain named internal approval before activating training.
 
 No training was performed and no Model 1 checkpoint was created.

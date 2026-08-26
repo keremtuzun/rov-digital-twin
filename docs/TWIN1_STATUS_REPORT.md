@@ -2,8 +2,9 @@
 
 ## Executive Status
 
-**Partially Stable.** Unity batch compilation, repository static validation and all current EditMode tests pass.
-Automated PlayMode visual/soak output and real Model 1 integration remain unverified.
+**Partially Stable.** Unity batch compilation, repository static validation, 8/8 EditMode tests, and 9/9
+PlayMode runtime tests pass with zero skipped/ignored/inconclusive. Long-soak/field validation and real Model 1
+integration remain unverified.
 
 ## Purpose
 
@@ -32,6 +33,8 @@ that Unity perfectly reproduces open-sea physics.
 | Runtime | `unity/Assets/ROVDigitalTwin/Scripts/` |
 | Models | `unity/Assets/ROVDigitalTwin/Models/` - navigation `.onnx`, not Model 1 |
 | EditMode tests | `unity/Assets/ROVDigitalTwin/Tests/EditMode/` |
+| PlayMode tests | `unity/Assets/ROVDigitalTwin/Tests/PlayMode/` |
+| Repeatable Unity runner | `scripts/run_unity_validation.ps1` |
 | Static validation | `scripts/validate_unity_project.py` |
 | API | `src/oceansense/api.py` |
 
@@ -62,8 +65,9 @@ that Unity perfectly reproduces open-sea physics.
 | `python scripts/validate_unity_project.py` | PASS; package/version, subsystems, 8 actions, 39 observations, 16-ray sonar, schema and no-runtime-training checks |
 | Unity `-batchmode -nographics -quit` | exit 0; Unity 6000.5.9f1 compilation/import succeeded |
 | Unity `-runTests -testPlatform EditMode` | PASS: 8/8; 0 failed, 0 skipped |
+| Unity `-runTests -testPlatform PlayMode` | PASS: 9/9; 0 failed/skipped/inconclusive |
 | `python -m pytest -q tests/test_oceansense_api.py tests/unit/test_master_execution_guide.py -k "not model2"` | PASS: 14; 2 deselected |
-| Automated PlayMode visual/capture/soak | Not run; unverified |
+| Automated PlayMode runtime/capture | PASS: scene, PNG lifecycle, fixture/error boundary, heuristic navigation, finite physics/sensors, emergency stop, synthetic sidecar, UDP intent/rebind, architecture boundaries |
 
 Machine-readable evidence: `outputs/model1_audit/twin1_verification.json`.
 
@@ -77,7 +81,7 @@ validated. Twin 1 does not modify Model 1 manifests/splits automatically.
 ## Limitations
 
 - Hydrodynamics/environment effects are parameterized approximations awaiting real telemetry calibration.
-- EditMode/static success does not prove long-duration PlayMode numerical stability or correct rendered output.
+- Passing short-run PlayMode does not prove long-duration numerical stability or field-calibrated physics.
 - No frozen visual checkpoint exists for complete integration.
 - Synthetic frames cannot establish open-sea generalization or safety.
 - No “perfect,” “flawless,” or flip-free open-sea claim is supported.
@@ -89,5 +93,6 @@ configuration, results or validation claim is included or modified.
 
 ## Next Step
 
-Run a seeded PlayMode soak/capture matrix across bounded current, waves, buoyancy, contamination and visibility;
-inspect rendered captures; then repeat with a frozen Model 1 checkpoint and record hashes, latency and failures.
+Run a seeded long-soak matrix across bounded current, waves, buoyancy, contamination and visibility; add UDP and
+successful fixture-server round-trip coverage; then repeat with a frozen Model 1 checkpoint and record hashes,
+latency and failures.

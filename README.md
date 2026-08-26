@@ -7,9 +7,10 @@ are explicitly deferred until the staged validation gates are satisfied.
 
 The software is organized around four distinct pillars:
 
-1. **Model 1** - a conventional underwater visual-inspection baseline. Its code exists, but a
-   license-reviewed real dataset and approved checkpoint do not; Model 1 v1 freeze is therefore
-   blocked rather than fabricated.
+1. **Model 1** - a conventional underwater visual-inspection baseline. Its code exists and the openly
+   licensed SeaClear source has been acquired/hash-inventoried, but full-schema human-reviewed labels,
+   an immutable split, and approved checkpoints do not; Model 1 v1 freeze is therefore blocked rather
+   than fabricated.
 2. **Navigation digital twin** - Unity robot motion, thrusters, hydrodynamics, sensors, missions and
    PPO research. It simulates the robot and viewpoint context, not structural damage truth.
 3. **Failure Twin / inspection research environment** - a graph-based hidden degradation simulator with
@@ -97,7 +98,8 @@ See `docs/master_execution_alignment.md`, `docs/claim_boundaries.md`,
 ## Navigation digital twin quick start
 
 Open the `unity` folder with Unity 6. The project restores ML-Agents and ROS-TCP-Connector, then
-automatically generates the `OceanSenseDemo` scene and editable ROV prefab. See `unity/README.md` for
+automatically generates the `OceanSenseDemo` scene and editable ROV prefab. Runtime navigation is explicitly
+`HeuristicOnly` until a policy is retrained and qualified on the current plant model. See `unity/README.md` for
 controls, API/ROS startup and architecture, and `docs/unity_training_operations.md` for reproducible
 staged training and the sim-to-real validation process.
 
@@ -117,7 +119,15 @@ python -m unittest discover -s tests -v
 python scripts/run_api.py
 ```
 
-Only after dataset approval, training can be started manually with:
+The new Model 1 fallback remains fail-closed. Check its data/authorization gate with:
+
+```powershell
+python scripts/preflight_model1_baseline_v2.py --config configs/model1_baseline_v2.yaml
+```
+
+Only after this command reports `ready: true` may the separately versioned v2 training commands in
+`docs/MODEL1_BASELINE_V2_FALLBACK_PLAN.md` be used. The older original-model commands below are retained as
+historical/recovery reference and must not be used to fabricate the missing v1 package:
 
 ```powershell
 python -m pip install -e ".[vision]"

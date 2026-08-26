@@ -18,7 +18,7 @@ evidence gaps explicitly block a Model 1 freeze and fully stable Twin 1 declarat
 | Twin 1's inputs, outputs, commands, and limitations are documented. | Fulfilled | Twin 1 report Inputs, Outputs, Commands and Tests, Limitations | Includes trust boundary and machine-readable result. |
 | Twin 1 is clearly separated from Twin 2. | Fulfilled | Twin 1 report Separation From Twin 2 | Python `src/oceansense/model2/` explicitly excluded. |
 | Dataset expansion is guided by actual Model 1 weaknesses. | Blocked | Dataset map weakness column and failure taxonomy | No empirical failures; map transparently uses coverage gaps. Reprioritize after evaluation. |
-| Dataset sources include license/access status. | Fulfilled | `docs/MODEL1_DATASET_EXPANSION_MAP.md` | Direct URLs, source type, access/license and action included; no download performed. |
+| Dataset sources include license/access status. | Fulfilled | `docs/MODEL1_DATASET_EXPANSION_MAP.md`, `data/model1_baseline_v2/licenses/seaclear/README.md` | SeaClear was acquired under verified CC BY 4.0; unclear candidates remain gated. |
 | No Model 2 or Twin 2 implementation work is mixed into this task. | Fulfilled | Changed-file review and Twin 1 boundary | Only Model 1/Twin 1 reports/evidence changed. |
 
 ## Tools / Methods Audit
@@ -32,11 +32,11 @@ evidence gaps explicitly block a Model 1 freeze and fully stable Twin 1 declarat
 - **Failure-analysis method:** required-category taxonomy plus machine-readable failure-index schema; empirical
   indexing blocked until predictions exist.
 - **Dataset-review method:** direct source/dataset cards and repository records; checked access/license,
-  modality, scale, labels, domain, weakness, limitations and action; downloaded nothing.
+  modality, scale, labels, domain, weakness, limitations and action; acquired and hash-verified only SeaClear.
 - **Dataset research tools:** web search plus direct review of Hugging Face, Zenodo, university, GitHub, Dryad,
   commercial provider, government and institutional dataset pages.
-- **Twin 1 verification method:** static architecture/schema validation, actual editor compilation, EditMode
-  tests and API/non-Model-2 contract tests; PlayMode limitation retained.
+- **Twin 1 verification method:** static architecture/schema validation, actual editor compilation, 8/8 EditMode,
+  9/9 PlayMode runtime/capture/safety/provenance/UDP tests, and API/non-Model-2 contract tests; long-soak limitation retained.
 
 ## Architecture Decisions Audit
 
@@ -68,8 +68,8 @@ vocabulary, rather than Not fulfilled.
    preserve hashes/metrics.
 2. **Representative failures:** populate the index from reviewed test predictions with licensed relative paths.
 3. **Weakness-driven prioritization:** rerank the dataset map after empirical false-positive/false-negative review.
-4. **Full Twin 1 stability (supporting limitation):** run PlayMode rendered capture/soak and real-checkpoint
-   end-to-end verification.
+4. **Full Twin 1 stability (supporting limitation):** extend the passing PlayMode capture/runtime coverage with
+   long-soak, UDP, successful fixture-server, and real-checkpoint end-to-end verification.
 
 ## Final Recommendation
 
