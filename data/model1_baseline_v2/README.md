@@ -10,4 +10,10 @@ SeaClear v1 is the first locally acquired, hash-verified, openly licensed real u
 python scripts/build_seaclear_source_manifest.py
 ```
 
-The complete approved canonical `manifest.csv`, `labels.csv`, immutable `split.csv`, dual-review record, full-class dataset validation, and activation approval do not yet exist. Do not train or evaluate `model1_baseline_v2` from this staging workspace.
+The human-review package is now staged at `manifests/label_review_queue.csv` with its contract in `manifests/label_review_schema.json`. All 8,610 rows remain `pending_review`; no reviewer fields or approval flags were fabricated. Validate it without mutation using:
+
+```powershell
+python scripts/build_seaclear_review_queue.py --validate-only
+```
+
+The complete approved canonical `manifest.csv`, `labels.csv`, immutable `split.csv`, completed dual-review/adjudication record, approval audit, full-class dataset validation, and activation approval do not yet exist. Do not train or evaluate `model1_baseline_v2` from this staging workspace.

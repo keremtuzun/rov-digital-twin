@@ -2,6 +2,8 @@
 
 Status: **active instructions; no asset approvals recorded yet**.
 
+Operational reviewer guidance and adjudication rules are in `docs/SEACLEAR_LABELING_GUIDE.md`, `docs/SEACLEAR_HUMAN_LABELING_WORKFLOW.md`, and `docs/SEACLEAR_ADJUDICATION_PROTOCOL.md`. The machine-readable row contract is `manifests/label_review_schema.json`.
+
 ## Review workflow
 
 1. Reviewer A inspects the complete RGB frame without seeing a proposed canonical label and records domain, primary condition, visibility, exclusions, and notes.
