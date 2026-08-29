@@ -1,0 +1,45 @@
+{
+  "baseline_name": "temporal_gru",
+  "classification_metrics": "not_computed_no_predeclared_weak_point_target",
+  "hidden_state_input": false,
+  "mae_overall": 0.19749600580876722,
+  "mask_coverage": 0.20083333333333334,
+  "number_of_nodes": 10,
+  "number_of_scenarios": 24,
+  "number_of_timestep_nodes": 1200,
+  "number_of_timesteps": 5,
+  "observed_node_error": {
+    "count": 241,
+    "mae": 0.07559642547961803,
+    "rmse": 0.09684586863452507
+  },
+  "per_state_dimension_mae": {
+    "condition": 0.1935628375931022,
+    "corrosion": 0.2001182793373664,
+    "crack": 0.20128739549016852,
+    "fatigue": 0.19600975455357306,
+    "material_loss": 0.19650176206962594
+  },
+  "per_state_dimension_rmse": {
+    "condition": 0.2560967180111279,
+    "corrosion": 0.26527839090228855,
+    "crack": 0.26600747725490237,
+    "fatigue": 0.26134988207707005,
+    "material_loss": 0.2648597642888149
+  },
+  "release_id": "twin2-s1-synthetic-v1",
+  "rmse_overall": 0.26274420534509263,
+  "schema_version": "1.0.0",
+  "seed": 2026202,
+  "selected_checkpoint_sha256": "db68136621705cb038b7bb295ea47f9d33ecca191b37030a1c94e6edb85d9dfc",
+  "split": "ood",
+  "synthetic_only": true,
+  "uncertainty_metrics": "not_applicable_deterministic_output",
+  "unobserved_node_error": {
+    "count": 959,
+    "mae": 0.22812978981223433,
+    "rmse": 0.2898725987880053
+  },
+  "uses_future_observations": false,
+  "uses_graph": false
+}

@@ -130,5 +130,6 @@ and both deterministic baselines have since completed S1 evaluation. Independent
 MLP has also completed its first S1 evaluation. See
 `docs/MODEL2_S1_BASELINE_COMPARISON_REPORT.md` for its synthetic-only results and
 the fair same-release S1 table. These D0 scores remain separate debug evidence.
-Temporal GRU is the next implementation gate. Static GNN, Temporal GNN, and any
-proprietary Model 2 mechanism remain deferred.
+Temporal GRU has since completed its S1 evaluation. Static GNN is the next
+implementation gate. Temporal GNN and any proprietary Model 2 mechanism remain
+deferred.

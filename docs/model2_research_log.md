@@ -46,9 +46,9 @@ may improve reinspection decisions over a single-frame threshold.
 - Thresholds are engineering hypotheses, not calibrated structural-risk probabilities.
 - The code is not called a proprietary invention until novelty and empirical contribution are supported.
 - Last Observation and Simple Heuristic have D0 debug-smoke results and no-training S1 results.
-  Independent MLP has completed the frozen S1 synthetic evaluation, but Temporal GRU, Static GNN, and
-  Temporal GNN have not been run. D0 and S1 scores remain separate, and proprietary Model 2 training
-  remains blocked by design until the conventional baseline matrix is complete.
+  Independent MLP and Temporal GRU have completed the frozen S1 synthetic evaluation, but Static GNN
+  and Temporal GNN have not been run. D0 and S1 scores remain separate, and proprietary Model 2
+  training remains blocked by design until the conventional baseline matrix is complete.
 
 ## Falsifiable experiment
 
