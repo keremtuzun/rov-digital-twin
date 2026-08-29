@@ -1,6 +1,6 @@
 # Model 2 S1 baseline comparison report
 
-**Result:** `INDEPENDENT MLP S1 EVALUATION COMPLETE`
+**Result:** `S1 DETERMINISTIC AND INDEPENDENT MLP COMPARISON COMPLETE`
 
 **S1 release:** `twin2-s1-synthetic-v1`
 
@@ -11,8 +11,8 @@ Model 2, real-world structural-performance, safety, or superiority claim
 
 | Baseline | Status | Evaluation release | Evidence level |
 | --- | --- | --- | --- |
-| Last Observation | D0 smoke complete | `twin2-d0-debug-v1` | Debug pipeline smoke only |
-| Simple Heuristic | D0 smoke complete | `twin2-d0-debug-v1` | Debug pipeline smoke only |
+| Last Observation | S1 deterministic evaluation complete | `twin2-s1-synthetic-v1` | Synthetic internal comparison only |
+| Simple Heuristic | S1 deterministic evaluation complete | `twin2-s1-synthetic-v1` | Synthetic internal comparison only |
 | Independent MLP | S1 learned evaluation complete | `twin2-s1-synthetic-v1` | Synthetic internal comparison only |
 | Temporal GRU | Next implementation gate | Not run | No results |
 | Static GNN | Deferred until after GRU | Not run | No results |
@@ -20,6 +20,18 @@ Model 2, real-world structural-performance, safety, or superiority claim
 | Proprietary Model 2 | Blocked pending baseline matrix | Not run | No results |
 
 Model 1 remains **BLOCKED / NOT FROZEN**.
+
+## Deterministic baseline protocol
+
+Last Observation and Simple Heuristic were rerun on the same strictly validated
+S1 release, split IDs, target dimensions, mask semantics, and metric definitions
+used by Independent MLP. Both rules predict exclusively from observations and the
+authoritative mask. Hidden states are exposed only to metric calculation.
+
+Neither method fits preprocessing, parameters, thresholds, or checkpoints, so no
+training or validation-based selection occurs. Validation, test, and OOD are
+reported separately. The run creates JSON metrics only and produces no `.pt`,
+`.ckpt`, or `.onnx` artifact.
 
 ## Independent MLP protocol
 
@@ -62,7 +74,26 @@ current-observation model. It is one reason the next baseline is Temporal GRU:
 that comparison will test whether past node-local evidence helps without yet
 introducing graph message passing.
 
-## Relationship to the D0 smoke baselines
+## Fair same-release S1 comparison
+
+All values in this table come from `twin2-s1-synthetic-v1`. Independent MLP is
+the mean over the three frozen seeds; each deterministic rule has one fixed,
+seed-independent result.
+
+| Baseline | Validation MAE | Validation RMSE | Test MAE | Test RMSE | OOD MAE | OOD RMSE |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| Last Observation | 0.094959 | 0.149694 | 0.088690 | 0.142571 | 0.274690 | 0.370675 |
+| Simple Heuristic | 0.091735 | 0.145614 | 0.085044 | 0.138267 | 0.271088 | 0.367904 |
+| Independent MLP, 3-seed mean | 0.116393 | 0.157360 | 0.110981 | 0.154124 | 0.217294 | 0.282199 |
+
+On this one synthetic release, the fixed rules have lower validation and test
+error, while Independent MLP has lower OOD error. This is a descriptive result,
+not a general ranking: the methods use different missing-evidence behavior, and
+S1 is a simulator-generated comparison release rather than real inspection data.
+The table does not prove Model 2 superiority, real-world performance, calibrated
+physics, or safety.
+
+## D0 results remain separate
 
 The earlier D0 test scores were:
 
@@ -70,18 +101,10 @@ The earlier D0 test scores were:
 | --- | --- | ---: | ---: | ---: |
 | Last Observation | D0 | 4 | 0.082014 | 0.117144 |
 | Simple Heuristic | D0 | 4 | 0.078454 | 0.112116 |
-| Independent MLP | S1 | 24 | 0.110981 mean over 3 seeds | 0.154124 mean over 3 seeds |
 
-These values are **not a numerical head-to-head comparison**. The deterministic
-baselines were run on the small D0 debug release, while the MLP was run on the
-larger, lineage-separated S1 release with a distinct generator contract and an OOD
-split. Ranking the MLP against the D0 scores would be invalid. Last Observation
-and Simple Heuristic must be evaluated on S1 under the same frozen split and
-evaluator before any same-release performance comparison is made.
-
-The valid comparison at this stage is procedural: both D0 baselines prove their
-non-trained prediction paths, and Independent MLP is the first completed learned
-S1 baseline. No method-superiority conclusion follows.
+These D0 values remain debug pipeline-smoke evidence and are not combined with,
+subtracted from, or ranked against the S1 table. D0 and S1 use different release
+contracts, scenario counts, dynamics, and split definitions.
 
 ## Reproducible artifacts
 
@@ -92,16 +115,26 @@ test and OOD metrics, prediction arrays and their SHA-256 inventory, prediction
 summary, and failure cases. The cross-seed summary is
 `reports/model2/s1_learned_baselines/aggregate_summary.json`.
 
+The deterministic S1 outputs are isolated at `reports/model2/s1_baselines`:
+
+- `last_observation_s1_metrics.json`
+- `simple_heuristic_s1_metrics.json`
+- `s1_deterministic_baseline_comparison.json`
+
 | Artifact | SHA-256 |
 | --- | --- |
 | Aggregate summary | `8576d6193903ec65e1baa4b351c240bf1dbd2b4f7d7a71f1f8adf531fdac5723` |
 | Seed 2026201 checkpoint | `959d872dca56159acc76cdf849c8e1e5d996fac9c6934d64d4dccd563df39dc9` |
 | Seed 2026202 checkpoint | `167454af9f4e4a0c7e90489b9ac14b2c52d05c18a43bb657b336024bf27d1d0e` |
 | Seed 2026203 checkpoint | `cda5f528c8034730bee702c53adc2411fca72bdfd4bb65221bc365496f7faeb7` |
+| S1 Last Observation metrics | `aff6242fa249e6e2c31d4e87abda4a4f9693dc9b010391056a91cdc6ba76dc84` |
+| S1 Simple Heuristic metrics | `1a3a3657bdb8c369575b011efd0b5511322298c21a71b232648fa4e8c240ee42` |
+| S1 deterministic comparison | `41db9bd14872cd0a79220130d3fc5ea051b677f55038193f0892d888d3c8dee7` |
 
-Verification completed with strict S1 release validation, `126` passing tests,
-`11` passing subtests, and focused Ruff checks. The one pytest warning is an
-existing Starlette/httpx deprecation warning unrelated to Model 2.
+Verification includes strict S1 release validation, `130` passing repository
+tests, `11` passing subtests, focused deterministic baseline tests, Ruff, and
+Python compilation. The one pytest warning is an existing Starlette/httpx
+deprecation warning unrelated to Model 2.
 
 ## Next gate
 

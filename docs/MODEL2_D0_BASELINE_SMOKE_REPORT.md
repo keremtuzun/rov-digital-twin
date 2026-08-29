@@ -126,8 +126,9 @@ The second command rewrites report timestamps and therefore report-file hashes. 
 
 Do not train learned models on D0. The separately versioned S1 synthetic release
 and frozen learned-baseline contract have since been created, and Independent MLP
-has completed its first S1 evaluation. See
+and both deterministic baselines have since completed S1 evaluation. Independent
+MLP has also completed its first S1 evaluation. See
 `docs/MODEL2_S1_BASELINE_COMPARISON_REPORT.md` for its synthetic-only results and
-the explicit prohibition on comparing its S1 scores numerically with these D0
-scores. Temporal GRU is the next implementation gate. Static GNN, Temporal GNN,
-and any proprietary Model 2 mechanism remain deferred.
+the fair same-release S1 table. These D0 scores remain separate debug evidence.
+Temporal GRU is the next implementation gate. Static GNN, Temporal GNN, and any
+proprietary Model 2 mechanism remain deferred.
