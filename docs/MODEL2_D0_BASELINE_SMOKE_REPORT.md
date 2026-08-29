@@ -124,4 +124,10 @@ The second command rewrites report timestamps and therefore report-file hashes. 
 
 ## Next baseline gate
 
-Do not train learned models on D0. First define and validate a separately versioned S1 synthetic comparison release with more scenarios, lineage/OOD separation, frozen target definitions, multiple generator seeds, and predeclared thresholds. Then implement Independent MLP, Temporal GRU/LSTM, Static GNN, and generic Temporal GNN under one common evaluator. Run all six required baselines with repeated seeds and negative controls before proposing a proprietary Model 2 mechanism.
+Do not train learned models on D0. The separately versioned S1 synthetic release
+and frozen learned-baseline contract have since been created, and Independent MLP
+has completed its first S1 evaluation. See
+`docs/MODEL2_S1_BASELINE_COMPARISON_REPORT.md` for its synthetic-only results and
+the explicit prohibition on comparing its S1 scores numerically with these D0
+scores. Temporal GRU is the next implementation gate. Static GNN, Temporal GNN,
+and any proprietary Model 2 mechanism remain deferred.

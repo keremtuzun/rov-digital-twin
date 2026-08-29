@@ -1,0 +1,73 @@
+{
+  "baseline_name": "independent_mlp",
+  "checkpoint_file": "checkpoint.pt",
+  "checkpoint_locked_at_utc": "2026-08-29T10:58:42.366351Z",
+  "checkpoint_sha256": "959d872dca56159acc76cdf849c8e1e5d996fac9c6934d64d4dccd563df39dc9",
+  "config_file": "config.json",
+  "config_sha256": "809cbcf2952b2ed4c352ad9bd0a273dce8d569480605af6522d9a7ab65820423",
+  "device": "cpu",
+  "numpy_version": "2.5.2",
+  "ood_used_for_selection": false,
+  "parameter_count": 4997,
+  "preprocessing": {
+    "fit_split": "train",
+    "imputation": "train_observed_mean",
+    "normalization": "train_observed_zscore",
+    "observation_mean": [
+      0.21736345357954187,
+      0.21914158002879877,
+      0.21945337743864707,
+      0.21944076550047692,
+      0.21649445791047484,
+      0.935484155256843
+    ],
+    "observation_scale": [
+      0.21069921013313947,
+      0.20870453403961928,
+      0.2162536766744601,
+      0.21003740289578385,
+      0.20313142113275978,
+      0.058559467235831664
+    ],
+    "observed_row_count": 3293
+  },
+  "python_version": "3.13.14",
+  "resolved_architecture": {
+    "activation": "relu",
+    "dropout": 0.1,
+    "hidden_dimensions": [
+      64,
+      64
+    ],
+    "input_dimension": 7,
+    "input_features": [
+      "corrosion_probability",
+      "crack_probability",
+      "material_loss_probability",
+      "fatigue_probability",
+      "severity_estimate",
+      "confidence",
+      "observation_mask"
+    ],
+    "output_fields": [
+      "corrosion",
+      "crack",
+      "material_loss",
+      "fatigue",
+      "condition"
+    ],
+    "uses_graph": false,
+    "uses_temporal_history": false
+  },
+  "schema_version": "1.0.0",
+  "seed": 2026201,
+  "selected_epoch": 6,
+  "selection_direction": "minimize",
+  "selection_metric": "validation.mae_overall",
+  "selection_split": "validation",
+  "started_at_utc": "2026-08-29T10:58:41.052286Z",
+  "synthetic_only": true,
+  "test_used_for_selection": false,
+  "torch_version": "2.9.1+cpu",
+  "validation_mae_overall": 0.11752572192566822
+}
