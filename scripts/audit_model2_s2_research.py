@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import math
 from datetime import datetime
 from pathlib import Path
 
@@ -11,6 +12,28 @@ from oceansense.model2.evaluation import _error_metrics
 from oceansense.model2.independent_mlp import _sha256
 from oceansense.model2.research_experiment import uncertainty_metrics
 from oceansense.model2.research_release import load_s2
+
+
+def metrics_equal(saved, computed) -> bool:
+    """Allow float32 reduction roundoff, never schema or identity changes.
+
+    Artifact SHA256 checks remain byte-exact. This tolerance applies only to
+    derived metrics recomputed on different CPU/NumPy implementations.
+    """
+    if type(saved) is not type(computed):
+        return False
+    if isinstance(saved, dict):
+        return saved.keys() == computed.keys() and all(
+            metrics_equal(saved[key], computed[key]) for key in saved
+        )
+    if isinstance(saved, list):
+        return len(saved) == len(computed) and all(
+            metrics_equal(a, b) for a, b in zip(saved, computed)
+        )
+    if isinstance(saved, float):
+        return (math.isfinite(saved) and math.isfinite(computed)
+                and math.isclose(saved, computed, rel_tol=1e-6, abs_tol=1e-8))
+    return saved == computed
 
 
 def audit(root: Path) -> dict:
@@ -88,8 +111,8 @@ def audit(root: Path) -> dict:
             recomputed = _error_metrics(mean, data.states[ids], data.mask[ids], data.manifest["state_fields"])
             recomputed["uncertainty"] = uncertainty_metrics(mean, variance, data.states[ids], protocol["interval_z"])
             recomputed["scenario_ids"] = [data.metadata["scenario_ids"][i] for i in ids]
-            if saved != recomputed:
-                raise ValueError("saved metrics differ from predictions")
+            if not metrics_equal(saved, recomputed):
+                raise ValueError(f"saved metrics differ from predictions: {variant}/{seed}/{split}")
             collected[(variant, seed)][split] = saved
     for variant in protocol["variants"]:
         if set(summary["variants"][variant]) != {"validation", "test", "ood"}:
@@ -109,7 +132,7 @@ def audit(root: Path) -> dict:
                     key: stats([v["uncertainty"][key] for v in values])
                     for key in ("gaussian_nll", "empirical_coverage", "mean_interval_width")
                 }
-            if summary["variants"][variant][split] != actual:
+            if not metrics_equal(summary["variants"][variant][split], actual):
                 raise ValueError("aggregate summary mismatch")
     return {"valid": True, "runs_verified": len(expected), "held_out_inference_rerun": False,
             "synthetic_only": True, "deployment_authorized": False,

@@ -63,3 +63,13 @@ not the model's scientific undercoverage or the missing Model 1/physical evidenc
 Delivery target authorized by the user: existing public repository
 `keremtuzun/rov-digital-twin`, branch `kerem/model2-custom-research`.
 The final task response records the actual post-push commit verification.
+
+## CI portability correction
+
+The first Linux GitHub run failed the S2 audit's exact floating-point metric comparison,
+although local tests passed. Derived metric comparisons now allow bounded float32
+roundoff (relative 1e-6, absolute 1e-8); file hashes, field inventories, types, counts
+and scenario identities remain exact. Nonfinite metrics and material metric changes
+still fail. No saved research artifacts or training implementations were changed.
+This software CI issue is distinct from missing reviewed labels and physical evidence;
+their readiness gates remain intentionally closed.

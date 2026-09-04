@@ -9,6 +9,18 @@ from oceansense.model2.research_experiment import run_experiment
 
 ROOT = Path(__file__).resolve().parents[2]
 audit = runpy.run_path(str(ROOT / "scripts/audit_model2_s2_research.py"))["audit"]
+metrics_equal = runpy.run_path(str(ROOT / "scripts/audit_model2_s2_research.py"))["metrics_equal"]
+
+
+def test_metric_comparison_allows_only_numeric_roundoff():
+    assert metrics_equal({"mae": [0.2]}, {"mae": [0.20000001]})
+    for saved, computed in (
+        (0.2, 0.201), (float("nan"), float("nan")),
+        (float("inf"), float("inf")), (True, 1), (1, 1.0),
+        ({"count": 2}, {"count": 3}), ({"mae": 0.2}, {"rmse": 0.2}),
+        ([0.2], [0.2, 0.2]), ("s2_001", "s2_002"),
+    ):
+        assert not metrics_equal(saved, computed)
 
 
 def test_all_s2_evidence_is_consistent():
