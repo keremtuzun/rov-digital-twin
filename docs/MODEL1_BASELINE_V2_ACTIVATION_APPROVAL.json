@@ -1,0 +1,14 @@
+{
+  "model_version": "model1_baseline_v2",
+  "decision": "AUTHORIZED",
+  "reason": "evaluation_package_incomplete",
+  "original_model_status": "BLOCKED_NOT_FROZEN",
+  "authorized_by": "user of current Codex task",
+  "authorized_at": "2026-09-04T13:05:16Z",
+  "source_instruction": "ok go ahead and do these: Model 1 requires approved labels/checkpoints; custom Model 2 requires a separate research/data approval; physical validation remains outstanding.",
+  "scope": "Activate fallback development; training only after all existing data/review/split checks pass",
+  "human_labels_approved": false,
+  "dataset_approved": false,
+  "model_frozen": false,
+  "physical_deployment_authorized": false
+}

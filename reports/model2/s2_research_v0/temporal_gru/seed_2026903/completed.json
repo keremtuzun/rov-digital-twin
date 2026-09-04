@@ -1,0 +1,15 @@
+{
+  "completed_at_utc": "2026-09-04T13:12:22.624206Z",
+  "files": {
+    "checkpoint.pt": "23a369ae39515392e809276ba441da41bc5667e4eac155baacbb5f46608485e6",
+    "ood_mean.npy": "2f8d12b191b57b254faef7ddb996b2cc879f94981dc33375c11857a8a1b360a1",
+    "ood_metrics.json": "ba474d605b83037c148ae54a2ae1f6d35617bd1f2d3220005b9001c8b57beed3",
+    "selected_checkpoint.json": "6580f9cf20930c9b03c55ec404c85491a675744870673a6aae799e4ea7284a7d",
+    "test_mean.npy": "e299f075721b29e0bf72b60538442be6f409ebf02808cc405350dcc59a7a527b",
+    "test_metrics.json": "0c389a531c04c1c65488413ae01ef77ba47b7b691ff0d7ce37ce57956cf4d231",
+    "train_log.jsonl": "a9e6129129d50c409e6f3c381de6cca283fc4b326c83573a22ed7e9eed2a65ce",
+    "validation_mean.npy": "644ad2abca1ecb6aefd717bfd7908c060208f57e96b1ba7e6458bd62f82d50fe",
+    "validation_metrics.json": "5cf2ae785de9e16410b7a3a1ba7d88964be1df2294dfe089072d8082491e1948"
+  },
+  "held_out_evaluations_per_split": 1
+}

@@ -1,0 +1,107 @@
+{
+  "created_at_utc": "2026-09-04T13:05:16Z",
+  "degradation_regimes": {
+    "accelerated": {
+      "environment_effect_weight": 0.02,
+      "intrinsic_degradation": 0.02,
+      "neighbor_coupling": 0.25
+    },
+    "high_stress_ood": {
+      "environment_effect_weight": 0.035,
+      "intrinsic_degradation": 0.03,
+      "neighbor_coupling": 0.35
+    },
+    "moderate": {
+      "environment_effect_weight": 0.01,
+      "intrinsic_degradation": 0.012,
+      "neighbor_coupling": 0.15
+    },
+    "slow": {
+      "environment_effect_weight": 0.005,
+      "intrinsic_degradation": 0.006,
+      "neighbor_coupling": 0.05
+    }
+  },
+  "generation_seeds": [
+    20269001,
+    20269002,
+    20269003,
+    20269004
+  ],
+  "generator_version": "oceansense-twin2-s1-release/1.0.0",
+  "id_degradation_regimes": [
+    "slow",
+    "moderate",
+    "accelerated"
+  ],
+  "id_graph_families": [
+    "chain",
+    "branched_pipeline",
+    "small_lattice"
+  ],
+  "id_observation_coverage_levels": [
+    0.35,
+    0.55,
+    0.75
+  ],
+  "lineage_count": 50,
+  "ood": {
+    "confidence_noise_std": 0.1,
+    "degradation_regime": "high_stress_ood",
+    "environment_level": 0.95,
+    "graph_family": "mixed_structure",
+    "noise_std": 0.03,
+    "observation_coverage": 0.2,
+    "reasons": [
+      "unseen graph family",
+      "unseen high-stress degradation regime",
+      "lower observation coverage",
+      "higher process and observation noise",
+      "higher environmental stress"
+    ],
+    "severity_noise_std": 0.15,
+    "shifted_dimensions": [
+      "graph_family",
+      "degradation_regime",
+      "observation_coverage",
+      "noise_std",
+      "environment_level"
+    ]
+  },
+  "release_id": "twin2-s2-research-v1",
+  "require_connected_graph": true,
+  "scenarios_per_lineage": 4,
+  "schema_version": "1.1.0",
+  "split_lineage_counts": {
+    "ood": 6,
+    "test": 6,
+    "train": 30,
+    "validation": 8
+  },
+  "split_seed": 2904,
+  "twin_base": {
+    "clip_range": [
+      0.0,
+      1.0
+    ],
+    "component_type_overrides": {
+      "joint": 1.1,
+      "support": 0.95,
+      "weld": 1.15
+    },
+    "condition_weights": [
+      0.3,
+      0.3,
+      0.25,
+      0.15
+    ],
+    "confidence_noise_std": 0.05,
+    "environment_level": 0.5,
+    "false_negative_rate": 0.08,
+    "false_positive_rate": 0.04,
+    "n_nodes": 10,
+    "noise_std": 0.01,
+    "severity_noise_std": 0.08,
+    "timesteps": 10
+  }
+}

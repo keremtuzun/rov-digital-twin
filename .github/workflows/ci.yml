@@ -17,5 +17,6 @@ jobs:
       - run: python -m compileall -q src scripts ros2/rov_dt_bridge/rov_dt_bridge
       - run: python -m pytest -q
       - run: python scripts/validate_model2_baseline_artifacts.py
+      - run: python scripts/audit_model2_s2_research.py
       - run: python scripts/validate_unity_project.py
       - run: rovdt demo --output-dir artifacts/ci-demo

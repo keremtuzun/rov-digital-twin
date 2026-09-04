@@ -1,0 +1,15 @@
+{
+  "completed_at_utc": "2026-09-04T13:12:22.572135Z",
+  "files": {
+    "checkpoint.pt": "6c327f069699e9ad6c821a5a16473739240b9593073987d4fac99133b0303a57",
+    "ood_mean.npy": "d137aa9b70b90b74c37e35a4d9cd642c3713ca502139f0c333471872a8797391",
+    "ood_metrics.json": "7319088d5ef685f6b7e3da4168962b038744c93cfe9877bbabef6fdcc224c118",
+    "selected_checkpoint.json": "707df4a35e398128d6671a80fbb7dae79e72799e0ea3c1df59c39c74785731d6",
+    "test_mean.npy": "56d5728769091328dea1c10f39af4888b012d31fe15ef706e1804b2f8a8749f7",
+    "test_metrics.json": "7c8f1c4637e7eda57e7f3c0f36a47faf1189479fe1e6d54dfbd9a6823a355da6",
+    "train_log.jsonl": "14da581a6e8ed2380f2a20608987e656383be88c8e6c6b5e7c4956ab2472d5cc",
+    "validation_mean.npy": "06be7f4af484e7908b83d85c0508019195b8eccefa6d18f596233e230dc94702",
+    "validation_metrics.json": "bf4180b7caa69a0063a83b570af5d2d75745c0a41db6b2a49d36d047f6df4a0b"
+  },
+  "held_out_evaluations_per_split": 1
+}

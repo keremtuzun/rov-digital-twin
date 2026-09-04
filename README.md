@@ -25,8 +25,10 @@ connected structural graphs, simulator-only degradation trajectories and partial
 Model-1-like observations. This is an experimental environment, not a second image detector.
 All six conventional S1 comparators are now implemented and evaluated: Last Observation,
 Simple Heuristic, Independent MLP, Temporal GRU, Static GNN and Temporal GNN. The custom
-Model 2 remains a separate research gate, not another name for these baselines.
-See `docs/CONRAD_DEVELOPMENT_STATUS_2026_09_04.md` for the current verified state.
+Model 2 now has a separately authorized S2 evidence-memory prototype and 21 experimental
+runs, including ablations and controls. It is not production-ready: its uncertainty
+substantially undercovers OOD targets. See `docs/MODEL2_S2_RESEARCH_RESULTS.md` and
+`docs/CONRAD_REMAINING_GATES_2026_09_04.md` for the current state.
 
 The target software-first demonstration chain is:
 

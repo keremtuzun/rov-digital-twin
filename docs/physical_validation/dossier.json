@@ -1,0 +1,6 @@
+{
+  "schema_version": "1.0.0",
+  "status": "AWAITING_REAL_TEST_EVIDENCE",
+  "stage_records": [],
+  "note": "No physical runs or operator attestations were supplied. Empty is intentional, not a pass."
+}

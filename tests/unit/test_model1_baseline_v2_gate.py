@@ -38,8 +38,11 @@ def test_v2_config_rejects_architecture_or_label_drift():
         validate_baseline_config(changed)
 
 
-def test_preflight_fails_closed_when_approved_dataset_package_is_absent():
-    report = dataset_preflight(CONFIG)
+def test_preflight_fails_closed_when_approved_dataset_package_is_absent(tmp_path):
+    config_path = tmp_path / "configs/model1_baseline_v2.yaml"
+    config_path.parent.mkdir()
+    config_path.write_bytes(CONFIG.read_bytes())
+    report = dataset_preflight(config_path)
     assert report["ready"] is False
     assert report["model_version"] == BASELINE_ID
     assert any("missing required file" in error and "manifest.csv" in error for error in report["errors"])
@@ -47,3 +50,9 @@ def test_preflight_fails_closed_when_approved_dataset_package_is_absent():
     assert any("missing required file" in error and "split.csv" in error for error in report["errors"])
     assert any("missing activation approval" in error for error in report["errors"])
     assert any("manifest.csv" in error for error in report["errors"])
+
+
+def test_user_activation_does_not_bypass_dataset_approval():
+    report = dataset_preflight(CONFIG)
+    assert report["ready"] is False
+    assert any("labels.csv" in error for error in report["errors"])

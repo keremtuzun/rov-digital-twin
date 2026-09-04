@@ -1,0 +1,10 @@
+{
+  "checkpoint_sha256": "8caa3950047c518483c8c89bb86f3e2d4108789a5f0753251f6d92f342112938",
+  "epoch": 58,
+  "locked_at_utc": "2026-09-04T13:12:16.432061Z",
+  "ood_used_for_selection": false,
+  "seed": 2026901,
+  "test_used_for_selection": false,
+  "validation_mae": 0.05522532855158454,
+  "variant": "temporal_gnn"
+}

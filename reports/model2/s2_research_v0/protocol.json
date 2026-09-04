@@ -1,0 +1,59 @@
+{
+  "authorization": {
+    "human_label_approval": false,
+    "novelty_or_ip_verified": false,
+    "physical_deployment_approval": false,
+    "scope": "local synthetic custom Model 2 research only",
+    "source": "User instruction in current Codex task: ok go ahead and do these"
+  },
+  "batch_size": 8,
+  "calibration": "none; report raw 90-percent Gaussian interval coverage and mean width",
+  "claim_boundary": "Synthetic research only; not physical truth, calibrated strength, novel IP, or deployment approval",
+  "generation_seeds": [
+    20269001,
+    20269002,
+    20269003,
+    20269004
+  ],
+  "gradient_clip": 1.0,
+  "held_out_policy": "lock every variant and seed before any test or OOD inference; no tuning after evaluation",
+  "hidden_dimension": 32,
+  "interval_z": 1.6448536269514722,
+  "learning_rate": 0.001,
+  "lineage_count": 50,
+  "maximum_epochs": 60,
+  "min_delta": 0.0001,
+  "node_count": 10,
+  "patience": 8,
+  "protocol_id": "model2-s2-evidence-memory-v0",
+  "release_id": "twin2-s2-research-v1",
+  "release_path": "data/model2/s2_research",
+  "scenarios_per_lineage": 4,
+  "selection_metric": "validation.mae_overall",
+  "split_lineage_counts": {
+    "ood": 6,
+    "test": 6,
+    "train": 30,
+    "validation": 8
+  },
+  "split_seed": 2904,
+  "status": "FROZEN_BEFORE_TRAINING",
+  "target_supervision": "all_synthetic_states_training_loss_only",
+  "timesteps": 10,
+  "training_seeds": [
+    2026901,
+    2026902,
+    2026903
+  ],
+  "uncertainty": "diagonal_gaussian_variance_floor_0.0001_ceiling_1",
+  "variants": [
+    "full",
+    "no_memory",
+    "no_graph",
+    "no_gate",
+    "no_uncertainty",
+    "temporal_gru",
+    "temporal_gnn"
+  ],
+  "weight_decay": 0.0001
+}

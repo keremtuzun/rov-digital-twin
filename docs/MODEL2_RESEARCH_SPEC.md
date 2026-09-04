@@ -13,6 +13,11 @@ and numerical observations until an approved Model 1 adapter exists.
 
 ## Current implementation boundary
 
+**Historical first-session scope below.** As of the 2026-09-04 follow-up, all S1
+conventional baselines and a separate S2 custom research experiment are implemented.
+See `MODEL2_S2_RESEARCH_PROTOCOL.md` and `MODEL2_S2_RESEARCH_RESULTS.md` for the current
+architecture, actual results and failed uncertainty-generalization finding.
+
 The first research session implements only structural schemas, connected graph generation, hidden state,
 configurable degradation, partial/noisy observation generation, scenario-disjoint datasets, debug plots
 and automated acceptance tests. No Model 2 network is trained. The existing

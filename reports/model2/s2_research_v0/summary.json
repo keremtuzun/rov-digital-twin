@@ -1,0 +1,483 @@
+{
+  "claim_boundary": "Synthetic research only; not physical truth, calibrated strength, novel IP, or deployment approval",
+  "protocol_id": "model2-s2-evidence-memory-v0",
+  "synthetic_only": true,
+  "variants": {
+    "full": {
+      "ood": {
+        "mae_overall": {
+          "mean": 0.22403600244184865,
+          "std_population": 0.006211459194231983
+        },
+        "rmse_overall": {
+          "mean": 0.3177043562638368,
+          "std_population": 0.009691404558473306
+        },
+        "uncertainty": {
+          "empirical_coverage": {
+            "mean": 0.6034166666666666,
+            "std_population": 0.01956269598174225
+          },
+          "gaussian_nll": {
+            "mean": 4.623795961661237,
+            "std_population": 1.4515918449208876
+          },
+          "mean_interval_width": {
+            "mean": 0.3854032556215922,
+            "std_population": 0.023933324096965893
+          }
+        },
+        "unobserved_mae": {
+          "mean": 0.25991952705488736,
+          "std_population": 0.008624781399249442
+        }
+      },
+      "test": {
+        "mae_overall": {
+          "mean": 0.061081496491872306,
+          "std_population": 0.00024784602630810145
+        },
+        "rmse_overall": {
+          "mean": 0.08814666453990101,
+          "std_population": 0.00044228069030630336
+        },
+        "uncertainty": {
+          "empirical_coverage": {
+            "mean": 0.8891388888888888,
+            "std_population": 0.013864478548870804
+          },
+          "gaussian_nll": {
+            "mean": -1.278598126593864,
+            "std_population": 0.010309952418443239
+          },
+          "mean_interval_width": {
+            "mean": 0.2492008606592814,
+            "std_population": 0.00872863643705076
+          }
+        },
+        "unobserved_mae": {
+          "mean": 0.0812834801406528,
+          "std_population": 0.00041861519082420903
+        }
+      },
+      "validation": {
+        "mae_overall": {
+          "mean": 0.062060552343782965,
+          "std_population": 0.0005156739259536268
+        },
+        "rmse_overall": {
+          "mean": 0.09178764114388738,
+          "std_population": 0.0011968521378028234
+        },
+        "uncertainty": {
+          "empirical_coverage": {
+            "mean": 0.8964791666666666,
+            "std_population": 0.011985270184225686
+          },
+          "gaussian_nll": {
+            "mean": -1.2941599246287019,
+            "std_population": 0.009869213784437569
+          },
+          "mean_interval_width": {
+            "mean": 0.2578064252932866,
+            "std_population": 0.009435631104703432
+          }
+        },
+        "unobserved_mae": {
+          "mean": 0.08530747368451479,
+          "std_population": 0.0008751096274531456
+        }
+      }
+    },
+    "no_gate": {
+      "ood": {
+        "mae_overall": {
+          "mean": 0.25380197937923293,
+          "std_population": 0.011128253157983162
+        },
+        "rmse_overall": {
+          "mean": 0.35790552540769943,
+          "std_population": 0.015158737947841896
+        },
+        "uncertainty": {
+          "empirical_coverage": {
+            "mean": 0.5968611111111112,
+            "std_population": 0.006226560987286243
+          },
+          "gaussian_nll": {
+            "mean": 4.681448831921313,
+            "std_population": 0.9025544551770215
+          },
+          "mean_interval_width": {
+            "mean": 0.42015769084294635,
+            "std_population": 0.019966710849929577
+          }
+        },
+        "unobserved_mae": {
+          "mean": 0.29757252031402986,
+          "std_population": 0.014611835200602403
+        }
+      },
+      "test": {
+        "mae_overall": {
+          "mean": 0.061788665643840744,
+          "std_population": 0.0007454620737795369
+        },
+        "rmse_overall": {
+          "mean": 0.08908502937163514,
+          "std_population": 0.0014019591776315075
+        },
+        "uncertainty": {
+          "empirical_coverage": {
+            "mean": 0.9011666666666667,
+            "std_population": 0.010116909204487897
+          },
+          "gaussian_nll": {
+            "mean": -1.2738588277336442,
+            "std_population": 0.0065994063553670435
+          },
+          "mean_interval_width": {
+            "mean": 0.2603584627310435,
+            "std_population": 0.008656617432059383
+          }
+        },
+        "unobserved_mae": {
+          "mean": 0.08205494569032867,
+          "std_population": 0.002672344179297242
+        }
+      },
+      "validation": {
+        "mae_overall": {
+          "mean": 0.06214302959601487,
+          "std_population": 0.000974219902419359
+        },
+        "rmse_overall": {
+          "mean": 0.091106374950018,
+          "std_population": 0.0012853228800882722
+        },
+        "uncertainty": {
+          "empirical_coverage": {
+            "mean": 0.9097708333333334,
+            "std_population": 0.007873070751336853
+          },
+          "gaussian_nll": {
+            "mean": -1.2984671689225855,
+            "std_population": 0.013404348948824961
+          },
+          "mean_interval_width": {
+            "mean": 0.2687259415785472,
+            "std_population": 0.009222517254391042
+          }
+        },
+        "unobserved_mae": {
+          "mean": 0.08482589392818236,
+          "std_population": 0.0017863206904556522
+        }
+      }
+    },
+    "no_graph": {
+      "ood": {
+        "mae_overall": {
+          "mean": 0.26172309259161886,
+          "std_population": 0.004483365965579883
+        },
+        "rmse_overall": {
+          "mean": 0.37335991648791605,
+          "std_population": 0.00534268661023311
+        },
+        "uncertainty": {
+          "empirical_coverage": {
+            "mean": 0.6245277777777778,
+            "std_population": 0.014713362113784795
+          },
+          "gaussian_nll": {
+            "mean": 1.2566993468638739,
+            "std_population": 0.32941882490920105
+          },
+          "mean_interval_width": {
+            "mean": 0.4892101287841797,
+            "std_population": 0.020453984413929552
+          }
+        },
+        "unobserved_mae": {
+          "mean": 0.3089554868157282,
+          "std_population": 0.004915650392800817
+        }
+      },
+      "test": {
+        "mae_overall": {
+          "mean": 0.06714665607109388,
+          "std_population": 0.001371784543211896
+        },
+        "rmse_overall": {
+          "mean": 0.09740971675283139,
+          "std_population": 0.00168307516621112
+        },
+        "uncertainty": {
+          "empirical_coverage": {
+            "mean": 0.8965833333333334,
+            "std_population": 0.00886550744301882
+          },
+          "gaussian_nll": {
+            "mean": -1.1836746213198488,
+            "std_population": 0.02657728791062727
+          },
+          "mean_interval_width": {
+            "mean": 0.2809800406297048,
+            "std_population": 0.006016162862842851
+          }
+        },
+        "unobserved_mae": {
+          "mean": 0.09354144522379067,
+          "std_population": 0.0014625242885576964
+        }
+      },
+      "validation": {
+        "mae_overall": {
+          "mean": 0.06822436496287367,
+          "std_population": 0.0011659225296676366
+        },
+        "rmse_overall": {
+          "mean": 0.10050663093702605,
+          "std_population": 0.0013335246970553464
+        },
+        "uncertainty": {
+          "empirical_coverage": {
+            "mean": 0.9051874999999999,
+            "std_population": 0.0058805381698163435
+          },
+          "gaussian_nll": {
+            "mean": -1.208553331895368,
+            "std_population": 0.020718576648909456
+          },
+          "mean_interval_width": {
+            "mean": 0.29175103704134625,
+            "std_population": 0.00560538966902044
+          }
+        },
+        "unobserved_mae": {
+          "mean": 0.09712092207560641,
+          "std_population": 0.0014813744556688231
+        }
+      }
+    },
+    "no_memory": {
+      "ood": {
+        "mae_overall": {
+          "mean": 0.3869567842044983,
+          "std_population": 0.008027373501397676
+        },
+        "rmse_overall": {
+          "mean": 0.47491382535597787,
+          "std_population": 0.009078673484381425
+        },
+        "uncertainty": {
+          "empirical_coverage": {
+            "mean": 0.5276111111111111,
+            "std_population": 0.004507880616689068
+          },
+          "gaussian_nll": {
+            "mean": 0.8460755904745789,
+            "std_population": 0.04603323681198066
+          },
+          "mean_interval_width": {
+            "mean": 0.841003934542338,
+            "std_population": 0.01896158018484757
+          }
+        },
+        "unobserved_mae": {
+          "mean": 0.4630285845626803,
+          "std_population": 0.007196793004427071
+        }
+      },
+      "test": {
+        "mae_overall": {
+          "mean": 0.14172680126021855,
+          "std_population": 0.0014275445611212885
+        },
+        "rmse_overall": {
+          "mean": 0.2223816829005585,
+          "std_population": 0.002537347949842397
+        },
+        "uncertainty": {
+          "empirical_coverage": {
+            "mean": 0.8680833333333333,
+            "std_population": 0.0018905221696859807
+          },
+          "gaussian_nll": {
+            "mean": -0.6108778955574877,
+            "std_population": 0.035695733491727326
+          },
+          "mean_interval_width": {
+            "mean": 0.5504149993260702,
+            "std_population": 0.014687599478100385
+          }
+        },
+        "unobserved_mae": {
+          "mean": 0.25524303506275153,
+          "std_population": 0.0016341099858683309
+        }
+      },
+      "validation": {
+        "mae_overall": {
+          "mean": 0.13095979118011364,
+          "std_population": 0.00016686874667987546
+        },
+        "rmse_overall": {
+          "mean": 0.1975734796578356,
+          "std_population": 0.0006327271607963759
+        },
+        "uncertainty": {
+          "empirical_coverage": {
+            "mean": 0.9058958333333332,
+            "std_population": 0.0014740227459423894
+          },
+          "gaussian_nll": {
+            "mean": -0.6793507270601281,
+            "std_population": 0.029276498582844094
+          },
+          "mean_interval_width": {
+            "mean": 0.566636840502421,
+            "std_population": 0.013530012644305641
+          }
+        },
+        "unobserved_mae": {
+          "mean": 0.22447613028401095,
+          "std_population": 0.0038594615980734664
+        }
+      }
+    },
+    "no_uncertainty": {
+      "ood": {
+        "mae_overall": {
+          "mean": 0.20985126249385702,
+          "std_population": 0.003968458293569735
+        },
+        "rmse_overall": {
+          "mean": 0.30443542967903997,
+          "std_population": 0.005665961234154377
+        },
+        "unobserved_mae": {
+          "mean": 0.2452376689008947,
+          "std_population": 0.004705075655392733
+        }
+      },
+      "test": {
+        "mae_overall": {
+          "mean": 0.056932356536387695,
+          "std_population": 0.00025875049163374676
+        },
+        "rmse_overall": {
+          "mean": 0.08233748012695027,
+          "std_population": 0.00042609190913189067
+        },
+        "unobserved_mae": {
+          "mean": 0.07437286944783018,
+          "std_population": 0.0006239781137492273
+        }
+      },
+      "validation": {
+        "mae_overall": {
+          "mean": 0.05702788027141026,
+          "std_population": 8.412588074877477e-05
+        },
+        "rmse_overall": {
+          "mean": 0.08277691117460381,
+          "std_population": 3.62263604228871e-05
+        },
+        "unobserved_mae": {
+          "mean": 0.07555701347861221,
+          "std_population": 0.00043449814388021494
+        }
+      }
+    },
+    "temporal_gnn": {
+      "ood": {
+        "mae_overall": {
+          "mean": 0.23233461413534684,
+          "std_population": 0.0029297386610349745
+        },
+        "rmse_overall": {
+          "mean": 0.33450909989002015,
+          "std_population": 0.004694416616682386
+        },
+        "unobserved_mae": {
+          "mean": 0.2712339750543029,
+          "std_population": 0.0037408815734770507
+        }
+      },
+      "test": {
+        "mae_overall": {
+          "mean": 0.059370148470262396,
+          "std_population": 1.2507287717335765e-05
+        },
+        "rmse_overall": {
+          "mean": 0.08656366729767045,
+          "std_population": 0.00021673515625289814
+        },
+        "unobserved_mae": {
+          "mean": 0.0726532607870607,
+          "std_population": 0.0003994958377080505
+        }
+      },
+      "validation": {
+        "mae_overall": {
+          "mean": 0.05558757568754038,
+          "std_population": 0.00025642698051720576
+        },
+        "rmse_overall": {
+          "mean": 0.08175255524472642,
+          "std_population": 0.0003237859906082919
+        },
+        "unobserved_mae": {
+          "mean": 0.06895819981449429,
+          "std_population": 0.0005598495485237323
+        }
+      }
+    },
+    "temporal_gru": {
+      "ood": {
+        "mae_overall": {
+          "mean": 0.25673410226106763,
+          "std_population": 0.003950421017736717
+        },
+        "rmse_overall": {
+          "mean": 0.36942186259927395,
+          "std_population": 0.004071062961595757
+        },
+        "unobserved_mae": {
+          "mean": 0.2990031633368425,
+          "std_population": 0.0035316349269614495
+        }
+      },
+      "test": {
+        "mae_overall": {
+          "mean": 0.06882501505320407,
+          "std_population": 0.0015661213960087256
+        },
+        "rmse_overall": {
+          "mean": 0.09757147322724753,
+          "std_population": 0.0015914267187430884
+        },
+        "unobserved_mae": {
+          "mean": 0.08897227082590743,
+          "std_population": 0.0017306022675865561
+        }
+      },
+      "validation": {
+        "mae_overall": {
+          "mean": 0.06951471253684194,
+          "std_population": 0.0017803914871219477
+        },
+        "rmse_overall": {
+          "mean": 0.09856767645169077,
+          "std_population": 0.0018767995459865246
+        },
+        "unobserved_mae": {
+          "mean": 0.09229582714027364,
+          "std_population": 0.002422874528487247
+        }
+      }
+    }
+  }
+}

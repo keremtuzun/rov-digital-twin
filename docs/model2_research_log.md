@@ -1,5 +1,17 @@
 # Model 2 research log
 
+## 2026-09-04 follow-up: custom S2 research executed
+
+The user authorized proceeding beyond the conventional baseline stage. Created a new
+S2 protocol/release without changing S1 permissions, then implemented evidence-gated
+structural memory and evaluated five variants plus GRU/GNN controls across three seeds.
+All 21 checkpoints were locked before held-out inference. Full model test MAE is 0.061081;
+OOD MAE is 0.224036. Temporal GNN has lower validation/test error; removing uncertainty
+improves several mean-prediction metrics. Raw 90% intervals cover only 60.34% on OOD.
+No model promotion or superiority claim. Results: `MODEL2_S2_RESEARCH_RESULTS.md`.
+Model 1 fallback activation is authorized but labels/data remain unapproved. Physical
+tests still require an actual rig, operator, signed limits and measured evidence.
+
 ## 2026-09-04: conventional baseline matrix completed locally
 
 Continued from remote Temporal GRU commit `69d7f2e`, which was newer than the supplied

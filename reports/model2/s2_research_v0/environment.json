@@ -1,0 +1,12 @@
+{
+  "device": "cpu",
+  "numpy": "2.5.2",
+  "protocol_sha256": "e4b137304c25dccd5dae66b49cc41769f34638ad5a83909d2920e3c0e6a44026",
+  "release_checksums_sha256": "18ce51ffc8f8537ecf24765f9636ade1b500772d441c272915f54101681c8bd1",
+  "source_sha256": {
+    "evidence_memory.py": "3311591dc0fd44e0329f4f0b8eab42af65485c3e0fb30abe60c331c2318c74d6",
+    "research_experiment.py": "dc1d6f40c93fd2dfac85d4a2380f76c0c5a0b912cf6fb6dcb4f6f333372c52b6"
+  },
+  "threads": 1,
+  "torch": "2.14.0"
+}

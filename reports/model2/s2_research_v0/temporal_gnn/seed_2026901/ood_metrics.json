@@ -1,0 +1,57 @@
+{
+  "mae_overall": 0.23621347877768298,
+  "observed_node_error": {
+    "count": 485,
+    "mae": 0.07761447108912368,
+    "rmse": 0.0960042391633933
+  },
+  "per_state_dimension_mae": {
+    "condition": 0.23363009207493937,
+    "corrosion": 0.2367131008652177,
+    "crack": 0.22864310754014391,
+    "fatigue": 0.24297826611325338,
+    "material_loss": 0.23910282729486046
+  },
+  "per_state_dimension_rmse": {
+    "condition": 0.33604251908739274,
+    "corrosion": 0.3428922503811995,
+    "crack": 0.33357519694145177,
+    "fatigue": 0.3462835162161758,
+    "material_loss": 0.34468643174315594
+  },
+  "rmse_overall": 0.3407324733134428,
+  "scenario_ids": [
+    "s2_scenario_000020",
+    "s2_scenario_000021",
+    "s2_scenario_000022",
+    "s2_scenario_000023",
+    "s2_scenario_000072",
+    "s2_scenario_000073",
+    "s2_scenario_000074",
+    "s2_scenario_000075",
+    "s2_scenario_000076",
+    "s2_scenario_000077",
+    "s2_scenario_000078",
+    "s2_scenario_000079",
+    "s2_scenario_000092",
+    "s2_scenario_000093",
+    "s2_scenario_000094",
+    "s2_scenario_000095",
+    "s2_scenario_000176",
+    "s2_scenario_000177",
+    "s2_scenario_000178",
+    "s2_scenario_000179",
+    "s2_scenario_000184",
+    "s2_scenario_000185",
+    "s2_scenario_000186",
+    "s2_scenario_000187"
+  ],
+  "uncertainty": {
+    "available": false
+  },
+  "unobserved_node_error": {
+    "count": 1915,
+    "mae": 0.2763808514820962,
+    "rmse": 0.37837534332055806
+  }
+}

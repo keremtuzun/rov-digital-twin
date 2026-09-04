@@ -1,0 +1,18 @@
+{
+  "completed_at_utc": "2026-09-04T13:12:22.458844Z",
+  "files": {
+    "checkpoint.pt": "04c1574ff0fb896abe26e9cdf9ce54f091a64fcc7589233b2b585efec455999e",
+    "ood_mean.npy": "ab4ae6bc36416d78b5a6c2c05e86d2869e3fb0812634a0d025935ddd902b0044",
+    "ood_metrics.json": "9a6f5ba14380acda45006cae2445cea2cef2e6c326512e35e2bc8f7c32978138",
+    "ood_variance.npy": "43726e4dbfba9db123a496d07d20830518c5adae51628c53b3d4798dd52dada2",
+    "selected_checkpoint.json": "fe90cfbfd035fd49cd8358a1781f18ce1d05a1c1c82a755bcfa6cd68edebfc4d",
+    "test_mean.npy": "ca65dfffc5256e8e522ca8404da4232423c24e0e398b04a77e2a8a22d033de63",
+    "test_metrics.json": "c2db47c7f4cb527dbb34466a0b7f7c991b3650f1bfbff3fbb61d2c7a34a91f43",
+    "test_variance.npy": "883813f523dc85ef100fd2fd2bb0b8fc69682f9cd20943c39f6b7a1adce392d9",
+    "train_log.jsonl": "6879240ca03c49862ff848e7fc9d0915522d2a2eae7d8fa5dd97aaa468502843",
+    "validation_mean.npy": "3587f4597064c3f35412895096a4e456879595ee507da8834525f6b291fe8db7",
+    "validation_metrics.json": "aa4027ee68ece476c70fa341ece7735c9981f0fcc7a91caae62ed163d91539ba",
+    "validation_variance.npy": "01ca97c992b273178995b3024ba2a9f841e5262a4d73d7eeeb3850057e1d82b9"
+  },
+  "held_out_evaluations_per_split": 1
+}

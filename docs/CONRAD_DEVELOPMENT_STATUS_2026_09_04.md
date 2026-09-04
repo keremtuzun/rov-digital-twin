@@ -1,5 +1,9 @@
 # Conrad development status - 2026-09-04
 
+This is the earlier baseline-stage snapshot. The subsequent user-authorized custom
+research work and remaining external dependencies are recorded in
+`CONRAD_REMAINING_GATES_2026_09_04.md` and `MODEL2_S2_RESEARCH_RESULTS.md`.
+
 ## Scope and recovered state
 
 Repository: `https://github.com/keremtuzun/rov-digital-twin` (public).
