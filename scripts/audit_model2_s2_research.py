@@ -20,6 +20,8 @@ def audit(root: Path) -> dict:
     if json.loads((output / "protocol.json").read_text()) != protocol:
         raise ValueError("experiment protocol mismatch")
     environment = json.loads((output / "environment.json").read_text())
+    if set(environment["source_sha256"]) != {"evidence_memory.py", "research_experiment.py"}:
+        raise ValueError("incomplete training source inventory")
     if environment["protocol_sha256"] != _sha256(output / "protocol.json"):
         raise ValueError("recorded protocol checksum mismatch")
     if environment["release_checksums_sha256"] != _sha256(data.release_dir / "checksums.json"):
@@ -33,6 +35,10 @@ def audit(root: Path) -> dict:
     if set(locked) != expected or len(matrix["checkpoints"]) != len(expected):
         raise ValueError("incomplete checkpoint matrix")
     summary = json.loads((output / "summary.json").read_text())
+    if (summary.get("protocol_id") != protocol["protocol_id"] or
+            summary.get("synthetic_only") is not True or
+            set(summary["variants"]) != set(protocol["variants"])):
+        raise ValueError("invalid summary identity or scope")
     collected = {}
     for variant, seed in sorted(expected):
         directory = output / variant / f"seed_{seed}"
@@ -49,6 +55,14 @@ def audit(root: Path) -> dict:
         if min(logs, key=lambda r: r["validation_mae"])["epoch"] != selection["epoch"]:
             raise ValueError("checkpoint is not validation minimum")
         completion = json.loads((directory / "completed.json").read_text())
+        expects_variance = variant not in ("no_uncertainty", "temporal_gru", "temporal_gnn")
+        expected_files = {"checkpoint.pt", "selected_checkpoint.json", "train_log.jsonl"}
+        for split in ("validation", "test", "ood"):
+            expected_files.update({f"{split}_mean.npy", f"{split}_metrics.json"})
+            if expects_variance:
+                expected_files.add(f"{split}_variance.npy")
+        if set(completion["files"]) != expected_files:
+            raise ValueError("incomplete or unexpected completion inventory")
         if completion["held_out_evaluations_per_split"] != 1:
             raise ValueError("unexpected held-out evaluation count")
         if datetime.fromisoformat(completion["completed_at_utc"]) < datetime.fromisoformat(matrix["locked_at_utc"]):
@@ -61,11 +75,11 @@ def audit(root: Path) -> dict:
             ids = data.indices(split)
             mean = np.load(directory / f"{split}_mean.npy", allow_pickle=False)
             variance_path = directory / f"{split}_variance.npy"
-            expects_variance = variant not in ("no_uncertainty", "temporal_gru", "temporal_gnn")
             if variance_path.exists() != expects_variance:
                 raise ValueError("variance artifact does not match variant")
             variance = np.load(variance_path, allow_pickle=False) if variance_path.exists() else None
-            if mean.shape != data.states[ids].shape or not np.isfinite(mean).all():
+            if (mean.shape != data.states[ids].shape or not np.isfinite(mean).all()
+                    or np.any(mean < 0) or np.any(mean > 1)):
                 raise ValueError("bad prediction shape or value")
             if variance is not None and (variance.shape != mean.shape or
                     not np.isfinite(variance).all() or np.any(variance <= 0)):
@@ -78,14 +92,31 @@ def audit(root: Path) -> dict:
                 raise ValueError("saved metrics differ from predictions")
             collected[(variant, seed)][split] = saved
     for variant in protocol["variants"]:
+        if set(summary["variants"][variant]) != {"validation", "test", "ood"}:
+            raise ValueError("invalid summary split inventory")
         for split in ("validation", "test", "ood"):
+            values = [collected[(variant, s)][split] for s in protocol["training_seeds"]]
+
+            def stats(numbers):
+                return {"mean": float(np.mean(numbers)), "std_population": float(np.std(numbers))}
+
+            actual = {}
             for key in ("mae_overall", "rmse_overall"):
-                values = [collected[(variant, s)][split][key] for s in protocol["training_seeds"]]
-                actual = {"mean": float(np.mean(values)), "std_population": float(np.std(values))}
-                if summary["variants"][variant][split][key] != actual:
-                    raise ValueError("aggregate summary mismatch")
+                actual[key] = stats([v[key] for v in values])
+            actual["unobserved_mae"] = stats([v["unobserved_node_error"]["mae"] for v in values])
+            if values[0]["uncertainty"]["available"]:
+                actual["uncertainty"] = {
+                    key: stats([v["uncertainty"][key] for v in values])
+                    for key in ("gaussian_nll", "empirical_coverage", "mean_interval_width")
+                }
+            if summary["variants"][variant][split] != actual:
+                raise ValueError("aggregate summary mismatch")
     return {"valid": True, "runs_verified": len(expected), "held_out_inference_rerun": False,
-            "synthetic_only": True, "deployment_authorized": False}
+            "synthetic_only": True, "deployment_authorized": False,
+            "audit_scope": "Saved research artifact integrity, not model qualification",
+            "uncertainty_calibrated": False,
+            "full_model_ood_coverage": summary["variants"]["full"]["ood"]["uncertainty"]["empirical_coverage"]["mean"],
+            "usage_restriction": "Research only; do not use for structural safety or vehicle control"}
 
 
 if __name__ == "__main__":

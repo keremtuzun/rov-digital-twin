@@ -13,7 +13,7 @@
 
 ## Still blocked by missing inputs
 
-Verification at closeout: 172 tests and 11 subtests passed; lint and compilation
+Verification after audit hardening: 177 tests and 11 subtests passed; lint and compilation
 passed; the S2 auditor verified all 21 runs without repeated held-out inference.
 Two existing Starlette/httpx/anyio deprecation warnings remain. Original S1 artifacts
 and frozen evaluation settings are unchanged. Model 1 and physical-dossier checks
@@ -46,4 +46,20 @@ See `MODEL2_S2_RESEARCH_RESULTS.md` for the full comparison and next research ga
 User approval has been used; no further generic approval request is needed for the
 completed software work. Missing observations/reviews cannot be manufactured.
 Second Brain CLI remains unavailable; this record is saved in the repository instead.
-Changes remain local and are not pushed to the public remote.
+
+## Follow-up: missing inputs and authorized Git delivery
+
+The user confirmed that the missing inputs are unavailable and requested fixes and
+a push. This does not substitute for observed data, reviewer decisions or hardware logs.
+The S2 auditor now rejects omitted completion/source hashes and checks the complete
+aggregate metrics, including uncertainty coverage and unobserved-node errors. Regression
+tests cover attempts to omit inventories, inflate coverage, hide unobserved errors or
+remove the synthetic-only scope. Successful integrity audits explicitly report
+uncalibrated uncertainty, research-only usage and no deployment authorization.
+Training source, checkpoints, frozen protocols and held-out predictions were not changed;
+no test/OOD tuning or further inference was performed. This repairs evidence verification,
+not the model's scientific undercoverage or the missing Model 1/physical evidence.
+
+Delivery target authorized by the user: existing public repository
+`keremtuzun/rov-digital-twin`, branch `kerem/model2-custom-research`.
+The final task response records the actual post-push commit verification.
