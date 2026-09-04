@@ -12,7 +12,7 @@ jobs:
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
-      - run: python -m pip install -e ".[dev,model2,api]" pillow httpx pytest-subtests
+      - run: python -m pip install -e ".[dev,model2,api,vision]" pillow httpx pytest-subtests
       - run: python -m ruff check src tests scripts ros2/rov_dt_bridge/rov_dt_bridge
       - run: python -m compileall -q src scripts ros2/rov_dt_bridge/rov_dt_bridge
       - run: python -m pytest -q
