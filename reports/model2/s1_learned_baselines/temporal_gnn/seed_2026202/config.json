@@ -1,0 +1,168 @@
+{
+  "schema_version": "1.0.0",
+  "config_id": "model2-s1-learned-baseline-eval-v1",
+  "status": "FROZEN_NO_TRAINING_PERFORMED",
+  "frozen_at_utc": "2026-08-26T19:45:00Z",
+  "release": {
+    "path": "data/model2/s1_synthetic",
+    "release_id": "twin2-s1-synthetic-v1",
+    "manifest_sha256": "2adba7821141d673e12487cf1e8f4767fb777de828630b4b98019d5e302cec33",
+    "strict_validation_required": true,
+    "validator_requirement": "require_synthetic_s1"
+  },
+  "baselines": [
+    "independent_mlp",
+    "temporal_gru",
+    "static_gnn",
+    "temporal_gnn"
+  ],
+  "training_seeds": [2026201, 2026202, 2026203],
+  "feature_contract": {
+    "allowed_input_files": [
+      "observations.npy",
+      "observation_mask.npy",
+      "structure_graph.json"
+    ],
+    "target_file": "states.npy",
+    "target_use": "training_loss_and_evaluation_only",
+    "hidden_state_as_input": false,
+    "normalization_fit_split": "train",
+    "imputation_fit_split": "train",
+    "mask_is_authoritative": true,
+    "future_observations_allowed": false
+  },
+  "split_usage": {
+    "train": "training_only",
+    "validation": "hyperparameter_and_checkpoint_selection_only",
+    "test": "final_in_distribution_evaluation_once_after_selection",
+    "ood": "final_out_of_distribution_evaluation_once_after_selection",
+    "no_test_tuning": true,
+    "no_ood_tuning": true,
+    "scenario_level": true,
+    "lineage_disjoint": true,
+    "target_independent_assignment": true,
+    "final_evaluation_requires_locked_checkpoints": true
+  },
+  "metrics": {
+    "required": [
+      "mae_overall",
+      "rmse_overall",
+      "per_state_dimension_mae",
+      "per_state_dimension_rmse",
+      "observed_node_error",
+      "unobserved_node_error",
+      "mask_coverage"
+    ],
+    "weak_point": {
+      "enabled": false,
+      "reason": "No predeclared frozen weak-point target exists in S1 v1.",
+      "metrics_if_enabled": ["precision", "recall", "f1"]
+    },
+    "uncertainty": {
+      "enabled_when_model_outputs_uncertainty": true,
+      "metrics_if_enabled": [
+        "negative_log_likelihood",
+        "expected_calibration_error",
+        "prediction_interval_coverage"
+      ]
+    }
+  },
+  "checkpoint_selection": {
+    "metric": "validation.mae_overall",
+    "direction": "minimize",
+    "scope": "best_validation_checkpoint_per_baseline_per_seed",
+    "test_evaluations_per_selected_checkpoint": 1,
+    "ood_evaluations_per_selected_checkpoint": 1,
+    "selection_uses_test": false,
+    "selection_uses_ood": false
+  },
+  "training_bounds": {
+    "max_epochs": 100,
+    "early_stopping_patience": 12,
+    "early_stopping_min_delta": 0.0001,
+    "batch_size_scenarios": 8,
+    "learning_rate": 0.001,
+    "optimizer": "adamw",
+    "weight_decay": 0.0001,
+    "gradient_clip_norm": 1.0,
+    "loss": "masked_mean_squared_error",
+    "deterministic_algorithms": true,
+    "seed_python": true,
+    "seed_numpy": true,
+    "seed_torch": true,
+    "num_workers": 0,
+    "device_policy": "cuda_if_available_else_cpu",
+    "cpu_fallback_required": true,
+    "mixed_precision": false
+  },
+  "baseline_architecture_bounds": {
+    "independent_mlp": {
+      "hidden_dimensions": [64, 64],
+      "activation": "relu",
+      "dropout": 0.1,
+      "uses_temporal_history": false,
+      "uses_graph": false
+    },
+    "temporal_gru": {
+      "hidden_dimension": 64,
+      "recurrent_layers": 1,
+      "dropout": 0.0,
+      "bidirectional": false,
+      "uses_future_context": false,
+      "uses_graph": false
+    },
+    "static_gnn": {
+      "hidden_dimension": 64,
+      "message_passing_layers": 2,
+      "aggregation": "mean",
+      "dropout": 0.1,
+      "uses_temporal_history": false
+    },
+    "temporal_gnn": {
+      "hidden_dimension": 64,
+      "temporal_layers": 1,
+      "message_passing_layers": 2,
+      "aggregation": "mean",
+      "dropout": 0.1,
+      "bidirectional": false,
+      "uses_future_context": false
+    }
+  },
+  "artifacts": {
+    "root": "reports/model2/s1_learned_baselines",
+    "per_seed_directory": "{root}/{baseline}/seed_{seed}",
+    "required_per_seed": {
+      "config_copy": "config.json",
+      "train_log": "train_log.jsonl",
+      "validation_metrics": "validation_metrics.json",
+      "checkpoint": "checkpoint.pt",
+      "selected_checkpoint_metadata": "selected_checkpoint.json",
+      "test_metrics": "test_metrics.json",
+      "ood_metrics": "ood_metrics.json",
+      "prediction_summary": "prediction_summary.json",
+      "failure_cases": "failure_cases.json"
+    },
+    "aggregate_summary": "reports/model2/s1_learned_baselines/aggregate_summary.json",
+    "checkpoint_sha256_required": true,
+    "config_sha256_required": true
+  },
+  "no_leakage_rules": {
+    "hidden_states_forbidden_as_inputs": true,
+    "test_forbidden_for_selection": true,
+    "ood_forbidden_for_selection": true,
+    "lineages_must_not_cross_splits": true,
+    "target_values_forbidden_in_split_assignment": true,
+    "normalization_train_only": true,
+    "imputation_train_only": true,
+    "future_evidence_forbidden": true,
+    "test_and_ood_tuning_forbidden": true
+  },
+  "claim_boundaries": {
+    "s1_is_synthetic": true,
+    "internal_comparison_evidence_only": true,
+    "real_world_structural_performance_proven": false,
+    "proprietary_superiority_proven": false,
+    "proprietary_model_included": false,
+    "model1_status": "BLOCKED_NOT_FROZEN"
+  }
+}

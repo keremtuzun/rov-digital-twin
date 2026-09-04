@@ -1,0 +1,16 @@
+{"epoch": 1, "validation_mae_overall": 0.21089673670975845, "train_masked_mean_squared_error": 0.0980734591682752, "selected_as_best": true}
+{"epoch": 2, "validation_mae_overall": 0.12785332326161097, "train_masked_mean_squared_error": 0.04351716364423434, "selected_as_best": true}
+{"epoch": 3, "validation_mae_overall": 0.08824339159893226, "train_masked_mean_squared_error": 0.01749395128960411, "selected_as_best": true}
+{"epoch": 4, "validation_mae_overall": 0.08230621244095619, "train_masked_mean_squared_error": 0.008650418153653543, "selected_as_best": true}
+{"epoch": 5, "validation_mae_overall": 0.08634243936686198, "train_masked_mean_squared_error": 0.006305269710719585, "selected_as_best": false}
+{"epoch": 6, "validation_mae_overall": 0.08370027993562053, "train_masked_mean_squared_error": 0.005680352790902058, "selected_as_best": false}
+{"epoch": 7, "validation_mae_overall": 0.08367288827745596, "train_masked_mean_squared_error": 0.005047449469566345, "selected_as_best": false}
+{"epoch": 8, "validation_mae_overall": 0.08651540239936094, "train_masked_mean_squared_error": 0.0047085589108367765, "selected_as_best": false}
+{"epoch": 9, "validation_mae_overall": 0.09069547500124554, "train_masked_mean_squared_error": 0.004507045447826386, "selected_as_best": false}
+{"epoch": 10, "validation_mae_overall": 0.08671527215315382, "train_masked_mean_squared_error": 0.00426038548660775, "selected_as_best": false}
+{"epoch": 11, "validation_mae_overall": 0.09230340761261414, "train_masked_mean_squared_error": 0.004028162748242418, "selected_as_best": false}
+{"epoch": 12, "validation_mae_overall": 0.09365870708262901, "train_masked_mean_squared_error": 0.003898617842545112, "selected_as_best": false}
+{"epoch": 13, "validation_mae_overall": 0.0913550132330356, "train_masked_mean_squared_error": 0.003785675779605905, "selected_as_best": false}
+{"epoch": 14, "validation_mae_overall": 0.09086392310250903, "train_masked_mean_squared_error": 0.003703432995826006, "selected_as_best": false}
+{"epoch": 15, "validation_mae_overall": 0.09216892850062232, "train_masked_mean_squared_error": 0.0036461897970487675, "selected_as_best": false}
+{"epoch": 16, "validation_mae_overall": 0.0951042285444064, "train_masked_mean_squared_error": 0.003600725003828605, "selected_as_best": false}

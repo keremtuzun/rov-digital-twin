@@ -22,8 +22,11 @@ The software is organized around four distinct pillars:
 
 The current standalone Model 2 track now begins one level earlier: `oceansense.model2` generates
 connected structural graphs, simulator-only degradation trajectories and partial/noisy masked
-Model-1-like observations. This is an experimental environment, not a second image detector. No Model 2
-network has been trained; the four required baselines gate that later work.
+Model-1-like observations. This is an experimental environment, not a second image detector.
+All six conventional S1 comparators are now implemented and evaluated: Last Observation,
+Simple Heuristic, Independent MLP, Temporal GRU, Static GNN and Temporal GNN. The custom
+Model 2 remains a separate research gate, not another name for these baselines.
+See `docs/CONRAD_DEVELOPMENT_STATUS_2026_09_04.md` for the current verified state.
 
 The target software-first demonstration chain is:
 

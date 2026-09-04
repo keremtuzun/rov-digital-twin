@@ -1,0 +1,56 @@
+{
+  "baseline_name": "temporal_gnn",
+  "checkpoint_locked_at_utc": "2026-09-04T12:52:29.010406Z",
+  "checkpoint_sha256": "58ce6dbe3f609e4e7c3fb9bfdf93bcec41dc8bdc13684756774e0c3d19ce9739",
+  "config_sha256": "59f8a1dd3a24ef67c48d35b985eea65d13a1ce97dbf4273a98eebf5d8e3670b2",
+  "device": "cpu",
+  "graph_sha256": "d1348aaadd305185455bfcb9e4aff8ec99d414d0418c728186543e237c4b5659",
+  "hidden_state_input": false,
+  "numpy_version": "2.5.2",
+  "ood_used_for_selection": false,
+  "parameter_count": 42309,
+  "preprocessing": {
+    "fit_split": "train",
+    "imputation": "train_observed_mean",
+    "normalization": "train_observed_zscore",
+    "observation_mean": [
+      0.21736345357954187,
+      0.21914158002879877,
+      0.21945337743864707,
+      0.21944076550047692,
+      0.21649445791047484,
+      0.935484155256843
+    ],
+    "observation_scale": [
+      0.21069921013313947,
+      0.20870453403961928,
+      0.2162536766744601,
+      0.21003740289578385,
+      0.20313142113275978,
+      0.058559467235831664
+    ],
+    "observed_row_count": 3293
+  },
+  "python_version": "3.12.14",
+  "resolved_architecture": {
+    "aggregation": "mean",
+    "bidirectional": false,
+    "dropout": 0.1,
+    "hidden_dimension": 64,
+    "message_passing_layers": 2,
+    "temporal_layers": 1,
+    "uses_future_context": false
+  },
+  "seed": 2026201,
+  "selected_epoch": 10,
+  "selection_direction": "minimize",
+  "selection_metric": "validation.mae_overall",
+  "selection_split": "validation",
+  "started_at_utc": "2026-09-04T12:52:28.090534Z",
+  "synthetic_only": true,
+  "test_used_for_selection": false,
+  "torch_version": "2.14.0",
+  "uses_future_observations": false,
+  "uses_graph": true,
+  "validation_mae_overall": 0.08368100510759632
+}

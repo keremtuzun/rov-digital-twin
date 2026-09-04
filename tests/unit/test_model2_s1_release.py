@@ -51,7 +51,23 @@ def test_s1_generation_is_byte_reproducible(tmp_path):
     assert report["valid"] is True
     original = json.loads((S1 / "checksums.json").read_text(encoding="utf-8"))
     repeated = json.loads((regenerated / "checksums.json").read_text(encoding="utf-8"))
-    assert original == repeated
+    # Runtime provenance must truthfully differ across OS/Python versions. All
+    # actual data, graph, split, config and manifest bytes must remain identical.
+    assert original["algorithm"] == repeated["algorithm"]
+    assert {k: v for k, v in original["files"].items() if k != "metadata.json"} == {
+        k: v for k, v in repeated["files"].items() if k != "metadata.json"
+    }
+    original_metadata = json.loads((S1 / "metadata.json").read_text(encoding="utf-8"))
+    repeated_metadata = json.loads((regenerated / "metadata.json").read_text(encoding="utf-8"))
+    for field in ("runtime_notes", "dependencies"):
+        original_metadata.pop(field)
+        repeated_metadata.pop(field)
+    assert original_metadata == repeated_metadata
+    same_runtime = tmp_path / "same_runtime"
+    assert build_s1_release(config, same_runtime)["valid"] is True
+    assert (same_runtime / "checksums.json").read_bytes() == (
+        regenerated / "checksums.json"
+    ).read_bytes()
 
 
 def test_ood_split_and_distribution_shift_exist():

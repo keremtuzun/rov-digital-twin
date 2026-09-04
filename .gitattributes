@@ -1,0 +1,3 @@
+# Immutable evidence is hashed as bytes. Never let Git convert line endings.
+data/model2/** -text whitespace=cr-at-eol
+reports/model2/** -text whitespace=cr-at-eol

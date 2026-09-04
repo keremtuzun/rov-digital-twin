@@ -1,6 +1,6 @@
 # Model 2 S1 baseline comparison report
 
-**Result:** `S1 DETERMINISTIC, MLP, AND TEMPORAL GRU COMPARISON COMPLETE`
+**Result:** `ALL SIX S1 CONVENTIONAL BASELINES COMPLETE` (2026-09-04)
 
 **S1 release:** `twin2-s1-synthetic-v1`
 
@@ -15,9 +15,9 @@ Model 2, real-world structural-performance, safety, or superiority claim
 | Simple Heuristic | S1 deterministic evaluation complete | `twin2-s1-synthetic-v1` | Synthetic internal comparison only |
 | Independent MLP | S1 learned evaluation complete | `twin2-s1-synthetic-v1` | Synthetic internal comparison only |
 | Temporal GRU | S1 learned evaluation complete | `twin2-s1-synthetic-v1` | Synthetic internal comparison only |
-| Static GNN | Next implementation gate | Not run | No results |
-| Temporal GNN | Deferred | Not run | No results |
-| Proprietary Model 2 | Blocked pending baseline matrix | Not run | No results |
+| Static GNN | S1 learned evaluation complete | `twin2-s1-synthetic-v1` | Synthetic internal comparison only |
+| Temporal GNN | S1 learned evaluation complete | `twin2-s1-synthetic-v1` | Synthetic internal comparison only |
+| Proprietary Model 2 | Requires a separate research/data approval protocol | Not run | No results |
 
 Model 1 remains **BLOCKED / NOT FROZEN**.
 
@@ -104,10 +104,11 @@ seed-independent result.
 | Simple Heuristic | 0.091735 | 0.145614 | 0.085044 | 0.138267 | 0.271088 | 0.367904 |
 | Independent MLP, 3-seed mean | 0.116393 | 0.157360 | 0.110981 | 0.154124 | 0.217294 | 0.282199 |
 | Temporal GRU, 3-seed mean | 0.097040 | 0.135089 | 0.093891 | 0.133477 | 0.198339 | 0.264156 |
+| Static GNN, 3-seed mean | 0.092952 | 0.131081 | 0.091610 | 0.132203 | 0.207073 | 0.276292 |
+| Temporal GNN, 3-seed mean | 0.083243 | 0.120153 | 0.081531 | 0.121300 | 0.210893 | 0.283963 |
 
-On this one synthetic release, the fixed rules have lower validation and test MAE.
-Temporal GRU has lower test RMSE and OOD MAE/RMSE than the other completed
-baselines, and lower mean test/OOD error than Independent MLP. This is descriptive,
+On this one synthetic release, Temporal GNN has the lowest validation/test MAE and
+RMSE. Temporal GRU retains the lowest OOD MAE/RMSE. This is descriptive,
 not a general ranking: the methods use different missing-evidence behavior, and S1
 is simulator-generated rather than real inspection data. The table does not prove
 Model 2 superiority, real-world performance, calibrated physics, or safety.
@@ -146,23 +147,41 @@ The deterministic S1 outputs are isolated at `reports/model2/s1_baselines`:
 
 | Artifact | SHA-256 |
 | --- | --- |
-| Aggregate summary | `8576d6193903ec65e1baa4b351c240bf1dbd2b4f7d7a71f1f8adf531fdac5723` |
+| Aggregate summary | `9d013258893fe7e3385f26cfb5798edd32207ec8b01966e5561207776b580705` |
 | Seed 2026201 checkpoint | `959d872dca56159acc76cdf849c8e1e5d996fac9c6934d64d4dccd563df39dc9` |
 | Seed 2026202 checkpoint | `167454af9f4e4a0c7e90489b9ac14b2c52d05c18a43bb657b336024bf27d1d0e` |
 | Seed 2026203 checkpoint | `cda5f528c8034730bee702c53adc2411fca72bdfd4bb65221bc365496f7faeb7` |
-| S1 Last Observation metrics | `aff6242fa249e6e2c31d4e87abda4a4f9693dc9b010391056a91cdc6ba76dc84` |
-| S1 Simple Heuristic metrics | `1a3a3657bdb8c369575b011efd0b5511322298c21a71b232648fa4e8c240ee42` |
-| S1 deterministic comparison | `41db9bd14872cd0a79220130d3fc5ea051b677f55038193f0892d888d3c8dee7` |
-| Temporal GRU aggregate summary | `b3d313011eac360f35342da6efd2b137fcc55c53d554c8a6cd8535555e6586aa` |
+| S1 Last Observation metrics | `1b3f5277f778f78aaef9a1325e24da389ac5cac4f633823391236d4cc3581d01` |
+| S1 Simple Heuristic metrics | `6678959b3620491aa7d4bc53ea29d01111ecb7961e3bc89c8549190ed050fab4` |
+| S1 deterministic comparison | `af69e8a6d2afa035d2373be6959e91c7c999e1739a4af901118408b0537edb1c` |
+| Temporal GRU aggregate summary | `357bb26ad5bd791f457968b06ea54f341f9f50cd3af21fd7d0947e19238fc545` |
 
-Verification includes strict S1 release validation, `138` passing repository
+Verification includes strict S1 release validation, `156` passing repository
 tests, `11` passing subtests, focused deterministic/GRU tests, Ruff, and Python
 compilation. The one pytest warning is an existing Starlette/httpx deprecation
 warning unrelated to Model 2.
 
 ## Next gate
 
-Static GNN is next. It must use the already-frozen S1 configuration and seeds,
-preserve train-only preprocessing and validation-only selection, and evaluate
-test/OOD only after checkpoint lock. Temporal GNN remains deferred; proprietary
-Model 2 remains blocked until the conventional baseline matrix is complete.
+The conventional matrix is now complete. See `MODEL2_S1_GRAPH_BASELINE_PROTOCOL.md`
+for the pre-training architecture decisions and `CONRAD_DEVELOPMENT_STATUS_2026_09_04.md`
+for current verification and remaining gates. Graph artifacts are under their own
+`reports/model2/s1_learned_baselines/{static_gnn,temporal_gnn}` directories.
+
+| Baseline | Test unobserved-node MAE | OOD unobserved-node MAE |
+| --- | ---: | ---: |
+| Temporal GRU | 0.172128 | 0.228947 |
+| Static GNN | 0.142932 | 0.234304 |
+| Temporal GNN | 0.124951 | 0.239022 |
+
+Graph+time helps unobserved nodes in-distribution here, but not under the combined OOD
+shift. This supports further investigation, not a universal structural-intelligence claim.
+All learned baselines retain observed-only supervision. Runtime versions differ between
+historical Windows MLP/GRU and the new Mac CPU graph runs; per-seed metadata records them.
+
+Next: freeze a separate custom Model 2 hypothesis, uncertainty target/calibration protocol,
+ablations and fresh evaluation release. S1's manifest explicitly disallows proprietary
+model training. Its held-out results have been viewed and must not become a tuning set.
+Do not silently toggle that approval flag or claim this conventional Temporal GNN is
+the proprietary model. Real sensor/strength labels, calibrated physics and Model 1
+approval remain unavailable.

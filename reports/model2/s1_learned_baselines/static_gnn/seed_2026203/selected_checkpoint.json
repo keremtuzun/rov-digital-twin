@@ -1,0 +1,54 @@
+{
+  "baseline_name": "static_gnn",
+  "checkpoint_locked_at_utc": "2026-09-04T12:51:44.699389Z",
+  "checkpoint_sha256": "c3185104a691985496c16a07ad6c61c82c7bbd670122476f47a7a884c30f30e6",
+  "config_sha256": "59f8a1dd3a24ef67c48d35b985eea65d13a1ce97dbf4273a98eebf5d8e3670b2",
+  "device": "cpu",
+  "graph_sha256": "d1348aaadd305185455bfcb9e4aff8ec99d414d0418c728186543e237c4b5659",
+  "hidden_state_input": false,
+  "numpy_version": "2.5.2",
+  "ood_used_for_selection": false,
+  "parameter_count": 17349,
+  "preprocessing": {
+    "fit_split": "train",
+    "imputation": "train_observed_mean",
+    "normalization": "train_observed_zscore",
+    "observation_mean": [
+      0.21736345357954187,
+      0.21914158002879877,
+      0.21945337743864707,
+      0.21944076550047692,
+      0.21649445791047484,
+      0.935484155256843
+    ],
+    "observation_scale": [
+      0.21069921013313947,
+      0.20870453403961928,
+      0.2162536766744601,
+      0.21003740289578385,
+      0.20313142113275978,
+      0.058559467235831664
+    ],
+    "observed_row_count": 3293
+  },
+  "python_version": "3.12.14",
+  "resolved_architecture": {
+    "aggregation": "mean",
+    "dropout": 0.1,
+    "hidden_dimension": 64,
+    "message_passing_layers": 2,
+    "uses_temporal_history": false
+  },
+  "seed": 2026203,
+  "selected_epoch": 4,
+  "selection_direction": "minimize",
+  "selection_metric": "validation.mae_overall",
+  "selection_split": "validation",
+  "started_at_utc": "2026-09-04T12:51:44.403095Z",
+  "synthetic_only": true,
+  "test_used_for_selection": false,
+  "torch_version": "2.14.0",
+  "uses_future_observations": false,
+  "uses_graph": true,
+  "validation_mae_overall": 0.09160077474465016
+}

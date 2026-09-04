@@ -1,0 +1,19 @@
+{
+  "completed_at_utc": "2026-09-04T12:52:30.454534Z",
+  "files": {
+    "checkpoint.pt": "4bbbe22d3f7676b777683b3cd3b444a23b676e2c0c4f8528b31e9d990b9ade20",
+    "config.json": "59f8a1dd3a24ef67c48d35b985eea65d13a1ce97dbf4273a98eebf5d8e3670b2",
+    "failure_cases.json": "83619c9789267d9df7bcfb17d9d0776823851e59d607054a3b11e6036163c170",
+    "ood_metrics.json": "c1e2e1e7d7c548321e3ed457c711baf4472b1fd2358efdfdee7d718dfceb3a91",
+    "ood_predictions.npy": "2733dab3688700de5c10346c7213620a1c9dbf3bc1afb7b4a49fc8786ce94e94",
+    "prediction_summary.json": "e673a8fb4b95d5d20335c5f608ac9e9f5cb5dd23d80000ff535ef84b6efa1cc5",
+    "selected_checkpoint.json": "f32f2764c77ae0c5630578e43b40ca8b21f6ef3db630448c63a9a30897ef3ed5",
+    "test_metrics.json": "54442c115c588fb281a66771eb537c385a2b2d41d3f1a8cdb185163b37b76d70",
+    "test_predictions.npy": "360144527159c4a528466600a6b2cb7086dcbaedb6dd0ace2cd40941c9645a4e",
+    "train_log.jsonl": "f830eef0165805764cd7e09576e0e238862705a972a8c60816297f17676fcaf9",
+    "validation_metrics.json": "b141422f946c1e4037ca62debede5b198e416e5e2ec11e99c99798a089397883",
+    "validation_predictions.npy": "394296d8e5104d26b4b2b525d987f99d8aebd38ecddcae9b135c9aea0c70bbb3"
+  },
+  "final_ood_evaluations": 1,
+  "final_test_evaluations": 1
+}

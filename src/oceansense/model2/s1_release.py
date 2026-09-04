@@ -26,7 +26,9 @@ RELEASE_FILENAMES = {
 
 
 def _write_json(path: Path, payload: Any) -> None:
-    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    # S1 v1 was frozen on Windows; retain its exact bytes on every platform.
+    path.write_text(json.dumps(payload, indent=2, sort_keys=True) + "\n",
+                    encoding="utf-8", newline="\r\n")
 
 
 def _sha256(path: Path) -> str:

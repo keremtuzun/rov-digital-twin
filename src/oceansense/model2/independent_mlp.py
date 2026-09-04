@@ -248,7 +248,11 @@ def run_seed(config: dict[str, Any], config_path: Path, data: S1Data, repo_root:
                 optimizer.zero_grad(set_to_none=True)
                 predictions = model(features)
                 weights = mask[..., None].expand_as(predictions)
+                if not weights.any():
+                    raise ValueError("batch has no observed supervision")
                 loss = ((predictions - targets).square() * weights).sum() / weights.sum()
+                if not torch.isfinite(loss):
+                    raise ValueError("non-finite training loss")
                 loss.backward()
                 torch.nn.utils.clip_grad_norm_(model.parameters(), bounds["gradient_clip_norm"])
                 optimizer.step()

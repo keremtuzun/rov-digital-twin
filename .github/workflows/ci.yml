@@ -11,10 +11,11 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
         with:
-          python-version: "3.11"
-      - run: python -m pip install -e ".[dev]"
+          python-version: "3.12"
+      - run: python -m pip install -e ".[dev,model2,api]" pillow httpx pytest-subtests
       - run: python -m ruff check src tests scripts ros2/rov_dt_bridge/rov_dt_bridge
       - run: python -m compileall -q src scripts ros2/rov_dt_bridge/rov_dt_bridge
       - run: python -m pytest -q
+      - run: python scripts/validate_model2_baseline_artifacts.py
       - run: python scripts/validate_unity_project.py
       - run: rovdt demo --output-dir artifacts/ci-demo

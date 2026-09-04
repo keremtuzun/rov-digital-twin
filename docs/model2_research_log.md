@@ -1,5 +1,23 @@
 # Model 2 research log
 
+## 2026-09-04: conventional baseline matrix completed locally
+
+Continued from remote Temporal GRU commit `69d7f2e`, which was newer than the supplied
+project history. Implemented Static GNN then Temporal GNN under the unchanged S1 config,
+all three fixed seeds, with pre-training decisions recorded in
+`MODEL2_S1_GRAPH_BASELINE_PROTOCOL.md`. All six conventional comparators now have results.
+Temporal GNN improves in-distribution unobserved-node error, but GRU remains better on OOD.
+No proprietary Model 2 was trained and no Model 1 approval was fabricated.
+
+Repaired a real cross-platform release failure: Git newline normalization changed
+hashed JSON bytes. Restored only hash-proven originals, retained original checksums,
+disabled Git conversion for immutable evidence, and made v1 release writers explicit
+about CRLF. Cross-platform reproducibility distinguishes data from truthful runtime
+provenance. Hardened missing-supervision and GRU recovery checks; fixed CI test dependencies.
+
+Current evidence and next gates: `CONRAD_DEVELOPMENT_STATUS_2026_09_04.md`.
+Older entries below are historical and should not be read as current baseline status.
+
 ## Track correction from the standalone specification
 
 Model 2 is now formally a dynamic structural-state inference track. It estimates hidden, evolving

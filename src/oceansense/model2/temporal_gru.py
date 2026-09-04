@@ -274,7 +274,11 @@ def run_seed(
                 optimizer.zero_grad(set_to_none=True)
                 predictions = model(features)
                 weights = mask[..., None].expand_as(predictions)
+                if not weights.any():
+                    raise ValueError("batch has no observed supervision")
                 loss = ((predictions - targets).square() * weights).sum() / weights.sum()
+                if not torch.isfinite(loss):
+                    raise ValueError("non-finite training loss")
                 loss.backward()
                 torch.nn.utils.clip_grad_norm_(model.parameters(), bounds["gradient_clip_norm"])
                 optimizer.step()
@@ -433,10 +437,24 @@ def _load_completed_seed(
         raise ValueError(f"selected checkpoint metadata identity mismatch for seed {seed}")
     if selected.get("checkpoint_sha256") != checkpoint_sha256:
         raise ValueError(f"selected checkpoint checksum mismatch for seed {seed}")
+    config_copy = output / required["config_copy"]
+    if (
+        selected.get("config_sha256") != _sha256(config_copy)
+        or json.loads(config_copy.read_text(encoding="utf-8")) != config
+    ):
+        raise ValueError(f"saved config mismatch for seed {seed}")
     prediction_summary = json.loads(
         (output / required["prediction_summary"]).read_text(encoding="utf-8")
     )
+    if (
+        prediction_summary.get("baseline_name") != BASELINE_NAME
+        or prediction_summary.get("seed") != seed
+        or set(prediction_summary.get("predictions", {})) != set(PREDICTION_FILES)
+    ):
+        raise ValueError(f"prediction inventory mismatch for seed {seed}")
     for split, metadata in prediction_summary.get("predictions", {}).items():
+        if metadata.get("file") != PREDICTION_FILES[split]:
+            raise ValueError(f"unexpected prediction filename for seed {seed}, split {split}")
         prediction_path = output / metadata["file"]
         if metadata.get("sha256") != _sha256(prediction_path):
             raise ValueError(f"prediction checksum mismatch for seed {seed}, split {split}")
