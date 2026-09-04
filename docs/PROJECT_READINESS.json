@@ -1,0 +1,25 @@
+{
+  "as_of": "2026-09-04",
+  "research_training_status": "COMPLETE_BOUNDED_LOCAL_SEARCH",
+  "blocked_due_to_missing_training_resources": false,
+  "model1": {
+    "synthetic_structural_appearance_training": "COMPLETE_BOUNDED_PLATEAU",
+    "real_underwater_native_label_training": "COMPLETE_BOUNDED_PLATEAU",
+    "full_canonical_domain_condition_taxonomy": "NOT_TRAINED_UNAVAILABLE_LABELS",
+    "original_checkpoint_recovered": false,
+    "deployment_ready": false
+  },
+  "model2": {
+    "synthetic_structural_state_training": "COMPLETE_BOUNDED_ARCHITECTURE_PLATEAU",
+    "nominal_test_mae": 0.047345493330605753,
+    "shifted_test_mae": 0.07927419764677515,
+    "shifted_trajectory_coverage_at_nominal_90_percent": 0.728,
+    "real_model1_to_model2_integration_validated": false,
+    "deployment_ready": false
+  },
+  "current_gate": "WAITING_FOR_REPRESENTATIVE_PHYSICAL_DATA_AND_STAGED_VALIDATION",
+  "physical_data_is_proven_only_possible_improvement": false,
+  "physical_validation_complete": false,
+  "deployment_authorized": false,
+  "evidence": "docs/LOCAL_RESTART_RESULTS.md"
+}

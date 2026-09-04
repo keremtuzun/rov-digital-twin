@@ -1,0 +1,24 @@
+{
+  "experiment_id": "model2-extended-search-v1",
+  "reason": "Fresh restart selected graph64_huber but final search round still improved validation MAE, so a larger preregistered graph search is required",
+  "dataset_seed": 904200000,
+  "training_seeds": [9042001, 9042002],
+  "splits": {"train": 800, "validation": 200, "calibration": 200, "test": 250, "ood": 250},
+  "timesteps": 16,
+  "nodes": 12,
+  "maximum_epochs": 60,
+  "patience": 8,
+  "minimum_improvement": 0.001,
+  "candidates": [
+    {"name": "graph64_l2", "width": 64, "layers": 2, "dropout": 0.1, "lr": 0.0005},
+    {"name": "graph96_l2", "width": 96, "layers": 2, "dropout": 0.1, "lr": 0.0005},
+    {"name": "graph128_l2", "width": 128, "layers": 2, "dropout": 0.1, "lr": 0.0005},
+    {"name": "graph96_l3", "width": 96, "layers": 3, "dropout": 0.1, "lr": 0.0005},
+    {"name": "graph128_l3", "width": 128, "layers": 3, "dropout": 0.1, "lr": 0.0003},
+    {"name": "graph128_l4", "width": 128, "layers": 4, "dropout": 0.15, "lr": 0.0003}
+  ],
+  "selection": "Lowest two-seed mean validation MAE; all checkpoints lock before calibration/test/OOD inference",
+  "stopping_rule": "Three two-candidate rounds; two rounds without >=0.001 validation MAE reduction are a bounded architecture-search plateau, not a global optimum",
+  "calibration": "Separate scenario-disjoint calibration set; 90% maximum trajectory-error split-conformal intervals, no OOD guarantee",
+  "deployment_authorized": false
+}

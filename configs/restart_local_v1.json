@@ -1,0 +1,44 @@
+{
+  "experiment_id": "local-synthetic-restart-v1",
+  "authorization": "User requested training and datasets from scratch; local compute only, no spending",
+  "scope": "Synthetic structural appearance pretraining and synthetic structural-state estimation; not a replacement for full-schema real Model 1 or physical validation",
+  "dataset_seed": 904170000,
+  "training_seeds": [9041701, 9041702],
+  "splits": {"train": 640, "validation": 160, "calibration": 160, "test": 200, "ood": 200},
+  "model1": {
+    "classes": ["normal", "corrosion", "crack", "coating_loss", "deformation", "biofouling", "sediment_coverage", "leak_like_anomaly"],
+    "image_size": 64,
+    "images_per_scene": 4,
+    "maximum_epochs": 30,
+    "patience": 6,
+    "minimum_improvement": 0.002,
+    "candidates": [
+      {"name": "cnn16", "width": 16, "augmentation": false, "lr": 0.001},
+      {"name": "cnn24", "width": 24, "augmentation": false, "lr": 0.001},
+      {"name": "cnn16_aug", "width": 16, "augmentation": true, "lr": 0.001},
+      {"name": "cnn24_aug", "width": 24, "augmentation": true, "lr": 0.001},
+      {"name": "cnn32_aug", "width": 32, "augmentation": true, "lr": 0.0005},
+      {"name": "cnn24_aug_slow", "width": 24, "augmentation": true, "lr": 0.0003}
+    ]
+  },
+  "model2": {
+    "timesteps": 12,
+    "nodes": 10,
+    "maximum_epochs": 50,
+    "patience": 8,
+    "minimum_improvement": 0.001,
+    "candidates": [
+      {"name": "gru32", "kind": "gru", "width": 32, "loss": "mse", "lr": 0.001},
+      {"name": "graph32", "kind": "graph", "width": 32, "loss": "mse", "lr": 0.001},
+      {"name": "memory32", "kind": "memory", "width": 32, "loss": "mse", "lr": 0.001},
+      {"name": "graph64", "kind": "graph", "width": 64, "loss": "mse", "lr": 0.001},
+      {"name": "memory64", "kind": "memory", "width": 64, "loss": "mse", "lr": 0.001},
+      {"name": "graph64_huber", "kind": "graph", "width": 64, "loss": "huber", "lr": 0.0005}
+    ]
+  },
+  "stopping_rule": "Six preregistered candidates per model, two seeds each; per-run validation early stopping. Report search plateau only if neither of the final two two-candidate rounds improves best validation score by the stated minimum; otherwise report budget_exhausted. Neither result proves a global optimum or physical-data necessity.",
+  "selection": "Best mean validation macro-F1 for Model 1; lowest mean validation MAE for Model 2. Ensemble the two seeds of the selected candidate only.",
+  "calibration": "Separate scene/scenario-disjoint calibration partition. 90% split-conformal sets for Model 1 using maximum true-label score across each scene; Model 2 simultaneous trajectory intervals using maximum absolute residual per scenario. No guarantee under OOD shift.",
+  "heldout_policy": "Lock all trained checkpoints and model selection before calibration or test/OOD inference. Evaluate selected ensembles once. Never tune on test/OOD results.",
+  "deployment_authorized": false
+}

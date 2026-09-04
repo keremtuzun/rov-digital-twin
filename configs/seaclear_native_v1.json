@@ -1,0 +1,30 @@
+{
+  "experiment_id": "model1-seaclear-native-v1",
+  "scope": "Real-image multilabel native SeaClear object presence research; not full-schema Model 1, defect detection, safety clearance or segmentation",
+  "source_url": "https://data.4tu.nl/file/4f1dff25-e157-4399-a5d4-478055461689/e1240a2e-915e-4858-93ab-c004b26b5a5f",
+  "license": "CC BY 4.0",
+  "attribution": "Duras, Ilioudi, Wolf, Palunko and De Schutter (2024), SeaClear v1, doi:10.4121/4f1dff25-e157-4399-a5d4-478055461689.v1",
+  "archive_md5": "1cfcf0c2fa3ef0dc219a66f063c2fe99",
+  "archive_sha256": "2a053f748d6bdc5df8d776e87b72832f2908316f0f419f6a8d562df6df086c13",
+  "sites": {"train": ["Bistrina", "Marseille"], "validation": ["Jakljan"], "calibration": ["Slano"], "test": ["Lokrum"]},
+  "encoder": "torchvision resnet18 IMAGENET1K_V1; fixed general-vision transfer features, no prior underwater checkpoint",
+  "preprocessing": "Full image resized to 224x224, ImageNet channel normalization; no center crop; labels are presence of native COCO categories",
+  "minimum_training_positives": 20,
+  "training_seeds": [9041801, 9041802],
+  "maximum_epochs": 80,
+  "patience": 10,
+  "minimum_improvement": 0.005,
+  "candidates": [
+    {"name": "linear", "hidden": 0, "weighted": false, "lr": 0.001},
+    {"name": "linear_weighted", "hidden": 0, "weighted": true, "lr": 0.001},
+    {"name": "mlp128", "hidden": 128, "weighted": false, "lr": 0.001},
+    {"name": "mlp128_weighted", "hidden": 128, "weighted": true, "lr": 0.001},
+    {"name": "mlp256_weighted", "hidden": 256, "weighted": true, "lr": 0.0003},
+    {"name": "mlp128_slow", "hidden": 128, "weighted": false, "lr": 0.0003}
+  ],
+  "selection": "Highest mean validation macro average precision across the two seeds; ensemble selected seeds. Only categories with >=20 training positives supported. Unsupported categories listed explicitly.",
+  "threshold_selection": "After checkpoint matrix lock, choose one global threshold from 0.1,0.2,...,0.9 maximizing calibration micro-F1. This is not probability calibration or guaranteed risk control.",
+  "heldout_policy": "Feature extraction uses no fitted data-dependent preprocessing and never trains on heldout labels. Site-disjoint validation/calibration/test; deduplicate exact image hashes before training. Evaluate the selected ensemble on test once, after locking all candidates and threshold.",
+  "stopping_rule": "Three preregistered two-candidate rounds. Report bounded feature-head plateau only if final two rounds do not improve validation mAP by 0.005, otherwise budget exhausted; neither means no further software improvements exist.",
+  "deployment_authorized": false
+}

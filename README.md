@@ -39,14 +39,25 @@ recorded/simulated navigation event -> frame + pose + target context
   -> evidence-only mission decision -> accept / reinspect / change viewpoint / unknown / escalate
 ```
 
-The repository does **not** claim a frozen underwater Model 1: no license-reviewed image snapshot or
-approved checkpoint is committed. The telemetry weak-point classifier is a vehicle-health baseline,
+The repository does **not** claim a frozen canonical underwater Model 1: no human-reviewed full-taxonomy
+snapshot or approved checkpoint is committed. The telemetry weak-point classifier is a vehicle-health baseline,
 not Model 1. The repository includes a 250,081-step experimental hybrid PPO waypoint policy and a trained
 synthetic-telemetry weak-point classifier. A historical frozen high-difficulty simulation evaluation
 recorded success 1.0 in all 24 reporting windows and no flip event across 59,919 steps. Subsequent
 actuator/environment changes make that ONNX artifact a legacy-dynamics baseline, not a validation of
 the current simulator. Neither model is approved for real-vehicle control; metrics, limitations and
 promotion gates are versioned with the artifacts.
+
+### Current restart status (2026-09-04)
+
+The project is no longer blocked by missing training resources for its **new research tracks**.
+A bounded local restart trained Model 1 on fresh synthetic structural appearances and all 8,610
+CC BY 4.0 SeaClear images using native annotations, and trained Model 2 on two fresh synthetic
+releases. Both architecture searches reached their preregistered local stopping rules. They are
+not deployment-ready: cross-site/shift performance and uncertainty remain inadequate, the full
+canonical Model 1 taxonomy still lacks reviewed labels, and real Model-1-to-Model-2 semantics have
+not been validated. The current gate is representative physical data and staged validation. See
+`docs/LOCAL_RESTART_RESULTS.md` and machine-readable `docs/PROJECT_READINESS.json`.
 
 ## Execution-guide workflows
 

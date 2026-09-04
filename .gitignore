@@ -35,3 +35,9 @@ data/simulated/
 data/model1_baseline_v2/raw/
 experiments/runs/
 docs/physical_validation/raw/
+data/local-synthetic-restart-*/
+reports/local-synthetic-restart-*/
+data/model2-extended-search-*/
+reports/model2-extended-search-*/
+reports/model1-seaclear-native-*/
+reports/model1-seaclear-finetune-*/

@@ -1,0 +1,21 @@
+{
+  "experiment_id": "model1-seaclear-finetune-v2",
+  "parent_experiment": "model1-seaclear-native-v1",
+  "reason": "Fixed-feature head search exhausted its budget at validation mAP 0.2749. An unselected v1 fine-tune attempt was interrupted before its first epoch completed because repeated high-resolution JPEG decoding was too slow; v2 caches resized uint8 images once.",
+  "scope": "Validation-driven fine-tuning of the final ResNet18 block on native SeaClear multilabel image-presence annotations",
+  "input_size": 160,
+  "training_seeds": [9041901, 9041902],
+  "maximum_epochs": 8,
+  "patience": 3,
+  "minimum_improvement": 0.005,
+  "candidates": [
+    {"name": "layer4_bce", "lr": 0.0001, "weighted": false},
+    {"name": "layer4_weighted", "lr": 0.0001, "weighted": true},
+    {"name": "layer4_bce_slow", "lr": 0.00003, "weighted": false},
+    {"name": "layer4_weighted_slow", "lr": 0.00003, "weighted": true}
+  ],
+  "selection": "Highest two-seed mean validation macro average precision. Compare against parent validation mAP, never parent test results.",
+  "stopping_rule": "Four validation-driven configurations in four rounds. Two consecutive configurations without at least 0.005 improvement over best-so-far are a bounded fine-tuning plateau, not a global optimum.",
+  "heldout_policy": "Reuse locked site splits and supported-category list. Lock all fine-tuned checkpoints and choose the model using validation labels only. Refit decision threshold on calibration and evaluate test once.",
+  "deployment_authorized": false
+}
